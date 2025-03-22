@@ -1,0 +1,5 @@
+rootProject.name = 'cypria'
+include 'common'
+include 'hub'
+include 'islands'
+

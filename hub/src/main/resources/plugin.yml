@@ -1,0 +1,4 @@
+name: hub
+version: '1.0'
+main: dev.kyriji.cypria.Hub
+api-version: '1.21'

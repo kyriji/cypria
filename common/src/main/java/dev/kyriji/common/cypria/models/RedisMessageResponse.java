@@ -1,9 +1,9 @@
 package dev.kyriji.common.cypria.models;
 
-public abstract class MessageResponse {
+public abstract class RedisMessageResponse {
 	public boolean success;
 
-	public MessageResponse(boolean success) {
+	public RedisMessageResponse(boolean success) {
 		this.success = success;
 	}
 

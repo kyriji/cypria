@@ -1,8 +1,8 @@
 package dev.kyriji.common.cypria.models;
 
-import com.google.gson.Gson;
 import dev.kyriji.common.cypria.CypriaCommon;
 import dev.kyriji.common.cypria.enums.MessageIdentifier;
+import dev.kyriji.common.cypria.enums.MessageDirection;
 import dev.kyriji.common.cypria.enums.MessageType;
 
 import java.lang.reflect.ParameterizedType;
@@ -12,17 +12,17 @@ import java.util.function.Consumer;
 import static dev.kyriji.common.cypria.CypriaCommon.gson;
 import static dev.kyriji.common.cypria.controllers.RedisManager.CHANNEL_NAME;
 
-public abstract class RedisMessage<T extends MessageResponse> {
+public abstract class RedisMessage<T extends RedisMessageResponse> {
 
 	private final MessageIdentifier messageIdentifier;
-	private final MessageType messageType;
+	private final MessageDirection messageDirection;
 	private final String replyIdentifier;
 
 	private transient Consumer<T> response;
 
-	public RedisMessage(MessageIdentifier messageIdentifier, MessageType messageType) {
+	public RedisMessage(MessageIdentifier messageIdentifier, MessageDirection messageDirection) {
 		this.messageIdentifier = messageIdentifier;
-		this.messageType = messageType;
+		this.messageDirection = messageDirection;
 
 		this.replyIdentifier = UUID.randomUUID().toString();
 	}
@@ -34,11 +34,13 @@ public abstract class RedisMessage<T extends MessageResponse> {
 	public RedisMessage<T> send(Consumer<T> response) {
 		this.response = response;
 
-		StringBuilder message = new StringBuilder(messageIdentifier.name())
+		StringBuilder message = new StringBuilder(MessageType.REQUEST.name())
+				.append("|")
+				.append(messageIdentifier.name())
 				.append("|")
 				.append(replyIdentifier)
 				.append("|")
-				.append(messageType.name())
+				.append(messageDirection.name())
 				.append("|");
 
 		String objectString = gson.toJson(this);
@@ -67,8 +69,13 @@ public abstract class RedisMessage<T extends MessageResponse> {
 	public void respond(T response) {
 		String objectString = gson.toJson(response);
 		String messageIdentifier = this.messageIdentifier.name();
+		String messageType = MessageType.RESPONSE.name();
 
-		CypriaCommon.getRedisManager().getConnection().publish(CHANNEL_NAME, messageIdentifier + "|" +
-				replyIdentifier + "|" + MessageType.INSTANCE_BOUND.name() + "|" + objectString);
+		CypriaCommon.getRedisManager().getConnection().publish(CHANNEL_NAME, messageType + "|" + messageIdentifier + "|" +
+				replyIdentifier + "|" + getResponseDirection().name() + "|" + objectString);
+	}
+
+	public MessageDirection getResponseDirection() {
+		return messageDirection == MessageDirection.INSTANCE_BOUND ? MessageDirection.MANAGER_BOUND : MessageDirection.INSTANCE_BOUND;
 	}
 }

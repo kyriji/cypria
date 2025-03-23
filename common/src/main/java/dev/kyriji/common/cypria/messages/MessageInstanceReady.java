@@ -1,6 +1,5 @@
 package dev.kyriji.common.cypria.messages;
 
-import dev.kyriji.bigminecraftapi.BigMinecraftAPI;
 import dev.kyriji.bigminecraftapi.controllers.NetworkManager;
 import dev.kyriji.common.cypria.enums.MessageIdentifier;
 import dev.kyriji.common.cypria.enums.MessageType;

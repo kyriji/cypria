@@ -3,13 +3,22 @@ package dev.kyriji.commonmc.cypria;
 import dev.kyriji.commonmc.cypria.command.CommandModule;
 import dev.kyriji.commonmc.cypria.controllers.ModuleManager;
 import dev.kyriji.commonmc.cypria.item.ItemModule;
+import dev.kyriji.commonmc.cypria.misc.AUtil;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class CypriaCommonMinecraft {
+	public static JavaPlugin plugin;
+
 	public static ModuleManager moduleManager;
 
-	public static void init() {
+	public static void init(JavaPlugin plugin) {
+		CypriaCommonMinecraft.plugin = plugin;
+		AUtil.log("initializing CypriaCommonMinecraft");
+
 		moduleManager = new ModuleManager();
 		registerModules();
+
+		AUtil.log("CypriaCommonMinecraft initialized");
 	}
 
 	private static void registerModules() {

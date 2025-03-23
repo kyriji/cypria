@@ -1,15 +1,12 @@
-package dev.kyriji.cypria.controllers;
+package dev.kyriji.common.cypria.controllers;
 
-import com.google.gson.Gson;
-import dev.kyriji.cypria.CypriaCommon;
-import dev.kyriji.cypria.enums.MessageIdentifier;
-import dev.kyriji.cypria.enums.MessageType;
-import dev.kyriji.cypria.models.MessageListener;
-import dev.kyriji.cypria.models.RedisMessage;
+import dev.kyriji.common.cypria.CypriaCommon;
+import dev.kyriji.common.cypria.enums.MessageType;
+import dev.kyriji.common.cypria.models.MessageListener;
+import dev.kyriji.common.cypria.models.RedisMessage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 public class MessageManager {
 	private final List<RedisMessage<?>> awaitingMessages;

@@ -1,4 +1,4 @@
-package dev.kyriji.cypria.models;
+package dev.kyriji.common.cypria.models;
 
 public abstract class MessageResponse {
 	public boolean success;

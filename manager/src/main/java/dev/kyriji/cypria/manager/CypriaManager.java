@@ -1,8 +1,8 @@
-package dev.kyriji.cypria;
+package dev.kyriji.cypria.manager;
 
-import dev.kyriji.cypria.controllers.MessageManager;
-import dev.kyriji.cypria.messages.MessageInstanceReady;
-import dev.kyriji.cypria.models.MessageListener;
+import dev.kyriji.common.cypria.CypriaCommon;
+import dev.kyriji.common.cypria.messages.MessageInstanceReady;
+import dev.kyriji.common.cypria.models.MessageListener;
 
 public class CypriaManager {
 	public static void main(String[] args) {

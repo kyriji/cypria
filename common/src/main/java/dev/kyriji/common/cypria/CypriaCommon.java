@@ -1,7 +1,7 @@
-package dev.kyriji.cypria;
+package dev.kyriji.common.cypria;
 
-import dev.kyriji.cypria.controllers.MessageManager;
-import dev.kyriji.cypria.controllers.RedisManager;
+import dev.kyriji.common.cypria.controllers.MessageManager;
+import dev.kyriji.common.cypria.controllers.RedisManager;
 
 public class CypriaCommon {
 	private static CypriaCommon INSTANCE;

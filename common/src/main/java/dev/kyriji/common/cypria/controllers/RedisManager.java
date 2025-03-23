@@ -1,11 +1,10 @@
-package dev.kyriji.cypria.controllers;
+package dev.kyriji.common.cypria.controllers;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisPubSub;
 
-import java.time.Duration;
 import java.util.function.Consumer;
 
 public class RedisManager {

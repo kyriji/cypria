@@ -1,7 +1,7 @@
-package dev.kyriji.cypria.enums;
+package dev.kyriji.common.cypria.enums;
 
-import dev.kyriji.cypria.messages.MessageInstanceReady;
-import dev.kyriji.cypria.models.RedisMessage;
+import dev.kyriji.common.cypria.messages.MessageInstanceReady;
+import dev.kyriji.common.cypria.models.RedisMessage;
 
 public enum MessageIdentifier {
 	INSTANCE_READY(MessageInstanceReady.class),

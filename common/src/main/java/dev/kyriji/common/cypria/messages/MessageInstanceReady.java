@@ -1,9 +1,9 @@
-package dev.kyriji.cypria.messages;
+package dev.kyriji.common.cypria.messages;
 
-import dev.kyriji.cypria.enums.MessageIdentifier;
-import dev.kyriji.cypria.enums.MessageType;
-import dev.kyriji.cypria.models.MessageResponse;
-import dev.kyriji.cypria.models.RedisMessage;
+import dev.kyriji.common.cypria.enums.MessageIdentifier;
+import dev.kyriji.common.cypria.enums.MessageType;
+import dev.kyriji.common.cypria.models.MessageResponse;
+import dev.kyriji.common.cypria.models.RedisMessage;
 
 public class MessageInstanceReady extends RedisMessage<MessageInstanceReady.InstanceReadyResponse> {
 

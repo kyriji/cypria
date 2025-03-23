@@ -1,9 +1,9 @@
-package dev.kyriji.cypria;
+package dev.kyriji.cypria.hub;
 
-import dev.kyriji.cypria.messages.MessageInstanceReady;
+import dev.kyriji.common.cypria.messages.MessageInstanceReady;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Hub extends JavaPlugin {
+public final class CypriaHub extends JavaPlugin {
 
     @Override
     public void onEnable() {

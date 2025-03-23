@@ -10,7 +10,7 @@ public class MessageInstanceReady extends RedisMessage<MessageInstanceReady.Inst
 	public final String instanceId;
 
 	public MessageInstanceReady(String instanceId) {
-		super(MessageIdentifier.INSTANCE_READY, MessageType.INSTANCE_BOUND);
+		super(MessageIdentifier.INSTANCE_READY, MessageType.MANAGER_BOUND);
 
 		this.instanceId = instanceId;
 	}

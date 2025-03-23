@@ -21,7 +21,7 @@ public class RedisManager {
 		poolConfig.setMaxIdle(MAX_CONNECTIONS / 4);
 		poolConfig.setMinIdle(1);
 
-		this.pool = new JedisPool(poolConfig);
+		this.pool = new JedisPool(poolConfig, REDIS_HOST);
 	}
 
 	public Jedis getConnection() {

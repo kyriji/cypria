@@ -34,11 +34,11 @@ public abstract class RedisMessage<T extends MessageResponse> {
 		this.response = response;
 
 		StringBuilder message = new StringBuilder(messageIdentifier.name())
-				.append("\\|")
+				.append("|")
 				.append(replyIdentifier)
-				.append("\\|")
+				.append("|")
 				.append(messageType.name())
-				.append("\\|");
+				.append("|");
 
 		String objectString = gson.toJson(this);
 		message.append(objectString);
@@ -67,7 +67,7 @@ public abstract class RedisMessage<T extends MessageResponse> {
 		String objectString = gson.toJson(response);
 		String messageIdentifier = this.messageIdentifier.name();
 
-		CypriaCommon.getRedisManager().getConnection().publish(CHANNEL_NAME, messageIdentifier + "\\|" +
-				replyIdentifier + "\\|" + MessageType.INSTANCE_BOUND.name() + "\\|" + objectString);
+		CypriaCommon.getRedisManager().getConnection().publish(CHANNEL_NAME, messageIdentifier + "|" +
+				replyIdentifier + "|" + MessageType.INSTANCE_BOUND.name() + "|" + objectString);
 	}
 }

@@ -5,7 +5,7 @@ import dev.kyriji.common.cypria.enums.MessageType;
 import dev.kyriji.common.cypria.models.MessageResponse;
 import dev.kyriji.common.cypria.models.RedisMessage;
 
-public class MessageInstanceReady extends RedisMessage<MessageInstanceReady.InstanceReadyResponse> {
+public class MessageInstanceReady extends RedisMessage<MessageInstanceReady.Response> {
 
 	public final String instanceId;
 
@@ -15,9 +15,9 @@ public class MessageInstanceReady extends RedisMessage<MessageInstanceReady.Inst
 		this.instanceId = instanceId;
 	}
 
-	public static class InstanceReadyResponse extends MessageResponse {
+	public static class Response extends MessageResponse {
 
-		public InstanceReadyResponse(boolean success) {
+		public Response(boolean success) {
 			super(success);
 		}
 

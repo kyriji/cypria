@@ -12,9 +12,7 @@ import java.util.function.Consumer;
 
 public class MessageManager {
 	private final List<RedisMessage<?>> awaitingMessages;
-	private final List<Consumer<RedisMessage<?>>> listeners;
-
-	private final Gson gson = new Gson();
+	private final List<MessageListener<?>> listeners;
 
 	public MessageManager() {
 		this.awaitingMessages = new ArrayList<>();
@@ -41,7 +39,7 @@ public class MessageManager {
 				}
 			} else if(messageType == MessageType.MANAGER_BOUND) {
 				listeners.forEach(listener -> {
-					gson.fromJson(content, listener.getClass());
+					if(listener.getMessageIdentifier().name().equals(messageIdentifier)) listener.constructAndAccept(content);
 				});
 			}
 		});
@@ -51,7 +49,7 @@ public class MessageManager {
 		awaitingMessages.add(message);
 	}
 
-	public void addListener(Consumer<RedisMessage<?>> consumer) {
+	public void addListener(MessageListener<?> consumer) {
 		listeners.add(consumer);
 	}
 

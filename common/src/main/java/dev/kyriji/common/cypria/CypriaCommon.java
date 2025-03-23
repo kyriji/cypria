@@ -1,10 +1,12 @@
 package dev.kyriji.common.cypria;
 
+import com.google.gson.Gson;
 import dev.kyriji.common.cypria.controllers.MessageManager;
 import dev.kyriji.common.cypria.controllers.RedisManager;
 
 public class CypriaCommon {
 	private static CypriaCommon INSTANCE;
+	public static Gson gson = new Gson();
 
 	private final RedisManager redisManager;
 	private final MessageManager messageManager;

@@ -5,19 +5,20 @@ import dev.kyriji.common.cypria.CypriaCommon;
 import dev.kyriji.common.cypria.enums.MessageIdentifier;
 import dev.kyriji.common.cypria.enums.MessageType;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.UUID;
 import java.util.function.Consumer;
 
+import static dev.kyriji.common.cypria.CypriaCommon.gson;
 import static dev.kyriji.common.cypria.controllers.RedisManager.CHANNEL_NAME;
 
 public abstract class RedisMessage<T extends MessageResponse> {
 
-	private transient final Gson gson = new Gson();
 	private final MessageIdentifier messageIdentifier;
 	private final MessageType messageType;
 	private final String replyIdentifier;
 
-	private Consumer<T> response;
+	private transient Consumer<T> response;
 
 	public RedisMessage(MessageIdentifier messageIdentifier, MessageType messageType) {
 		this.messageIdentifier = messageIdentifier;
@@ -57,7 +58,7 @@ public abstract class RedisMessage<T extends MessageResponse> {
 	}
 
 	public void handleResponse(String content) {
-		T response = gson.fromJson(content, this.getClass().getGenericSuperclass());
+		T response = gson.fromJson(content, ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
 		if(this.response != null) {
 			this.response.accept(response);
 		}

@@ -10,11 +10,8 @@ public class CypriaManager {
 
 		new CypriaCommon();
 
-		CypriaCommon.getMessageManager().addListener(response -> {
-			System.out.println("Message received: " + response);
-			if(!(response instanceof MessageInstanceReady instanceReady)) return;
-
-			System.out.println("Instance ready: " + instanceReady.instanceId);
-		});
+		CypriaCommon.getMessageManager().addListener(new MessageListener<>(MessageInstanceReady.class, message -> {
+			message.respond(new MessageInstanceReady.Response(true));
+		}));
 	}
 }

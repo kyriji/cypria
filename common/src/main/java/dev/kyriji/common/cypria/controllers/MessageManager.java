@@ -1,14 +1,14 @@
 package dev.kyriji.common.cypria.controllers;
 
-import com.google.gson.Gson;
 import dev.kyriji.common.cypria.CypriaCommon;
+import dev.kyriji.common.cypria.enums.MessageDirection;
+import dev.kyriji.common.cypria.enums.MessageIdentifier;
 import dev.kyriji.common.cypria.enums.MessageType;
 import dev.kyriji.common.cypria.models.MessageListener;
 import dev.kyriji.common.cypria.models.RedisMessage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 public class MessageManager {
 	private final List<RedisMessage<?>> awaitingMessages;
@@ -21,15 +21,17 @@ public class MessageManager {
 		CypriaCommon.getRedisManager().addListener(message -> {
 			String[] messageParts = message.split("\\|");
 
-			if(messageParts.length < 4) return;
+			if(messageParts.length < 5) return;
 
-			String messageIdentifier = messageParts[0];
-			String replyIdentifier = messageParts[1];
-			MessageType messageType = MessageType.valueOf(messageParts[2]);
+			MessageType messageType = MessageType.valueOf(messageParts[0]);
+			MessageIdentifier messageIdentifier = MessageIdentifier.valueOf(messageParts[1]);
+			String replyIdentifier = messageParts[2];
+			MessageDirection messageDirection = MessageDirection.valueOf(messageParts[3]);
+			String content = messageParts[4];
 
-			String content = messageParts[3];
+			if(messageDirection != CypriaCommon.getRunContext().getAcceptedDirection()) return;
 
-			if(messageType == MessageType.INSTANCE_BOUND) {
+			if(messageType == MessageType.RESPONSE) {
 				for(RedisMessage<?> awaitingMessage : awaitingMessages) {
 					if(awaitingMessage.getReplyIdentifier().equals(replyIdentifier)) {
 						awaitingMessage.handleResponse(content);
@@ -37,9 +39,9 @@ public class MessageManager {
 						break;
 					}
 				}
-			} else if(messageType == MessageType.MANAGER_BOUND) {
+			} else if(messageType == MessageType.REQUEST) {
 				listeners.forEach(listener -> {
-					if(listener.getMessageIdentifier().name().equals(messageIdentifier)) listener.constructAndAccept(content);
+					if(listener.getMessageIdentifier().equals(messageIdentifier)) listener.constructAndAccept(content);
 				});
 			}
 		});
@@ -52,6 +54,4 @@ public class MessageManager {
 	public void addListener(MessageListener<?> consumer) {
 		listeners.add(consumer);
 	}
-
-
 }

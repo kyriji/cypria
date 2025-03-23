@@ -3,6 +3,7 @@ package dev.kyriji.common.cypria;
 import com.google.gson.Gson;
 import dev.kyriji.common.cypria.controllers.MessageManager;
 import dev.kyriji.common.cypria.controllers.RedisManager;
+import dev.kyriji.common.cypria.enums.RunContext;
 
 public class CypriaCommon {
 	private static CypriaCommon INSTANCE;
@@ -10,12 +11,14 @@ public class CypriaCommon {
 
 	private final RedisManager redisManager;
 	private final MessageManager messageManager;
+	private final RunContext runContext;
 
-	public CypriaCommon() {
+	public CypriaCommon(RunContext runContext) {
 		INSTANCE = this;
 
 		this.redisManager = new RedisManager();
 		this.messageManager = new MessageManager();
+		this.runContext = runContext;
 	}
 
 	public static RedisManager getRedisManager() {
@@ -24,5 +27,9 @@ public class CypriaCommon {
 
 	public static MessageManager getMessageManager() {
 		return INSTANCE.messageManager;
+	}
+
+	public static RunContext getRunContext() {
+		return INSTANCE.runContext;
 	}
 }

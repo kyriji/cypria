@@ -1,5 +1,7 @@
 package dev.kyriji.common.cypria.messages;
 
+import dev.kyriji.bigminecraftapi.BigMinecraftAPI;
+import dev.kyriji.bigminecraftapi.controllers.NetworkManager;
 import dev.kyriji.common.cypria.enums.MessageIdentifier;
 import dev.kyriji.common.cypria.enums.MessageType;
 import dev.kyriji.common.cypria.models.MessageResponse;
@@ -7,12 +9,12 @@ import dev.kyriji.common.cypria.models.RedisMessage;
 
 public class MessageInstanceReady extends RedisMessage<MessageInstanceReady.Response> {
 
-	public final String instanceId;
+	public final String address;
 
-	public MessageInstanceReady(String instanceId) {
+	public MessageInstanceReady() {
 		super(MessageIdentifier.INSTANCE_READY, MessageType.MANAGER_BOUND);
 
-		this.instanceId = instanceId;
+		this.address = NetworkManager.getIPAddress();
 	}
 
 	public static class Response extends MessageResponse {

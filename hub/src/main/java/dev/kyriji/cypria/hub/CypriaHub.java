@@ -10,7 +10,7 @@ public final class CypriaHub extends JavaPlugin {
     public void onEnable() {
         new CypriaCommon();
 
-        MessageInstanceReady instanceReadyMessage = new MessageInstanceReady("xacasfwadasd");
+        MessageInstanceReady instanceReadyMessage = new MessageInstanceReady();
         instanceReadyMessage.send(response -> {
             System.out.println("Response received");
             System.out.println(response.success);

@@ -4,7 +4,6 @@ import org.bukkit.ChatColor;
 
 public class ALang {
 	public static final Message NO_PERMISSION_COMMAND = error("You do not have permission to do this.");
-	public static final Message UNKNOWN_COMMAND = error("Unknown command \"%s\".");
 
 	private static Message info(ChatColor chatColor, String prefix, String message) {
 		return new Message("" + chatColor + ChatColor.BOLD + prefix.toUpperCase() + "!&7 " + message);

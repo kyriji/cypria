@@ -1,10 +1,12 @@
 package dev.kyriji.commonmc.cypria.command.models;
 
 import dev.kyriji.commonmc.cypria.enums.PermissionLevel;
-import dev.kyriji.commonmc.cypria.misc.ALang;
 import dev.kyriji.commonmc.cypria.misc.AUtil;
+import dev.kyriji.commonmc.cypria.misc.FontUtils;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
+import java.awt.font.FontRenderContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,13 +22,27 @@ public abstract class CypriaMultiCommand extends CypriaCommand {
 	}
 
 	@Override
+	public String getUsage() {
+		List<String> subCommandNames = new ArrayList<>();
+		for (CypriaCommand subCommand : subCommands) subCommandNames.add(subCommand.getCommand());
+		return "<" + String.join("|", subCommandNames) + ">";
+	}
+
+	@Override
 	public void execute(CommandSender sender, String command, List<String> args) {
 		CypriaCommand subCommand = getSubCommand(args.removeFirst());
 
+		String header;
 		if (subCommand == null) {
-			AUtil.send(sender, ALang.UNKNOWN_COMMAND, command);
+			header = FontUtils.createHeader(ChatColor.GOLD, ChatColor.LIGHT_PURPLE, 15, "help");
+			AUtil.bypass(sender, header);
+			for (CypriaCommand cypriaCommand : subCommands) AUtil.bypass(sender, "&d> &6" +
+					getBaseCommand(command) + " " + cypriaCommand.getCommand() + " &7" + cypriaCommand.getUsage());
+			AUtil.bypass(sender, FontUtils.createPlainFooter(ChatColor.LIGHT_PURPLE, header));
 			return;
 		}
+
+		new FontRenderContext(null, false, false);
 
 		subCommand.execute(sender, command, args);
 	}

@@ -31,8 +31,15 @@ public abstract class CypriaCommand implements CommandExecutor, TabCompleter {
 		this.minimumPermission = minimumPermission;
 	}
 
+	public abstract String getUsage();
 	public abstract void execute(CommandSender sender, String command, List<String> args);
 	public abstract List<String> getTabComplete(CommandSender sender, String command, List<String> args);
+
+	public String getBaseCommand(String label) {
+		// TODO: this could be done better if the previous labels were passed
+		if (label == null) label = command;
+		return (isBaseLevel ? "/" : multiCommand.getBaseCommand(null) + " ") + label;
+	}
 
 	public String getCommand() {
 		return command;

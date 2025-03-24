@@ -13,6 +13,10 @@ public class AUtil {
 		color(sender, "&3&lDEBUG!&7 " + message);
 	}
 
+	public static void bypass(CommandSender sender, String message) {
+		color(sender, message);
+	}
+
 	private static void color(CommandSender sender, String message) {
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
 	}

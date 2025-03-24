@@ -4,6 +4,7 @@ import dev.kyriji.commonmc.cypria.command.CommandModule;
 import dev.kyriji.commonmc.cypria.controllers.ModuleManager;
 import dev.kyriji.commonmc.cypria.item.ItemModule;
 import dev.kyriji.commonmc.cypria.misc.AUtil;
+import dev.kyriji.commonmc.cypria.misc.FontUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CypriaCommonMinecraft {
@@ -14,6 +15,8 @@ public class CypriaCommonMinecraft {
 	public static void init(JavaPlugin plugin) {
 		CypriaCommonMinecraft.plugin = plugin;
 		AUtil.log("initializing CypriaCommonMinecraft");
+
+		FontUtils.initFont();
 
 		moduleManager = new ModuleManager();
 		registerModules();

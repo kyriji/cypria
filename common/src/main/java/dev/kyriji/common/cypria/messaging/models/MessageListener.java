@@ -1,10 +1,10 @@
-package dev.kyriji.common.cypria.models;
+package dev.kyriji.common.cypria.messaging.models;
 
-import dev.kyriji.common.cypria.enums.MessageIdentifier;
+import dev.kyriji.common.cypria.messaging.enums.MessageIdentifier;
 
 import java.util.function.Consumer;
 
-import static dev.kyriji.common.cypria.messaging.CypriaCommon.gson;
+import static dev.kyriji.common.cypria.CypriaCommon.gson;
 
 public class MessageListener<T extends RedisMessage<?>> {
 	private final Consumer<T> onMessageReceived;

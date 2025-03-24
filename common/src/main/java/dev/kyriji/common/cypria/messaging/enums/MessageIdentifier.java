@@ -1,8 +1,8 @@
-package dev.kyriji.common.cypria.enums;
+package dev.kyriji.common.cypria.messaging.enums;
 
-import dev.kyriji.common.cypria.messages.MessageInstanceReady;
-import dev.kyriji.common.cypria.messages.MessageLoadPlayerData;
-import dev.kyriji.common.cypria.models.RedisMessage;
+import dev.kyriji.common.cypria.messaging.messages.MessageInstanceReady;
+import dev.kyriji.common.cypria.messaging.messages.MessageLoadPlayerData;
+import dev.kyriji.common.cypria.messaging.models.RedisMessage;
 
 public enum MessageIdentifier {
 	INSTANCE_READY(MessageInstanceReady.class),

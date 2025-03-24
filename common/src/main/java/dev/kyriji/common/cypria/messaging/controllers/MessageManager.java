@@ -1,11 +1,11 @@
-package dev.kyriji.common.cypria.controllers;
+package dev.kyriji.common.cypria.messaging.controllers;
 
-import dev.kyriji.common.cypria.messaging.CypriaCommon;
-import dev.kyriji.common.cypria.enums.MessageDirection;
-import dev.kyriji.common.cypria.enums.MessageIdentifier;
-import dev.kyriji.common.cypria.enums.MessageType;
-import dev.kyriji.common.cypria.models.MessageListener;
-import dev.kyriji.common.cypria.models.RedisMessage;
+import dev.kyriji.common.cypria.CypriaCommon;
+import dev.kyriji.common.cypria.messaging.enums.MessageDirection;
+import dev.kyriji.common.cypria.messaging.enums.MessageIdentifier;
+import dev.kyriji.common.cypria.messaging.enums.MessageType;
+import dev.kyriji.common.cypria.messaging.models.MessageListener;
+import dev.kyriji.common.cypria.messaging.models.RedisMessage;
 
 import java.util.ArrayList;
 import java.util.List;

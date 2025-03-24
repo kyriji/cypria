@@ -1,15 +1,15 @@
-package dev.kyriji.common.cypria.models;
+package dev.kyriji.common.cypria.messaging.models;
 
-import dev.kyriji.common.cypria.messaging.CypriaCommon;
-import dev.kyriji.common.cypria.enums.MessageIdentifier;
-import dev.kyriji.common.cypria.enums.MessageDirection;
-import dev.kyriji.common.cypria.enums.MessageType;
+import dev.kyriji.common.cypria.CypriaCommon;
+import dev.kyriji.common.cypria.messaging.enums.MessageIdentifier;
+import dev.kyriji.common.cypria.messaging.enums.MessageDirection;
+import dev.kyriji.common.cypria.messaging.enums.MessageType;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.UUID;
 import java.util.function.Consumer;
 
-import static dev.kyriji.common.cypria.messaging.CypriaCommon.gson;
+import static dev.kyriji.common.cypria.CypriaCommon.gson;
 import static dev.kyriji.common.cypria.controllers.RedisManager.CHANNEL_NAME;
 
 public abstract class RedisMessage<T extends RedisMessageResponse> {

@@ -1,4 +1,4 @@
-package dev.kyriji.common.cypria;
+package dev.kyriji.common.cypria.messaging;
 
 import com.google.gson.Gson;
 import dev.kyriji.common.cypria.controllers.MessageManager;

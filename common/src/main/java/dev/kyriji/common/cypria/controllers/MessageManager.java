@@ -1,6 +1,6 @@
 package dev.kyriji.common.cypria.controllers;
 
-import dev.kyriji.common.cypria.CypriaCommon;
+import dev.kyriji.common.cypria.messaging.CypriaCommon;
 import dev.kyriji.common.cypria.enums.MessageDirection;
 import dev.kyriji.common.cypria.enums.MessageIdentifier;
 import dev.kyriji.common.cypria.enums.MessageType;

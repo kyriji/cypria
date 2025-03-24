@@ -1,4 +1,6 @@
 package dev.kyriji.commonmc.cypria.item.controllers;
 
-public class ItemManager {
+import org.bukkit.event.Listener;
+
+public class ItemManager implements Listener {
 }

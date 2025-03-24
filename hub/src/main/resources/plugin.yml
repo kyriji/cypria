@@ -3,4 +3,4 @@ version: '1.0'
 main: dev.kyriji.cypria.hub.CypriaHub
 api-version: '1.21'
 commands:
-  test:
+  dev:

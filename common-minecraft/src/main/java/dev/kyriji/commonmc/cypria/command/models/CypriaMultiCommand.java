@@ -30,7 +30,7 @@ public abstract class CypriaMultiCommand extends CypriaCommand {
 
 	@Override
 	public void execute(CommandSender sender, String command, List<String> args) {
-		CypriaCommand subCommand = getSubCommand(args.removeFirst());
+		CypriaCommand subCommand = !args.isEmpty() ? getSubCommand(args.removeFirst()) : null;
 
 		String header;
 		if (subCommand == null) {

@@ -3,6 +3,7 @@ package dev.kyriji.commonmc.cypria.command.commands.dev;
 import dev.kyriji.commonmc.cypria.command.models.CypriaCommand;
 import dev.kyriji.commonmc.cypria.misc.ALang;
 import dev.kyriji.commonmc.cypria.misc.AUtil;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -25,8 +26,8 @@ public class TestCommand extends CypriaCommand {
 	public void execute(CommandSender sender, String command, List<String> args) {
 		if (!(sender instanceof Player player)) return;
 
-		ItemStack itemStack = player.getInventory().getItemInMainHand();
-		ItemMeta itemMeta = itemStack.getItemMeta();
+		ItemStack itemStack = player.getInventory().getItem(1);
+		itemStack.setType(Material.ACACIA_BOAT);
 	}
 
 	@Override

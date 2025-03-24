@@ -1,6 +1,20 @@
 package dev.kyriji.commonmc.cypria.item.controllers;
 
-import org.bukkit.event.Listener;
+import dev.kyriji.commonmc.cypria.item.models.CypriaItem;
+import dev.kyriji.commonmc.cypria.misc.ReflectionUtils;
 
-public class ItemManager implements Listener {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ItemManager {
+	public static List<CypriaItem> itemList = new ArrayList<>();
+
+	public static void init() {
+		ReflectionUtils.initPackage("dev.kyriji.commonmc.cypria.item.items", CypriaItem.class)
+				.forEach(ItemManager::registerItem);
+	}
+
+	public static void registerItem(CypriaItem item) {
+		itemList.add(item);
+	}
 }

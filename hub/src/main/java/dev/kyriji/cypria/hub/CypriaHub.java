@@ -5,7 +5,7 @@ import dev.kyriji.common.cypria.enums.RunContext;
 import dev.kyriji.common.cypria.messages.MessageInstanceReady;
 import dev.kyriji.common.cypria.messages.MessageLoadPlayerData;
 import dev.kyriji.common.cypria.models.MessageListener;
-import dev.kyriji.commonmc.cypria.CypriaCommonMinecraft;
+import dev.kyriji.commonmc.cypria.CypriaMinecraft;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class CypriaHub extends JavaPlugin {
@@ -13,7 +13,7 @@ public final class CypriaHub extends JavaPlugin {
     @Override
     public void onEnable() {
 		new CypriaCommon(RunContext.PLUGIN);
-        CypriaCommonMinecraft.init(this);
+        CypriaMinecraft.init(this);
 
         MessageInstanceReady instanceReadyMessage = new MessageInstanceReady();
         instanceReadyMessage.send(response -> {

@@ -14,14 +14,13 @@ public class TransferManager {
 	public static void handlePlayerQueue(Player player, Deployment deployment) {
 
 		PlayerDataManager.savePlayerData(player).thenRun(() -> {
-
 			CompletableFuture<Void> unfreeze = CypriaCommon.getPlayerDataManager().freezePlayerData(player.getUniqueId());
 
 			MessageQueueRequest message = new MessageQueueRequest(player.getUniqueId(), deployment);
 			message.send(response -> {
 				if(!response.success) {
 					unfreeze.complete(null);
-					AUtil.send(player, ALang.PLAYER_DATA_TRANSFER_FAILED);
+					AUtil.send(player, ALang.PLAYER_TRANSFER_FAILED);
 				}
 			});
 		});

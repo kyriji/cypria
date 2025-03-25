@@ -7,6 +7,8 @@ import dev.kyriji.common.cypria.config.documents.CoreConfig;
 import dev.kyriji.common.cypria.config.enums.ConfigType;
 import dev.kyriji.common.cypria.enums.Deployment;
 import redis.clients.jedis.*;
+import redis.clients.jedis.params.ScanParams;
+import redis.clients.jedis.resps.ScanResult;
 
 import java.lang.reflect.Type;
 import java.util.*;
@@ -99,7 +101,7 @@ public class RedisManager {
 
 	public List<CypriaInstance> getInstances() {
 		RedisManager redisManager = CypriaCommon.getRedisManager();
-		String pattern = "cypria:instances:*:*";
+		String pattern = "cypria:instance:*:*";
 
 		List<CypriaInstance> resultList = new ArrayList<>();
 		Type playerMapType = new TypeToken<Map<UUID, String>>(){}.getType();

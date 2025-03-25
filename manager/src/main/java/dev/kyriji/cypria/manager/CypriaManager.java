@@ -2,6 +2,7 @@ package dev.kyriji.cypria.manager;
 
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
+import dev.kyriji.bigminecraftapi.BigMinecraftAPI;
 import dev.kyriji.common.cypria.CypriaCommon;
 import dev.kyriji.common.cypria.enums.Deployment;
 import dev.kyriji.cypria.manager.queuing.controllers.QueueManager;
@@ -21,6 +22,7 @@ public class CypriaManager {
 
 	public static void main(String[] args) {
 		CypriaCommon cypriaCommon = new CypriaCommon(getLocalConfig(), Deployment.MANAGER);
+		BigMinecraftAPI.init();
 
 		serverRegistry = new ServerRegistry();
 		queueManager = new QueueManager();

@@ -19,7 +19,7 @@ public class ALang {
 	public static final Message COMMAND_DEV_ITEM_NO_META = error("The item you are holding has no meta data.");
 
 	// Player Data
-	public static final Message PLAYER_DATA_TRANSFER_FAILED = error("Failed to transfer player data to %s");
+	public static final Message PLAYER_TRANSFER_FAILED = error("Failed to move you to a new instance.");
 
 
 	private static Message info(ChatColor chatColor, String prefix, String message) {
@@ -27,7 +27,7 @@ public class ALang {
 	}
 
 	private static Message error(String message) {
-		return new Message(message, "&c&lERROR!&7", "&c&lOOPS!&7", "&c&lNOPE!&7", "&c&lSORRY!&7");
+		return new Message(message, "&c&lERROR!&7 ", "&c&lOOPS!&7" , "&c&lNOPE!&7 ", "&c&lSORRY!&7 ");
 	}
 
 	public static class Message {

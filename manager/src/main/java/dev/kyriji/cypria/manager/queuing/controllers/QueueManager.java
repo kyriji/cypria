@@ -9,7 +9,6 @@ import dev.kyriji.cypria.manager.queuing.listeners.QueueListener;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 public class QueueManager {
 
@@ -41,6 +40,14 @@ public class QueueManager {
 	public CypriaInstance selectBestInstance(Deployment deployment) {
 		List<CypriaInstance> instances = CypriaCommon.getRedisManager().getInstances().stream()
 				.filter(instance -> instance.getDeployment() == deployment).toList();
+
+		System.out.println(instances);
+		System.out.println("-------------------");
+		CypriaCommon.getRedisManager().getInstances().forEach(instance -> {
+			System.out.println(instance.getAddress() + " " + instance.getDeployment());
+		});
+		System.out.println("-------------------");
+
 
 		if(instances.isEmpty()) return null;
 

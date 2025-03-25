@@ -14,7 +14,7 @@ public class MessageQueueRequest extends RedisMessage<MessageQueueRequest.Respon
 	private final Deployment deployment;
 
 	public MessageQueueRequest(UUID playerUUID, Deployment deployment) {
-		super(MessageIdentifier.LOAD_PLAYER_DATA, MessageDirection.INSTANCE_BOUND);
+		super(MessageIdentifier.QUEUE_REQUEST, MessageDirection.MANAGER_BOUND);
 
 		this.playerUUID = playerUUID;
 		this.deployment = deployment;

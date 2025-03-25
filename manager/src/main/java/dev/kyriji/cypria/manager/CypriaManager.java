@@ -3,36 +3,31 @@ package dev.kyriji.cypria.manager;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 import dev.kyriji.common.cypria.CypriaCommon;
-import dev.kyriji.common.cypria.config.controllers.ConfigManager;
-import dev.kyriji.common.cypria.messaging.enums.RunContext;
-import dev.kyriji.common.cypria.messaging.messages.MessageInstanceReady;
-import dev.kyriji.common.cypria.messaging.messages.MessageLoadPlayerData;
-import dev.kyriji.common.cypria.messaging.models.MessageListener;
+import dev.kyriji.common.cypria.enums.Deployment;
+import dev.kyriji.cypria.manager.queuing.controllers.QueueManager;
+import dev.kyriji.cypria.manager.queuing.controllers.ServerRegistry;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.UUID;
 
 import static dev.kyriji.common.cypria.CypriaCommon.gson;
 
 public class CypriaManager {
 	private static final String CONFIG_RESOURCE = "/config.json";
 
+	public static ServerRegistry serverRegistry;
+	public static QueueManager queueManager;
+
 	public static void main(String[] args) {
-		System.out.println("Cypria Manager starting...");
+		CypriaCommon cypriaCommon = new CypriaCommon(getLocalConfig(), Deployment.MANAGER);
 
-		new CypriaCommon(getLocalConfig(), RunContext.MANAGER);
+		serverRegistry = new ServerRegistry();
+		queueManager = new QueueManager();
 
-		CypriaCommon.getMessageManager().addListener(new MessageListener<>(MessageInstanceReady.class, message -> {
-			message.respond(new MessageInstanceReady.Response(true));
-
-			System.out.println("Sending request");
-			MessageLoadPlayerData messageLoadPlayerData = new MessageLoadPlayerData(UUID.randomUUID(), "0.0.0.0");
-			messageLoadPlayerData.send(response -> {
-				System.out.println("Response received");
-				System.out.println(response.success);
-			});
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+			System.out.println("Shutting down CypriaManager...");
+			cypriaCommon.shutdown();
 		}));
 	}
 

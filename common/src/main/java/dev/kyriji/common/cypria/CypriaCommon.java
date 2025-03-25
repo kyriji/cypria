@@ -2,17 +2,17 @@ package dev.kyriji.common.cypria;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import dev.kyriji.bigminecraftapi.controllers.NetworkManager;
+import dev.kyriji.common.cypria.models.CypriaInstance;
 import dev.kyriji.common.cypria.config.controllers.ConfigManager;
 import dev.kyriji.common.cypria.messaging.controllers.MessageManager;
 import dev.kyriji.common.cypria.controllers.RedisManager;
-import dev.kyriji.common.cypria.messaging.enums.RunContext;
+import dev.kyriji.common.cypria.enums.Deployment;
 import dev.kyriji.common.cypria.playerdata.controllers.PlayerDataManager;
-
-import java.io.File;
 
 public class CypriaCommon {
 	private static CypriaCommon INSTANCE;
-	private final RunContext runContext;
+	private final Deployment deployment;
 
 	public static Gson gson = new Gson();
 
@@ -22,14 +22,18 @@ public class CypriaCommon {
 	private final MessageManager messageManager;
 
 
-	public CypriaCommon(JsonObject localConfig, RunContext runContext) {
+	public CypriaCommon(JsonObject localConfig, Deployment deployment) {
 		INSTANCE = this;
-		this.runContext = runContext;
+		this.deployment = deployment;
 
 		this.configManager = new ConfigManager(localConfig);
 		this.playerDataManager = new PlayerDataManager();
 		this.redisManager = new RedisManager();
 		this.messageManager = new MessageManager();
+	}
+
+	public void shutdown() {
+		this.redisManager.unregisterAllListeners();
 	}
 
 	public static ConfigManager getConfigManager() {
@@ -48,7 +52,7 @@ public class CypriaCommon {
 		return INSTANCE.messageManager;
 	}
 
-	public static RunContext getRunContext() {
-		return INSTANCE.runContext;
+	public static Deployment getDeployment() {
+		return INSTANCE.deployment;
 	}
 }

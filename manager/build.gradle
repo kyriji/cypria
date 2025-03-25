@@ -15,7 +15,10 @@ repositories {
 
 dependencies {
     implementation(project(':common'))
-    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation("dev.kyriji:bmc-api:0.0.0")
+
+    compileOnly('com.google.code.gson:gson:2.8.9')
+    compileOnly('redis.clients:jedis:3.5.2')
 }
 
 tasks.withType(ShadowJar).configureEach {

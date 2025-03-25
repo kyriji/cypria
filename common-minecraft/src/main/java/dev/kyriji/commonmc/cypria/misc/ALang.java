@@ -18,6 +18,9 @@ public class ALang {
 	public static final Message COMMAND_DEV_ITEM_NOT_HOLDING_ITEM = error("You are not holding an item.");
 	public static final Message COMMAND_DEV_ITEM_NO_META = error("The item you are holding has no meta data.");
 
+	// Player Data
+	public static final Message PLAYER_DATA_TRANSFER_FAILED = error("Failed to transfer player data to %s");
+
 
 	private static Message info(ChatColor chatColor, String prefix, String message) {
 		return new Message(message, chatColor + "&l" + prefix.toUpperCase() + "!&7");

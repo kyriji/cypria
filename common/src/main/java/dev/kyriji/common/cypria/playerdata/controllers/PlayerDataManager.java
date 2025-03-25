@@ -15,6 +15,9 @@ import dev.kyriji.common.cypria.playerdata.models.PlayerDataDocument;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -29,6 +32,10 @@ public class PlayerDataManager {
 	}
 
 	private final Map<UUID, List<PlayerDataDocument>> loadedPlayerData = new HashMap<>();
+
+	public CompletableFuture<Void> loadPlayerData(UUID uuid, PlayerDataType type) {
+		return CompletableFuture.runAsync(() -> getPlayerData(uuid, type));
+	}
 
 	public <T> T getTemporaryPlayerData(UUID uuid, PlayerDataType type) {
 		DatabaseConnection connection = DatabaseManager.getDatabase(DatabaseType.PLAYER_DATA);
@@ -94,10 +101,36 @@ public class PlayerDataManager {
 		loadedPlayerData.remove(uuid);
 	}
 
-	public <T extends PlayerDataDocument> void savePlayerData(T document, PlayerDataType type) {
-		DatabaseConnection connection = DatabaseManager.getDatabase(DatabaseType.PLAYER_DATA);
+	public CompletableFuture<Void> savePlayerData(UUID uuid, PlayerDataType type) {
+		return CompletableFuture.runAsync(() -> {
+			PlayerDataDocument data = getPlayerData(uuid, type);
+			savePlayerData(data, type);
+		});
+	}
 
-		MongoCollection<T> collection = connection.database().getCollection(type.getCollectionName(), (Class<T>) type.getDocumentClass());
-		collection.replaceOne(eq("uuid", document.getUuid()), document, new ReplaceOptions().upsert(true));
+	public <T extends PlayerDataDocument> CompletableFuture<Void> savePlayerData(T document, PlayerDataType type) {
+		return CompletableFuture.runAsync(() -> {
+			DatabaseConnection connection = DatabaseManager.getDatabase(DatabaseType.PLAYER_DATA);
+
+			MongoCollection<T> collection = connection.database().getCollection(type.getCollectionName(), (Class<T>) type.getDocumentClass());
+			collection.replaceOne(eq("uuid", document.getUuid()), document, new ReplaceOptions().upsert(true));
+		});
+	}
+
+	public CompletableFuture<Void> freezePlayerData(UUID playerUUID) {
+		if(!loadedPlayerData.containsKey(playerUUID)) {
+			throw new IllegalStateException("Player data is not loaded for UUID: " + playerUUID);
+		}
+
+		List<PlayerDataDocument> currentDataState = new ArrayList<>(loadedPlayerData.get(playerUUID));
+
+		CompletableFuture<Void> unfreezeFuture = new CompletableFuture<>();
+
+		unfreezeFuture.thenRun(() -> {
+			loadedPlayerData.put(playerUUID, currentDataState);
+			System.out.println("Player data for UUID " + playerUUID + " has been reverted to its frozen state.");
+		});
+
+		return unfreezeFuture;
 	}
 }

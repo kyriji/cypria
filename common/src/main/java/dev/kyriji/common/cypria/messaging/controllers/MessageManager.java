@@ -29,7 +29,7 @@ public class MessageManager {
 			MessageDirection messageDirection = MessageDirection.valueOf(messageParts[3]);
 			String content = messageParts[4];
 
-			if(messageDirection != CypriaCommon.getRunContext().getAcceptedDirection()) return;
+			if(messageDirection != CypriaCommon.getDeployment().getAcceptedDirection()) return;
 
 			if(messageType == MessageType.RESPONSE) {
 				for(RedisMessage<?> awaitingMessage : awaitingMessages) {

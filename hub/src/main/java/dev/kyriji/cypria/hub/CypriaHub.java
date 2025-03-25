@@ -1,34 +1,23 @@
 package dev.kyriji.cypria.hub;
 
 import dev.kyriji.common.cypria.CypriaCommon;
-import dev.kyriji.common.cypria.messaging.enums.RunContext;
-import dev.kyriji.common.cypria.messaging.messages.MessageInstanceReady;
-import dev.kyriji.common.cypria.messaging.messages.MessageLoadPlayerData;
-import dev.kyriji.common.cypria.messaging.models.MessageListener;
+import dev.kyriji.common.cypria.enums.Deployment;
 import dev.kyriji.commonmc.cypria.CypriaMinecraft;
+import dev.kyriji.commonmc.cypria.command.controllers.ConfigManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class CypriaHub extends JavaPlugin {
+    public CypriaCommon cypriaCommon;
 
     @Override
     public void onEnable() {
-		new CypriaCommon(RunContext.PLUGIN);
+		cypriaCommon = new CypriaCommon(ConfigManager.getLocalConfig(getDataFolder()), Deployment.HUB);
         CypriaMinecraft.init(this);
-
-        MessageInstanceReady instanceReadyMessage = new MessageInstanceReady();
-        instanceReadyMessage.send(response -> {
-            System.out.println("Response received");
-            System.out.println(response.success);
-        });
-
-        CypriaCommon.getMessageManager().addListener(new MessageListener<>(MessageLoadPlayerData.class, message -> {
-            System.out.println("Attempting to load playerdata for " + message.getPlayerUUID());
-            message.respond(new MessageLoadPlayerData.Response(false));
-        }));
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        cypriaCommon.shutdown();
+        CypriaMinecraft.shutdown();
     }
 }

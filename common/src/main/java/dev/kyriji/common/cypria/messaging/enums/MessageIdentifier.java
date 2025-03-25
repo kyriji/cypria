@@ -2,10 +2,15 @@ package dev.kyriji.common.cypria.messaging.enums;
 
 import dev.kyriji.common.cypria.messaging.messages.MessageInstanceReady;
 import dev.kyriji.common.cypria.messaging.messages.MessageLoadPlayerData;
+import dev.kyriji.common.cypria.messaging.messages.MessageQueueRequest;
 import dev.kyriji.common.cypria.messaging.models.RedisMessage;
 
 public enum MessageIdentifier {
+	//Manager Bound
 	INSTANCE_READY(MessageInstanceReady.class),
+	QUEUE_REQUEST(MessageQueueRequest.class),
+
+	//Instance Bound
 	LOAD_PLAYER_DATA(MessageLoadPlayerData.class),
 	;
 

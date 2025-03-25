@@ -6,7 +6,7 @@ import dev.kyriji.common.cypria.playerdata.models.PlayerDataDocument;
 
 public enum PlayerDataType {
 
-	INVENTORY("network", InventoryData.class),
+	INVENTORY("inventory", InventoryData.class),
 	;
 
 	private final String collectionName;

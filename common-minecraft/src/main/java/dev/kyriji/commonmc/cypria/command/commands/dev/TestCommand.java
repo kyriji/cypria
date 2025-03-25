@@ -22,7 +22,7 @@ public class TestCommand extends CypriaCommand {
 	public void execute(CommandSender sender, String command, List<String> args) {
 		if (!(sender instanceof Player player)) return;
 
-		System.out.println(ItemManager.getItem(DiamondSword.class));
+		player.give(ItemManager.getItem(DiamondSword.class).createItem());
 	}
 
 	@Override

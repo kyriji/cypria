@@ -1,5 +1,8 @@
 package dev.kyriji.common.cypria.controllers;
 
+import dev.kyriji.common.cypria.CypriaCommon;
+import dev.kyriji.common.cypria.config.documents.CoreConfig;
+import dev.kyriji.common.cypria.config.enums.ConfigType;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -11,7 +14,6 @@ public class RedisManager {
 
 	public static final String CHANNEL_NAME = "cypria";
 	private static final int MAX_CONNECTIONS = 25;
-	private static final String REDIS_HOST = "redis-service";
 
 	private final JedisPool pool;
 
@@ -21,7 +23,12 @@ public class RedisManager {
 		poolConfig.setMaxIdle(MAX_CONNECTIONS / 4);
 		poolConfig.setMinIdle(1);
 
-		this.pool = new JedisPool(poolConfig, REDIS_HOST);
+		CoreConfig coreConfig = CypriaCommon.getConfigManager().getConfig(ConfigType.CORE);
+
+		this.pool = new JedisPool(poolConfig,
+				coreConfig.getRedisConnection().getHost(),
+				coreConfig.getRedisConnection().getPort()
+		);
 	}
 
 	public Jedis getConnection() {

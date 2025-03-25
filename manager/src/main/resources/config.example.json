@@ -1,0 +1,4 @@
+{
+  "mongoConfigURI": "mongodb://user:pass@ip:port/?authSource=admin",
+  "mongoConfigDatabase": "configuration"
+}

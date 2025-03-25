@@ -14,4 +14,5 @@ dependencies {
     implementation 'redis.clients:jedis:3.7.0'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'dev.kyriji:bmc-api:0.0.0'
+    implementation 'org.mongodb:mongodb-driver-legacy:4.5.0'
 }

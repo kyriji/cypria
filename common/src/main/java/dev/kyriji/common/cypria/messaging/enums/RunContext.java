@@ -1,4 +1,4 @@
-package dev.kyriji.common.cypria.enums;
+package dev.kyriji.common.cypria.messaging.enums;
 
 public enum RunContext {
 	PLUGIN(MessageDirection.INSTANCE_BOUND),

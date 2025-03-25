@@ -1,9 +1,9 @@
 package dev.kyriji.common.cypria;
 
 import com.google.gson.Gson;
-import dev.kyriji.common.cypria.controllers.MessageManager;
+import dev.kyriji.common.cypria.messaging.controllers.MessageManager;
 import dev.kyriji.common.cypria.controllers.RedisManager;
-import dev.kyriji.common.cypria.enums.RunContext;
+import dev.kyriji.common.cypria.messaging.enums.RunContext;
 
 public class CypriaCommon {
 	private static CypriaCommon INSTANCE;

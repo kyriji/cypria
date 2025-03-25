@@ -1,4 +1,4 @@
-package dev.kyriji.common.cypria.models;
+package dev.kyriji.common.cypria.messaging.models;
 
 public abstract class RedisMessageResponse {
 	public boolean success;

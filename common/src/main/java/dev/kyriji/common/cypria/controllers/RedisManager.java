@@ -13,7 +13,7 @@ public class RedisManager {
 	private static final int MAX_CONNECTIONS = 25;
 	private static final String REDIS_HOST = "redis-service";
 
-	private JedisPool pool;
+	private final JedisPool pool;
 
 	public RedisManager() {
 		JedisPoolConfig poolConfig = new JedisPoolConfig();

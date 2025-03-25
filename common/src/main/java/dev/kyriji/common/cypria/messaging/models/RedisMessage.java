@@ -1,9 +1,9 @@
-package dev.kyriji.common.cypria.models;
+package dev.kyriji.common.cypria.messaging.models;
 
 import dev.kyriji.common.cypria.CypriaCommon;
-import dev.kyriji.common.cypria.enums.MessageIdentifier;
-import dev.kyriji.common.cypria.enums.MessageDirection;
-import dev.kyriji.common.cypria.enums.MessageType;
+import dev.kyriji.common.cypria.messaging.enums.MessageIdentifier;
+import dev.kyriji.common.cypria.messaging.enums.MessageDirection;
+import dev.kyriji.common.cypria.messaging.enums.MessageType;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.UUID;

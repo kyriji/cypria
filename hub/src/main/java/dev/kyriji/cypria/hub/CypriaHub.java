@@ -1,10 +1,10 @@
 package dev.kyriji.cypria.hub;
 
 import dev.kyriji.common.cypria.CypriaCommon;
-import dev.kyriji.common.cypria.enums.RunContext;
-import dev.kyriji.common.cypria.messages.MessageInstanceReady;
-import dev.kyriji.common.cypria.messages.MessageLoadPlayerData;
-import dev.kyriji.common.cypria.models.MessageListener;
+import dev.kyriji.common.cypria.messaging.enums.RunContext;
+import dev.kyriji.common.cypria.messaging.messages.MessageInstanceReady;
+import dev.kyriji.common.cypria.messaging.messages.MessageLoadPlayerData;
+import dev.kyriji.common.cypria.messaging.models.MessageListener;
 import dev.kyriji.commonmc.cypria.CypriaMinecraft;
 import org.bukkit.plugin.java.JavaPlugin;
 

@@ -1,10 +1,7 @@
-package dev.kyriji.common.cypria.models;
+package dev.kyriji.common.cypria.messaging.models;
 
-import com.google.gson.Gson;
-import dev.kyriji.common.cypria.enums.MessageIdentifier;
+import dev.kyriji.common.cypria.messaging.enums.MessageIdentifier;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.function.Consumer;
 
 import static dev.kyriji.common.cypria.CypriaCommon.gson;

@@ -40,7 +40,7 @@ public class ALang {
 		}
 
 		public String message() {
-			return prefixes.get(new Random().nextInt(prefixes.size())) + message;
+			return prefixes.get(new Random().nextInt(prefixes.size())) + " " + message;
 		}
 	}
 }

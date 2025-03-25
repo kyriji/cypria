@@ -49,13 +49,14 @@ public abstract class CypriaMultiCommand extends CypriaCommand {
 
 	@Override
 	public List<String> getTabComplete(CommandSender sender, String command, List<String> args) {
-		if(args.size() <= 1) {
+		assert !args.isEmpty();
+
+		if(args.size() == 1) {
+			String subCommand = args.getFirst().toLowerCase();
 			List<String> tabComplete = new ArrayList<>();
 			for (CypriaCommand testSubCommand : subCommands) {
-				if (testSubCommand.getCommand().startsWith(command.toLowerCase())) tabComplete.add(testSubCommand.getCommand());
-				for (String alias : testSubCommand.getAliases()) {
-					if (alias.startsWith(command.toLowerCase())) tabComplete.add(alias);
-				}
+				if (testSubCommand.getCommand().startsWith(subCommand)) tabComplete.add(testSubCommand.getCommand());
+				for (String alias : testSubCommand.getAliases()) if (alias.startsWith(command.toLowerCase())) tabComplete.add(alias);
 			}
 			return tabComplete;
 		}

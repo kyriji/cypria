@@ -2,17 +2,27 @@ package dev.kyriji.commonmc.cypria.item.enums;
 
 public enum ItemID {
 // 	General
-	DIAMOND_SWORD,
+	DIAMOND_SWORD("diamond_sword"),
 
 // 	Weapons
 // 	Gadgets
 // 	Trinkets
 // 	Armor
-	DIAMOND_ARMOR,
+	DIAMOND_ARMOR("diamond_armor"),
 	;
 
-	public static ItemID fromString(String string) {
-		for (ItemID itemID : ItemID.values()) if (itemID.name().equalsIgnoreCase(string)) return itemID;
+	private final String id;
+
+	ItemID(String id) {
+		this.id = id;
+	}
+
+	public String getID() {
+		return id;
+	}
+
+	public static ItemID fromString(String identifier) {
+		for (ItemID itemID : ItemID.values()) if (itemID.getID().equalsIgnoreCase(identifier)) return itemID;
 		return null;
 	}
 }

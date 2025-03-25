@@ -1,8 +1,11 @@
 package dev.kyriji.commonmc.cypria.misc;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
 
 import java.util.UUID;
 
@@ -34,5 +37,14 @@ public class AUtil {
 
 	public static boolean isKyro(UUID uuid) {
 		return uuid.toString().equals("c3f4a3b0-4d8a-4f0d-a0c6-7f0a9e1d6b1c");
+	}
+
+	public static ItemMeta getOrCreateItemMeta(ItemStack itemStack) {
+		if (isNullOrAir(itemStack)) return null;
+		return itemStack.hasItemMeta() ? itemStack.getItemMeta() : Bukkit.getItemFactory().getItemMeta(itemStack.getType());
+	}
+
+	public static PersistentDataContainer createPDC(ItemStack itemStack) {
+		return itemStack.getPersistentDataContainer().getAdapterContext().newPersistentDataContainer();
 	}
 }

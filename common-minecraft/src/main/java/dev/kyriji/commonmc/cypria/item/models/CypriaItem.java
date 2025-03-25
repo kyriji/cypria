@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public abstract class CypriaItem implements Listener {
-	private ItemID itemID;
+	private final ItemID itemID;
 
 	public CypriaItem(ItemID itemID) {
 		this.itemID = itemID;
@@ -39,7 +39,7 @@ public abstract class CypriaItem implements Listener {
 
 	public ItemStack createItem(ItemProperties dynamicProperties) {
 		ItemProperties staticProperties = getStaticProperties();
-		ItemProperties properties = staticProperties.clone().set(dynamicProperties);;
+		ItemProperties properties = staticProperties.clone().set(dynamicProperties);
 
 		Material material = properties.get(ItemPropertyType.MATERIAL);
 		String displayName = properties.get(ItemPropertyType.DISPLAY_NAME);
@@ -69,8 +69,11 @@ public abstract class CypriaItem implements Listener {
 
 			PersistentDataContainer container = itemMeta.getPersistentDataContainer();
 			PersistentDataContainer customDataContainer = container.getAdapterContext().newPersistentDataContainer();
+
 			customDataContainer.set(ItemNKey.ID, PersistentDataType.STRING, itemID.getID());
+
 			customDataSetters.forEach(setter -> setter.accept(customDataContainer));
+
 			container.set(ItemNKey.CUSTOM_DATA, PersistentDataType.TAG_CONTAINER, customDataContainer);
 		});
 

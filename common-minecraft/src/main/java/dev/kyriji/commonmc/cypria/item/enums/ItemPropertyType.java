@@ -11,6 +11,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.function.Consumer;
 
+// don't be fooled, the type T is very important. NEVER DELETE.
 public class ItemPropertyType<T> {
 	public static final ItemPropertyType<Material> MATERIAL = new ItemPropertyType<>();
 	public static final ItemPropertyType<String> DISPLAY_NAME = new ItemPropertyType<>();
@@ -21,19 +22,4 @@ public class ItemPropertyType<T> {
 	public static final ItemPropertyType<Multimap<Attribute, AttributeModifier>> ATTRIBUTES = new ItemPropertyType<>();
 
 	public static final ItemPropertyType<List<Consumer<PersistentDataContainer>>> CUSTOM_DATA = new ItemPropertyType<>();
-
-	static {
-		// ItemStack itemStack = new ItemStack(Material.GOLD_BLOCK);
-		// ItemMeta itemMeta = itemStack.getItemMeta();
-		//
-		// itemStack.getEnchantments();
-		// itemStack.getItemFlags(); // except unbreakable
-		// itemMeta.getDisplayName();
-		// itemMeta.getPersistentDataContainer();
-		// itemMeta.getAttributeModifiers();
-		//
-		// // unbreakable
-		// itemMeta.setUnbreakable(true);
-		// itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
-	}
 }

@@ -28,7 +28,7 @@ public class ItemProperties {
 
 	private ItemProperties() {}
 
-	public ItemProperties(ItemProperties properties) {
+	private ItemProperties(ItemProperties properties) {
 		this.properties.putAll(properties.properties);
 	}
 

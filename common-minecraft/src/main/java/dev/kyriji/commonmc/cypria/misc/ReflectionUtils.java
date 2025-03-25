@@ -10,7 +10,7 @@ import java.util.jar.JarFile;
 
 public class ReflectionUtils {
 	public static <T> List<T> initPackage(String packageName, Class<T> type) {
-		System.out.println("attempting to initialize package: " + packageName);
+		AUtil.log("attempting to initialize package: " + packageName);
 		List<T> instances = new ArrayList<>();
 
 		try {
@@ -31,15 +31,15 @@ public class ReflectionUtils {
 							}
 						}
 					} catch (Exception e) {
-						System.out.println("error scanning jar " + file.getName() + ": " + e.getMessage());
+						AUtil.log("error scanning jar " + file.getName() + ": " + e.getMessage());
 					}
 				}
 			}
 		} catch (Exception e) {
-			System.out.println("error during classpath scan: " + e);
+			AUtil.log("error during classpath scan: " + e);
 		}
 
-		System.out.println("instantiated " + instances.size() + " class" + (instances.size() == 1 ? "" : "es") +
+		AUtil.log("instantiated " + instances.size() + " class" + (instances.size() == 1 ? "" : "es") +
 				" in package " + packageName);
 		return instances;
 	}
@@ -51,17 +51,17 @@ public class ReflectionUtils {
 			Class<?> clazz = Class.forName(className);
 
 			if (clazz.isInterface() || Modifier.isAbstract(clazz.getModifiers()) || !type.isAssignableFrom(clazz)) {
-				System.out.println("skipping " + className + " (not compatible with " + type.getName() + ")");
+				AUtil.log("skipping " + className + " (not compatible with " + type.getName() + ")");
 				return instances;
 			}
 
 			Object instance = clazz.getDeclaredConstructor().newInstance();
 			instances.add(type.cast(instance));
-			System.out.println("instantiated: " + className);
+			AUtil.log("instantiated: " + className);
 		} catch (NoSuchMethodException e) {
-			System.out.println("no empty constructor found for " + className);
+			AUtil.log("no empty constructor found for " + className);
 		} catch (Exception e) {
-			System.out.println("error instantiating " + className + ": " + e.getMessage());
+			AUtil.log("error instantiating " + className + ": " + e.getMessage());
 		}
 
 		return instances;

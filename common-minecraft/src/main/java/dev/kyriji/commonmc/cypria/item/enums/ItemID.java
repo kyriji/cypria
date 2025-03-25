@@ -10,4 +10,9 @@ public enum ItemID {
 // 	Armor
 	DIAMOND_ARMOR,
 	;
+
+	public static ItemID fromString(String string) {
+		for (ItemID itemID : ItemID.values()) if (itemID.name().equalsIgnoreCase(string)) return itemID;
+		return null;
+	}
 }

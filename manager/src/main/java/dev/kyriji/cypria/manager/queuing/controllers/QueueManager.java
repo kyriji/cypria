@@ -1,5 +1,6 @@
 package dev.kyriji.cypria.manager.queuing.controllers;
 
+import dev.kyriji.bigminecraftapi.BigMinecraftAPI;
 import dev.kyriji.common.cypria.CypriaCommon;
 import dev.kyriji.common.cypria.enums.Deployment;
 import dev.kyriji.common.cypria.messaging.messages.MessageLoadPlayerData;
@@ -29,7 +30,7 @@ public class QueueManager {
 		MessageLoadPlayerData loadRequest = new MessageLoadPlayerData(instance.getAddress(), player);
 		loadRequest.send(response -> {
 			if(response.success) {
-				//TODO: Use BMC API to queue player
+				BigMinecraftAPI.getNetworkManager().transferPlayer(player, instance.getAddress());
 				callback.accept(true, "Player queued");
 			} else {
 				callback.accept(false, "Failed to queue player");

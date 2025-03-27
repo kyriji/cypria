@@ -42,9 +42,7 @@ public class CypriaPlayer {
 	}
 
 	public CompletableFuture<Void> save() {
-		return CompletableFuture.runAsync(() -> {
-			saveInventory();
-		})
+		return CompletableFuture.runAsync(this::saveInventory)
 		.exceptionally(ex -> {
 			ex.printStackTrace();
 			return null;
@@ -62,10 +60,7 @@ public class CypriaPlayer {
 			}
 
 			inventoryData.setInventory(serializedInventory);
-			inventoryData.save().exceptionally(ex -> {
-				ex.printStackTrace();
-				return null;
-			});
+			inventoryData.save();
 		});
 	}
 

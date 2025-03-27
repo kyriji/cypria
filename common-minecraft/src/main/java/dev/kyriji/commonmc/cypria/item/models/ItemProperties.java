@@ -2,7 +2,6 @@ package dev.kyriji.commonmc.cypria.item.models;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import dev.kyriji.commonmc.cypria.item.enums.ItemNKey;
 import dev.kyriji.commonmc.cypria.item.enums.ItemPropertyType;
 import dev.kyriji.commonmc.cypria.item.enums.ItemUnbreakableType;
 import dev.kyriji.commonmc.cypria.misc.AUtil;
@@ -12,14 +11,10 @@ import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.function.Consumer;
 
 public class ItemProperties {
 	public static final ItemProperties EMPTY = new ItemProperties();
@@ -30,6 +25,10 @@ public class ItemProperties {
 
 	private ItemProperties(ItemProperties properties) {
 		this.properties.putAll(properties.properties);
+	}
+
+	public CustomData data() {
+		return get(ItemPropertyType.CUSTOM_DATA);
 	}
 
 	public <T> T get(ItemPropertyType<T> property) {
@@ -76,17 +75,21 @@ public class ItemProperties {
 				.enchantGlint(itemMeta.hasEnchants())
 				.itemFlags(itemMeta.getItemFlags().toArray(new ItemFlag[0]))
 				.attributes(itemMeta.getAttributeModifiers())
-				.customData(container -> {
-					PersistentDataContainer customData = itemMeta.getPersistentDataContainer()
-							.get(ItemNKey.CUSTOM_DATA, PersistentDataType.TAG_CONTAINER);
-					if (customData == null) return;
-					container.set(ItemNKey.CUSTOM_DATA, PersistentDataType.TAG_CONTAINER, customData);
-				})
+				.addData(new CustomData(itemMeta.getPersistentDataContainer()))
 				.build();
 	}
 
 	public static class Builder {
 		private final ItemProperties properties = new ItemProperties();
+
+		public Builder() {
+			properties.setIfAbsent(ItemPropertyType.CUSTOM_DATA, new CustomData());
+		}
+
+		public Builder(ItemProperties properties) {
+			this();
+			this.properties.set(properties);
+		}
 
 		public Builder material(Material material) {
 			properties.set(ItemPropertyType.MATERIAL, material);
@@ -127,9 +130,9 @@ public class ItemProperties {
 			return this;
 		}
 
-		public Builder customData(Consumer<PersistentDataContainer> consumer) {
-			properties.setIfAbsent(ItemPropertyType.CUSTOM_DATA, new ArrayList<>());
-			properties.get(ItemPropertyType.CUSTOM_DATA).add(consumer);
+		public Builder addData(CustomData data) {
+			CustomData customData = properties.get(ItemPropertyType.CUSTOM_DATA);
+			customData.set(data);
 			return this;
 		}
 

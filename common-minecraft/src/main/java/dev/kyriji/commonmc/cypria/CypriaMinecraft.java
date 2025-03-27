@@ -5,9 +5,11 @@ import dev.kyriji.common.cypria.CypriaCommon;
 import dev.kyriji.common.cypria.models.CypriaInstance;
 import dev.kyriji.commonmc.cypria.command.CommandModule;
 import dev.kyriji.commonmc.cypria.controllers.ModuleManager;
+import dev.kyriji.commonmc.cypria.event.EventsModule;
 import dev.kyriji.commonmc.cypria.item.ItemModule;
 import dev.kyriji.commonmc.cypria.misc.AUtil;
 import dev.kyriji.commonmc.cypria.misc.FontUtils;
+import dev.kyriji.commonmc.cypria.player.PlayerModule;
 import dev.kyriji.commonmc.cypria.playerdata.PlayerDataModule;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -38,6 +40,8 @@ public class CypriaMinecraft {
 		moduleManager.registerModule(new ItemModule());
 		moduleManager.registerModule(new CommandModule());
 		moduleManager.registerModule(new PlayerDataModule());
+		moduleManager.registerModule(new PlayerModule());
+		moduleManager.registerModule(new EventsModule());
 	}
 
 	public static void shutdown() {

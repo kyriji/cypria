@@ -24,7 +24,19 @@ public class AUtil {
 	}
 
 	private static void color(CommandSender sender, String message) {
-		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+		sender.sendMessage(colorize(message));
+	}
+
+	public static void raw(CommandSender sender, String message) {
+		sender.sendMessage(message);
+	}
+
+	public static String colorize(String message) {
+		return ChatColor.translateAlternateColorCodes('&', message).replaceAll("&&", "&");
+	}
+
+	public static String uncolorize(String message) {
+		return message.replaceAll("\u00A7", "&");
 	}
 
 	public static boolean isNullOrAir(ItemStack itemStack) {

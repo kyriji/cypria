@@ -2,11 +2,14 @@ package dev.kyriji.commonmc.cypria.item.models;
 
 import com.google.common.collect.Multimap;
 import dev.kyriji.commonmc.cypria.CypriaMinecraft;
+import dev.kyriji.commonmc.cypria.item.ability.models.ItemAbility;
 import dev.kyriji.commonmc.cypria.item.controllers.ItemManager;
-import dev.kyriji.commonmc.cypria.item.enums.ItemID;
-import dev.kyriji.commonmc.cypria.item.enums.ItemNKey;
+import dev.kyriji.commonmc.cypria.item.enums.ItemType;
 import dev.kyriji.commonmc.cypria.item.enums.ItemPropertyType;
 import dev.kyriji.commonmc.cypria.item.enums.ItemUnbreakableType;
+import dev.kyriji.commonmc.cypria.misc.AUtil;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -18,36 +21,48 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.function.Consumer;
+import java.util.*;
 
 public abstract class CypriaItem implements Listener {
-	private final ItemID itemID;
+	private final ItemType itemType;
 
-	public CypriaItem(ItemID itemID) {
-		this.itemID = itemID;
+	private final List<ItemAbility> itemAbilities = new ArrayList<>();
+
+	public CypriaItem(ItemType itemType) {
+		this.itemType = itemType;
 
 		Bukkit.getPluginManager().registerEvents(this, CypriaMinecraft.plugin);
 	}
 
 	public abstract ItemProperties getStaticProperties();
+	public abstract List<String> getLore(ItemProperties properties);
+
+	public void itemAbilities(ItemAbility... itemAbilities) {
+		this.itemAbilities.addAll(Arrays.stream(itemAbilities).filter(Objects::nonNull).toList());
+	}
+
+	public ItemProperties createFullProperties(ItemProperties staticProperties, ItemProperties dynamicProperties) {
+		return staticProperties.clone().set(dynamicProperties);
+	}
 
 	public ItemStack createItem() {
 		return createItem(ItemProperties.EMPTY);
 	}
 
 	public ItemStack createItem(ItemProperties dynamicProperties) {
-		ItemProperties staticProperties = getStaticProperties();
-		ItemProperties properties = staticProperties.clone().set(dynamicProperties);
+		ItemProperties properties = createFullProperties(getStaticProperties(), dynamicProperties);
 
 		Material material = properties.get(ItemPropertyType.MATERIAL);
 		String displayName = properties.get(ItemPropertyType.DISPLAY_NAME);
+		List<TextComponent> lore = getLore(properties).stream()
+				.map(line -> Component.text(AUtil.colorize(line))).toList();
 		ItemUnbreakableType unbreakableType = properties.get(ItemPropertyType.UNBREAKABLE);
-		boolean hasEnchantGlint = properties.get(ItemPropertyType.ENCHANT_GLINT);
+		boolean hasEnchantGlint = properties.getOrDefault(ItemPropertyType.ENCHANT_GLINT, false);
 		LinkedHashSet<ItemFlag> itemFlags = properties.getOrDefault(ItemPropertyType.ITEM_FLAGS, new LinkedHashSet<>());
 		Multimap<Attribute, AttributeModifier> attributes = properties.get(ItemPropertyType.ATTRIBUTES);
-		List<Consumer<PersistentDataContainer>> customDataSetters = properties.get(ItemPropertyType.CUSTOM_DATA);
+		CustomData data = properties.get(ItemPropertyType.CUSTOM_DATA);
+
+		data.set(CustomProperty.ID, itemType.getID());
 
 		ItemStack itemStack = new ItemStack(material);
 
@@ -55,6 +70,7 @@ public abstract class CypriaItem implements Listener {
 
 		itemStack.editMeta(itemMeta -> {
 			itemMeta.setDisplayName(displayName);
+			itemMeta.lore(lore);
 
 			if (unbreakableType != null) {
 				itemMeta.setUnbreakable(true);
@@ -69,12 +85,8 @@ public abstract class CypriaItem implements Listener {
 
 			PersistentDataContainer container = itemMeta.getPersistentDataContainer();
 			PersistentDataContainer customDataContainer = container.getAdapterContext().newPersistentDataContainer();
-
-			customDataContainer.set(ItemNKey.ID, PersistentDataType.STRING, itemID.getID());
-
-			customDataSetters.forEach(setter -> setter.accept(customDataContainer));
-
-			container.set(ItemNKey.CUSTOM_DATA, PersistentDataType.TAG_CONTAINER, customDataContainer);
+			data.write(customDataContainer);
+			container.set(CustomData.CONTAINER_KEY, PersistentDataType.TAG_CONTAINER, customDataContainer);
 		});
 
 		return itemStack;
@@ -84,7 +96,11 @@ public abstract class CypriaItem implements Listener {
 		return ItemManager.getItem(itemStack) == this;
 	}
 
-	public ItemID getItemID() {
-		return itemID;
+	public ItemType getItemID() {
+		return itemType;
+	}
+
+	public List<ItemAbility> getItemAbilities() {
+		return itemAbilities;
 	}
 }

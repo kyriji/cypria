@@ -86,7 +86,7 @@ public class FontUtils {
 				"&l >" +
 				"&m ".repeat(Math.max(0, spaces));
 
-		return ChatColor.translateAlternateColorCodes('&', header);
+		return AUtil.colorize(header);
 	}
 
 	public static String createPlainFooter(ChatColor secondary, String titleHeader) {

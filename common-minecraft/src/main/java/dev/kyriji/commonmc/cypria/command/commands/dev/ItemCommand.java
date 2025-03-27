@@ -34,7 +34,8 @@ public class ItemCommand extends CypriaCommand {
 			return;
 		}
 
-		AUtil.send(sender, ALang.DEV_MESSAGE, itemStack.getItemMeta().getAsComponentString());
+		AUtil.raw(sender, AUtil.colorize(ALang.DEV_MESSAGE.prefix()) + " " +
+				AUtil.uncolorize(itemStack.getItemMeta().getAsComponentString()));
 	}
 
 	@Override

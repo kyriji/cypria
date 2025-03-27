@@ -1,6 +1,6 @@
 package dev.kyriji.commonmc.cypria.item.enums;
 
-public enum ItemID {
+public enum ItemType {
 // 	General
 	DIAMOND_SWORD("diamond_sword"),
 
@@ -13,7 +13,7 @@ public enum ItemID {
 
 	private final String id;
 
-	ItemID(String id) {
+	ItemType(String id) {
 		this.id = id;
 	}
 
@@ -21,8 +21,8 @@ public enum ItemID {
 		return id;
 	}
 
-	public static ItemID fromString(String identifier) {
-		for (ItemID itemID : ItemID.values()) if (itemID.getID().equalsIgnoreCase(identifier)) return itemID;
+	public static ItemType fromString(String identifier) {
+		for (ItemType itemType : ItemType.values()) if (itemType.getID().equalsIgnoreCase(identifier)) return itemType;
 		return null;
 	}
 }

@@ -5,6 +5,7 @@ import dev.kyriji.common.cypria.CypriaCommon;
 import dev.kyriji.common.cypria.playerdata.enums.PlayerDataType;
 
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 
 public abstract class PlayerDataDocument {
 	protected String uuid;
@@ -20,7 +21,9 @@ public abstract class PlayerDataDocument {
 		this.uuid = uuid;
 	}
 
-	public void save() {
-		CypriaCommon.getPlayerDataManager().savePlayerData(this, Objects.requireNonNull(PlayerDataType.fromClass(this.getClass())));
+	public CompletableFuture<Void> save() {
+		return CompletableFuture.runAsync(() -> {
+			CypriaCommon.getPlayerDataManager().savePlayerData(this, Objects.requireNonNull(PlayerDataType.fromClass(this.getClass())));
+		});
 	}
 }

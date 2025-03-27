@@ -32,6 +32,7 @@ public class PlayerDataManager {
 	}
 
 	private final Map<UUID, List<PlayerDataDocument>> loadedPlayerData = new HashMap<>();
+	private final List<UUID> frozenPlayers = new ArrayList<>();
 
 	public CompletableFuture<Void> loadPlayerData(UUID uuid, PlayerDataType type) {
 		return CompletableFuture.runAsync(() -> getPlayerData(uuid, type));
@@ -99,6 +100,7 @@ public class PlayerDataManager {
 
 	public void unloadPlayerData(UUID uuid) {
 		loadedPlayerData.remove(uuid);
+		frozenPlayers.remove(uuid);
 	}
 
 	public CompletableFuture<Void> savePlayerData(UUID uuid, PlayerDataType type) {
@@ -114,6 +116,9 @@ public class PlayerDataManager {
 
 			MongoCollection<T> collection = connection.database().getCollection(type.getCollectionName(), (Class<T>) type.getDocumentClass());
 			collection.replaceOne(eq("uuid", document.getUuid()), document, new ReplaceOptions().upsert(true));
+		}).exceptionally(ex -> {
+			ex.printStackTrace();
+			return null;
 		});
 	}
 
@@ -123,14 +128,20 @@ public class PlayerDataManager {
 		}
 
 		List<PlayerDataDocument> currentDataState = new ArrayList<>(loadedPlayerData.get(playerUUID));
+		frozenPlayers.add(playerUUID);
 
 		CompletableFuture<Void> unfreezeFuture = new CompletableFuture<>();
 
 		unfreezeFuture.thenRun(() -> {
 			loadedPlayerData.put(playerUUID, currentDataState);
+			frozenPlayers.remove(playerUUID);
 			System.out.println("Player data for UUID " + playerUUID + " has been reverted to its frozen state.");
 		});
 
 		return unfreezeFuture;
+	}
+
+	public boolean isFrozen(UUID playerUUID) {
+		return frozenPlayers.contains(playerUUID);
 	}
 }

@@ -1,6 +1,10 @@
 package dev.kyriji.commonmc.cypria.player.controllers;
 
+import dev.kyriji.common.cypria.CypriaCommon;
+import dev.kyriji.commonmc.cypria.CypriaMinecraft;
 import dev.kyriji.commonmc.cypria.player.models.CypriaPlayer;
+import dev.kyriji.commonmc.cypria.playerdata.controllers.PlayerDataManager;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,8 +18,7 @@ import java.util.UUID;
 public class PlayerManager implements Listener {
 	public static List<CypriaPlayer> playerList = new ArrayList<>();
 
-	// TODO: wiji replace this with when the player data is loaded
-	public void onPlayerDataLoad(UUID uuid) {
+	public static void onPlayerDataLoad(UUID uuid) {
 		assert getPlayer(uuid) == null;
 
 		CypriaPlayer cypriaPlayer = new CypriaPlayer(uuid);
@@ -24,20 +27,35 @@ public class PlayerManager implements Listener {
 
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
-		Player player = event.getPlayer();
-		CypriaPlayer cypriaPlayer = getPlayer(player.getUniqueId());
-		assert cypriaPlayer != null;
+		CypriaMinecraft.cypriaInstance.addPlayer(event.getPlayer().getUniqueId(), event.getPlayer().getName());
+		PlayerDataManager.loadPlayerData(event.getPlayer().getUniqueId()).thenRun(() -> {
+			Player player = event.getPlayer();
+			CypriaPlayer cypriaPlayer = getPlayer(player.getUniqueId());
+			assert cypriaPlayer != null;
 
-		cypriaPlayer.attachPlayer(player);
+			cypriaPlayer.attachPlayer(player);
+		})
+		.exceptionally(ex -> {
+			ex.printStackTrace(); // Print the exception for debugging
+			return null;
+		});
 	}
 
 	@EventHandler
 	public void onQuit(PlayerQuitEvent event) {
+		CypriaMinecraft.cypriaInstance.removePlayer(event.getPlayer().getUniqueId());
+
+		CypriaCommon.getPlayerDataManager().unloadPlayerData(event.getPlayer().getUniqueId());
+
 		Player player = event.getPlayer();
 		CypriaPlayer cypriaPlayer = getPlayer(player.getUniqueId());
 		assert cypriaPlayer != null;
 
-	// 	TODO: data saving?
+		if (!CypriaCommon.getPlayerDataManager().isFrozen(event.getPlayer().getUniqueId()))  {
+			cypriaPlayer.save().thenRunAsync(() -> {
+				Bukkit.getScheduler().runTask(CypriaMinecraft.plugin, () -> event.getPlayer().getInventory().clear());
+			});
+		}
 
 		playerList.remove(cypriaPlayer);
 	}

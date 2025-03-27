@@ -2,6 +2,7 @@ package dev.kyriji.commonmc.cypria.playerdata.controllers;
 
 import dev.kyriji.common.cypria.CypriaCommon;
 import dev.kyriji.common.cypria.playerdata.enums.PlayerDataType;
+import dev.kyriji.commonmc.cypria.player.controllers.PlayerManager;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
@@ -14,14 +15,7 @@ public class PlayerDataManager {
 			for(PlayerDataType value : PlayerDataType.values()) {
 				CypriaCommon.getPlayerDataManager().loadPlayerData(playerUUID, value);
 			}
-		});
-	}
-
-	public static CompletableFuture<Void> savePlayerData(Player player) {
-		return CompletableFuture.runAsync(() -> {
-			for(PlayerDataType value : PlayerDataType.values()) {
-				CypriaCommon.getPlayerDataManager().savePlayerData(player.getUniqueId(), value);
-			}
+			PlayerManager.onPlayerDataLoad(playerUUID);
 		});
 	}
 }

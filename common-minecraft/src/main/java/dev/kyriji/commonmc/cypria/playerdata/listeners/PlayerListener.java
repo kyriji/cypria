@@ -12,13 +12,17 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
-		CypriaMinecraft.cypriaInstance.addPlayer(event.getPlayer().getUniqueId(), event.getPlayer().getName());
-		PlayerDataManager.loadPlayerData(event.getPlayer().getUniqueId());
+		new Thread(() -> {
+			CypriaMinecraft.cypriaInstance.addPlayer(event.getPlayer().getUniqueId(), event.getPlayer().getName());
+			PlayerDataManager.loadPlayerData(event.getPlayer().getUniqueId());
+		}).start();
 	}
 
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
-		CypriaMinecraft.cypriaInstance.removePlayer(event.getPlayer().getUniqueId());
-		CypriaCommon.getPlayerDataManager().unloadPlayerData(event.getPlayer().getUniqueId());
+		new Thread(() -> {
+			CypriaMinecraft.cypriaInstance.removePlayer(event.getPlayer().getUniqueId());
+			CypriaCommon.getPlayerDataManager().unloadPlayerData(event.getPlayer().getUniqueId());
+		}).start();
 	}
 }

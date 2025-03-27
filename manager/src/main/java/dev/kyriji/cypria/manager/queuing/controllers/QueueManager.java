@@ -16,7 +16,7 @@ public class QueueManager {
 	public QueueListener queueListener;
 
 	public QueueManager() {
-		this.queueListener = new QueueListener();
+		new Thread(() -> this.queueListener = new QueueListener()).start();
 	}
 
 	public void queuePlayer(UUID player, Deployment deployment, BiConsumer<Boolean, String> callback) {

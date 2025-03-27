@@ -57,7 +57,10 @@ public class RedisManager {
 		new Thread(() -> {
 			try (Jedis jedisSubscriber = pool.getResource()) {
 				jedisSubscriber.subscribe(pubSub, CHANNEL_NAME);
+			} catch(Exception e) {
+				e.printStackTrace();
 			} finally {
+				System.out.println("Unsubscribing from Redis channel");
 				activeListeners.remove(pubSub);
 			}
 		}).start();

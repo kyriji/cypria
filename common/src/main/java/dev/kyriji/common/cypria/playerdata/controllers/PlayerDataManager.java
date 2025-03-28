@@ -123,12 +123,14 @@ public class PlayerDataManager {
 	}
 
 	public CompletableFuture<Void> freezePlayerData(UUID playerUUID) {
+		System.out.println("Freezing player data for UUID " + playerUUID);
 		if(!loadedPlayerData.containsKey(playerUUID)) {
 			throw new IllegalStateException("Player data is not loaded for UUID: " + playerUUID);
 		}
 
 		List<PlayerDataDocument> currentDataState = new ArrayList<>(loadedPlayerData.get(playerUUID));
 		frozenPlayers.add(playerUUID);
+		System.out.println(isFrozen(playerUUID));
 
 		CompletableFuture<Void> unfreezeFuture = new CompletableFuture<>();
 
@@ -142,6 +144,8 @@ public class PlayerDataManager {
 	}
 
 	public boolean isFrozen(UUID playerUUID) {
+		System.out.println("Checking if player data is frozen for UUID " + playerUUID);
+		System.out.println("Frozen players: " + frozenPlayers);
 		return frozenPlayers.contains(playerUUID);
 	}
 }

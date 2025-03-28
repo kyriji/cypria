@@ -4,7 +4,6 @@ import dev.kyriji.common.cypria.CypriaCommon;
 import dev.kyriji.commonmc.cypria.CypriaMinecraft;
 import dev.kyriji.commonmc.cypria.player.models.CypriaPlayer;
 import dev.kyriji.commonmc.cypria.playerdata.controllers.PlayerDataManager;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -44,17 +43,18 @@ public class PlayerManager implements Listener {
 	@EventHandler
 	public void onQuit(PlayerQuitEvent event) {
 		CypriaMinecraft.cypriaInstance.removePlayer(event.getPlayer().getUniqueId());
-		CypriaCommon.getPlayerDataManager().unloadPlayerData(event.getPlayer().getUniqueId());
 
 		Player player = event.getPlayer();
 		CypriaPlayer cypriaPlayer = getPlayer(player.getUniqueId());
 		assert cypriaPlayer != null;
 
 		if (!CypriaCommon.getPlayerDataManager().isFrozen(event.getPlayer().getUniqueId()))  {
+			System.out.println("Saving player data for " + player.getName());
 			cypriaPlayer.save();
 		}
 
 		playerList.remove(cypriaPlayer);
+		CypriaCommon.getPlayerDataManager().unloadPlayerData(event.getPlayer().getUniqueId());
 	}
 
 	public static CypriaPlayer getPlayer(UUID uuid) {

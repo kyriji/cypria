@@ -60,7 +60,6 @@ public class CypriaPlayer {
 
 					ItemStack[] contents = player.getInventory().getContents();
 					for (@Nullable ItemStack itemStack : contents) {
-						System.out.println("Saving item: " + itemStack);
 						if(itemStack == null) serializedInventory.add(null);
 						else serializedInventory.add(itemStack.serializeAsBytes());
 					}
@@ -75,13 +74,18 @@ public class CypriaPlayer {
 	}
 
 	public void loadInventory() {
-		List<byte[]> serializedInventory = inventoryData.getInventory();
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				List<byte[]> serializedInventory = inventoryData.getInventory();
 
-		for (int i = 0; i < serializedInventory.size(); i++) {
-			byte[] serializedItem = serializedInventory.get(i);
-			if(serializedItem == null) player.getInventory().setItem(i, null);
-			else player.getInventory().setItem(i, ItemStack.deserializeBytes(serializedItem));
-		}
+				for (int i = 0; i < serializedInventory.size(); i++) {
+					byte[] serializedItem = serializedInventory.get(i);
+					if(serializedItem == null) player.getInventory().setItem(i, null);
+					else player.getInventory().setItem(i, ItemStack.deserializeBytes(serializedItem));
+				}
+			}
+		}.runTask(CypriaMinecraft.plugin);
 	}
 
 

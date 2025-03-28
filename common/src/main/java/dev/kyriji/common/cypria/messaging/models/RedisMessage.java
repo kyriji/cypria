@@ -4,6 +4,7 @@ import dev.kyriji.common.cypria.CypriaCommon;
 import dev.kyriji.common.cypria.messaging.enums.MessageIdentifier;
 import dev.kyriji.common.cypria.messaging.enums.MessageDirection;
 import dev.kyriji.common.cypria.messaging.enums.MessageType;
+import redis.clients.jedis.Jedis;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.UUID;
@@ -46,8 +47,10 @@ public abstract class RedisMessage<T extends RedisMessageResponse> {
 		String objectString = gson.toJson(this);
 		message.append(objectString);
 
-		CypriaCommon.getRedisManager().getConnection().publish(CHANNEL_NAME, message.toString());
-		CypriaCommon.getMessageManager().addMessage(this);
+		try (Jedis jedis = CypriaCommon.getRedisManager().getConnection()) {
+			jedis.publish(CHANNEL_NAME, message.toString());
+			CypriaCommon.getMessageManager().addMessage(this);
+		}
 		return this;
 	}
 
@@ -71,8 +74,10 @@ public abstract class RedisMessage<T extends RedisMessageResponse> {
 		String messageIdentifier = this.messageIdentifier.name();
 		String messageType = MessageType.RESPONSE.name();
 
-		CypriaCommon.getRedisManager().getConnection().publish(CHANNEL_NAME, messageType + "|" + messageIdentifier + "|" +
-				replyIdentifier + "|" + getResponseDirection().name() + "|" + objectString);
+		try (Jedis jedis = CypriaCommon.getRedisManager().getConnection()) {
+			jedis.publish(CHANNEL_NAME, messageType + "|" + messageIdentifier + "|" +
+					replyIdentifier + "|" + getResponseDirection().name() + "|" + objectString);
+		}
 	}
 
 	public MessageDirection getResponseDirection() {

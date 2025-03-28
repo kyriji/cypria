@@ -3,8 +3,10 @@ package dev.kyriji.commonmc.cypria.player.models;
 import dev.kyriji.common.cypria.CypriaCommon;
 import dev.kyriji.common.cypria.playerdata.documents.InventoryData;
 import dev.kyriji.common.cypria.playerdata.enums.PlayerDataType;
+import dev.kyriji.commonmc.cypria.CypriaMinecraft;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -51,16 +53,21 @@ public class CypriaPlayer {
 
 	public CompletableFuture<Void> saveInventory() {
 		return CompletableFuture.runAsync(() -> {
-			List<byte[]> serializedInventory = new ArrayList<>();
+			new BukkitRunnable() {
+				@Override
+				public void run() {
+					List<byte[]> serializedInventory = new ArrayList<>();
 
-			ItemStack[] contents = player.getInventory().getContents();
-			for (@Nullable ItemStack itemStack : contents) {
-				if(itemStack == null) serializedInventory.add(null);
-				else serializedInventory.add(itemStack.serializeAsBytes());
-			}
+					ItemStack[] contents = player.getInventory().getContents();
+					for (@Nullable ItemStack itemStack : contents) {
+						if(itemStack == null) serializedInventory.add(null);
+						else serializedInventory.add(itemStack.serializeAsBytes());
+					}
 
-			inventoryData.setInventory(serializedInventory);
-			inventoryData.save();
+					inventoryData.setInventory(serializedInventory);
+					inventoryData.save();
+				}
+			}.runTask(CypriaMinecraft.plugin);
 		});
 	}
 

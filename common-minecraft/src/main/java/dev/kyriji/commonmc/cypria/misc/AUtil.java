@@ -27,7 +27,7 @@ public class AUtil {
 		sender.sendMessage(colorize(message));
 	}
 
-	public static void raw(CommandSender sender, String message) {
+	public static void raw(CommandSender sender, String zmessage) {
 		sender.sendMessage(message);
 	}
 

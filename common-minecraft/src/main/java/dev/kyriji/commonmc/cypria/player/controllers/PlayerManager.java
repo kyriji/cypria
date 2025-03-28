@@ -44,7 +44,6 @@ public class PlayerManager implements Listener {
 	@EventHandler
 	public void onQuit(PlayerQuitEvent event) {
 		CypriaMinecraft.cypriaInstance.removePlayer(event.getPlayer().getUniqueId());
-
 		CypriaCommon.getPlayerDataManager().unloadPlayerData(event.getPlayer().getUniqueId());
 
 		Player player = event.getPlayer();

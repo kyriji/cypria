@@ -44,8 +44,6 @@ public class CypriaInstance {
 	public void setPlayers(Map<UUID, String> players) {
 		this.players.clear();
 		this.players.putAll(players);
-
-		CypriaCommon.getRedisManager().updateInstance(this);
 	}
 
 	public void remove() {

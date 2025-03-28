@@ -77,6 +77,8 @@ public class RedisManager {
 		String address = instance.getAddress();
 		Deployment deployment = instance.getDeployment();
 
+		if(address == null || deployment == null) return;
+
 		String key = "cypria:instance:" + deployment.name() + ":" + address;
 
 		try (Jedis jedis = pool.getResource()) {

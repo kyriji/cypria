@@ -42,7 +42,6 @@ public class QueueManager {
 		List<CypriaInstance> instances = CypriaCommon.getRedisManager().getInstances().stream()
 				.filter(instance -> instance.getDeployment() == deployment).toList();
 
-		System.out.println(instances);
 		System.out.println("-------------------");
 		CypriaCommon.getRedisManager().getInstances().forEach(instance -> {
 			System.out.println(instance.getAddress() + " " + instance.getDeployment());

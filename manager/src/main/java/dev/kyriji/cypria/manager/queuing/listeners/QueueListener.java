@@ -9,9 +9,20 @@ public class QueueListener {
 
 	public QueueListener() {
 		CypriaCommon.getMessageManager().addListener(new MessageListener<>(MessageQueueRequest.class, message -> {
-			CypriaManager.queueManager.queuePlayer(message.getPlayerUUID(), message.getDeployment(), (success, successMessage) -> {
-				message.respond(new MessageQueueRequest.Response(success, successMessage));
-			});
+				try {
+					CypriaManager.queueManager.queuePlayer(
+							message.getPlayerUUID(),
+							message.getDeployment(),
+							(success, successMessage) -> {
+								message.respond(new MessageQueueRequest.Response(success, successMessage));
+							}
+					);
+				} catch(Exception e) {
+					e.printStackTrace();
+					message.respond(new MessageQueueRequest.Response(false, "Processing failed: " + e.getMessage()));
+				}
 		}));
 	}
 }
+
+

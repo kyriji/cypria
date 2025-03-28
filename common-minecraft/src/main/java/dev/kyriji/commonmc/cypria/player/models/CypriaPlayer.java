@@ -60,12 +60,15 @@ public class CypriaPlayer {
 
 					ItemStack[] contents = player.getInventory().getContents();
 					for (@Nullable ItemStack itemStack : contents) {
+						System.out.println("Saving item: " + itemStack);
 						if(itemStack == null) serializedInventory.add(null);
 						else serializedInventory.add(itemStack.serializeAsBytes());
 					}
 
 					inventoryData.setInventory(serializedInventory);
 					inventoryData.save();
+
+					player.getInventory().clear();
 				}
 			}.runTask(CypriaMinecraft.plugin);
 		});

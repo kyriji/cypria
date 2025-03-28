@@ -51,9 +51,7 @@ public class PlayerManager implements Listener {
 		assert cypriaPlayer != null;
 
 		if (!CypriaCommon.getPlayerDataManager().isFrozen(event.getPlayer().getUniqueId()))  {
-			cypriaPlayer.save().thenRunAsync(() -> {
-				Bukkit.getScheduler().runTask(CypriaMinecraft.plugin, () -> event.getPlayer().getInventory().clear());
-			});
+			cypriaPlayer.save();
 		}
 
 		playerList.remove(cypriaPlayer);

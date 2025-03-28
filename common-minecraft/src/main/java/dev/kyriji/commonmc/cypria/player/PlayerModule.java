@@ -8,6 +8,6 @@ import org.bukkit.Bukkit;
 public class PlayerModule extends CypriaModule {
 	@Override
 	public void init() {
-		Bukkit.getPluginManager().registerEvents(new PlayerManager(), CypriaMinecraft.plugin);
+		Bukkit.getPluginManager().registerEvents(new PlayerManager(), CypriaMinecraft.plugin());
 	}
 }

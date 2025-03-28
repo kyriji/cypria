@@ -2,12 +2,10 @@ package dev.kyriji.common.cypria;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import dev.kyriji.bigminecraftapi.controllers.NetworkManager;
-import dev.kyriji.common.cypria.models.CypriaInstance;
 import dev.kyriji.common.cypria.config.controllers.ConfigManager;
-import dev.kyriji.common.cypria.messaging.controllers.MessageManager;
 import dev.kyriji.common.cypria.controllers.RedisManager;
 import dev.kyriji.common.cypria.enums.Deployment;
+import dev.kyriji.common.cypria.messaging.controllers.MessageManager;
 import dev.kyriji.common.cypria.playerdata.controllers.PlayerDataManager;
 
 public class CypriaCommon {
@@ -20,7 +18,6 @@ public class CypriaCommon {
 	private final PlayerDataManager playerDataManager;
 	private final RedisManager redisManager;
 	private final MessageManager messageManager;
-
 
 	public CypriaCommon(JsonObject localConfig, Deployment deployment) {
 		INSTANCE = this;

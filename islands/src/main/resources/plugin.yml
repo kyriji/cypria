@@ -1,6 +1,11 @@
-name: islands
+name: CypriaIslands
 version: '1.0'
 main: dev.kyriji.cypria.islands.CypriaIslands
 api-version: '1.21'
+depend:
+  - FastAsyncWorldEdit
+  - Multiverse-Core
+  - CleanroomGenerator
 commands:
   dev:
+  test:

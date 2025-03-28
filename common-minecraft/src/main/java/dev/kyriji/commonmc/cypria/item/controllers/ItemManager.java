@@ -47,7 +47,7 @@ public class ItemManager {
 	}
 
 	public static CypriaItem getItem(ItemType itemType) {
-		for (CypriaItem item : itemList) if (item.getItemID() == itemType) return item;
+		for (CypriaItem item : itemList) if (item.getItemType() == itemType) return item;
 		return null;
 	}
 }

@@ -37,7 +37,7 @@ public class CustomProperty<T> {
 	}
 
 	public static <T> CustomProperty<T> prop(String key, PersistentDataType<?, T> dataType) {
-		return new CustomProperty<>(new NamespacedKey(CypriaMinecraft.plugin, key), dataType);
+		return new CustomProperty<>(new NamespacedKey(CypriaMinecraft.plugin(), key), dataType);
 	}
 
 	public static List<CustomProperty<?>> values() {

@@ -31,7 +31,7 @@ public abstract class CypriaItem implements Listener {
 	public CypriaItem(ItemType itemType) {
 		this.itemType = itemType;
 
-		Bukkit.getPluginManager().registerEvents(this, CypriaMinecraft.plugin);
+		Bukkit.getPluginManager().registerEvents(this, CypriaMinecraft.plugin());
 	}
 
 	public abstract ItemProperties getStaticProperties();
@@ -96,7 +96,7 @@ public abstract class CypriaItem implements Listener {
 		return ItemManager.getItem(itemStack) == this;
 	}
 
-	public ItemType getItemID() {
+	public ItemType getItemType() {
 		return itemType;
 	}
 

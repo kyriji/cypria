@@ -14,7 +14,7 @@ public class CommandManager {
 	public static void registerCommand(CypriaCommand command) {
 		assert command.isBaseLevel();
 
-		PluginCommand pluginCommand = Objects.requireNonNull(CypriaMinecraft.plugin.getCommand(command.getCommand()));
+		PluginCommand pluginCommand = Objects.requireNonNull(CypriaMinecraft.plugin().getCommand(command.getCommand()));
 		pluginCommand.setExecutor(command);
 		pluginCommand.setTabCompleter(command);
 		commands.add(command);

@@ -43,17 +43,18 @@ public class PlayerManager implements Listener {
 	@EventHandler
 	public void onQuit(PlayerQuitEvent event) {
 		CypriaMinecraft.get().cypriaInstance.removePlayer(event.getPlayer().getUniqueId());
-		CypriaCommon.getPlayerDataManager().unloadPlayerData(event.getPlayer().getUniqueId());
 
 		Player player = event.getPlayer();
 		CypriaPlayer cypriaPlayer = getPlayer(player.getUniqueId());
 		if (cypriaPlayer == null) throw new IllegalStateException("CypriaPlayer not found for " + player.getName());
 
 		if (!CypriaCommon.getPlayerDataManager().isFrozen(event.getPlayer().getUniqueId()))  {
+			System.out.println("Saving player data for " + player.getName());
 			cypriaPlayer.save();
 		}
 
 		playerList.remove(cypriaPlayer);
+		CypriaCommon.getPlayerDataManager().unloadPlayerData(event.getPlayer().getUniqueId());
 	}
 
 	public static CypriaPlayer getPlayer(UUID uuid) {

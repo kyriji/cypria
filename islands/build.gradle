@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'dev.kyriji'
-version = '1.0'
+version = ''
 
 repositories {
     mavenCentral()
@@ -17,6 +17,9 @@ repositories {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
+    maven { url = uri("https://maven.enginehub.org/repo/") }
+    maven { url 'https://mvn.lumine.io/repository/maven-public/' }
+    maven { url = "https://repo.onarandombox.com/content/groups/public/" }
 }
 
 dependencies {
@@ -24,6 +27,11 @@ dependencies {
     implementation project(':common-minecraft')
 
     compileOnly("org.spigotmc:spigot-api:1.21.4-R0.1-SNAPSHOT")
+    implementation(platform("com.intellectualsites.bom:bom-newest:1.52")) // fawe
+    compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Core")
+    compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Bukkit")
+    compileOnly("com.ticxo.modelengine:ModelEngine:R4.0.4")
+    compileOnly("com.onarandombox.multiversecore:multiverse-core:4.3.14")
 }
 
 def targetJavaVersion = 21
@@ -51,4 +59,9 @@ processResources {
     filesMatching('plugin.yml') {
         expand props
     }
+}
+
+shadowJar {
+    archiveBaseName.set('CypriaIslands')
+    archiveClassifier.set('')
 }

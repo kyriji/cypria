@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CustomData {
-	public static final NamespacedKey CONTAINER_KEY = new NamespacedKey(CypriaMinecraft.plugin, "custom_data");
+	public static final NamespacedKey CONTAINER_KEY = new NamespacedKey(CypriaMinecraft.plugin(), "custom_data");
 
 	public Map<CustomProperty<?>, Object> customDataMap = new HashMap<>();
 

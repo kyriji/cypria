@@ -21,8 +21,8 @@ public enum ItemType {
 		return id;
 	}
 
-	public static ItemType fromString(String identifier) {
-		for (ItemType itemType : ItemType.values()) if (itemType.getID().equalsIgnoreCase(identifier)) return itemType;
+	public static ItemType fromString(String id) {
+		for (ItemType itemType : ItemType.values()) if (itemType.getID().equalsIgnoreCase(id)) return itemType;
 		return null;
 	}
 }

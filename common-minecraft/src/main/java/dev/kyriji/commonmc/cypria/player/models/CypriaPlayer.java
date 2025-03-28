@@ -10,7 +10,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -28,7 +27,6 @@ public class CypriaPlayer {
 	public CypriaPlayer(UUID uuid) {
 		this.uuid = uuid;
 
-		System.out.println("Creating CypriaPlayer for " + uuid);
 		this.inventoryData = CypriaCommon.getPlayerDataManager().getPlayerData(uuid, PlayerDataType.INVENTORY);
 	}
 
@@ -69,7 +67,7 @@ public class CypriaPlayer {
 
 					player.getInventory().clear();
 				}
-			}.runTask(CypriaMinecraft.plugin);
+			}.runTask(CypriaMinecraft.plugin());
 		});
 	}
 
@@ -85,7 +83,7 @@ public class CypriaPlayer {
 					else player.getInventory().setItem(i, ItemStack.deserializeBytes(serializedItem));
 				}
 			}
-		}.runTask(CypriaMinecraft.plugin);
+		}.runTask(CypriaMinecraft.plugin());
 	}
 
 

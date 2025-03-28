@@ -8,6 +8,6 @@ import org.bukkit.Bukkit;
 public class ItemAbilityModule extends CypriaModule {
 	@Override
 	public void init() {
-		Bukkit.getPluginManager().registerEvents(new ItemAbilityManager(), CypriaMinecraft.plugin);
+		Bukkit.getPluginManager().registerEvents(new ItemAbilityManager(), CypriaMinecraft.plugin());
 	}
 }

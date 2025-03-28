@@ -1,9 +1,6 @@
 package dev.kyriji.commonmc.cypria.command;
 
-import dev.kyriji.commonmc.cypria.command.commands.dev.ItemCommand;
-import dev.kyriji.commonmc.cypria.command.commands.dev.DevMultiCommand;
-import dev.kyriji.commonmc.cypria.command.commands.dev.TestCommand;
-import dev.kyriji.commonmc.cypria.command.commands.dev.TransferCommand;
+import dev.kyriji.commonmc.cypria.command.commands.dev.*;
 import dev.kyriji.commonmc.cypria.command.controllers.CommandManager;
 import dev.kyriji.commonmc.cypria.command.models.CypriaMultiCommand;
 import dev.kyriji.commonmc.cypria.model.CypriaModule;

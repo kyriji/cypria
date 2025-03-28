@@ -15,7 +15,7 @@ public abstract class ItemAbility implements Listener {
 	public ItemAbility(ItemAbilityType abilityType) {
 		this.abilityType = abilityType;
 
-		Bukkit.getPluginManager().registerEvents(this, CypriaMinecraft.plugin);
+		Bukkit.getPluginManager().registerEvents(this, CypriaMinecraft.plugin());
 	}
 
 	public abstract EquipmentSlotGroup getEquipmentSlotGroup();

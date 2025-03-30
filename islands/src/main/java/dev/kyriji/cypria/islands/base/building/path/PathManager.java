@@ -30,7 +30,6 @@ public class PathManager implements Listener {
 		event.setCancelled(true);
 		AUtil.debug(player, "creating path network at clicked location");
 
-		// Create and render the path at the clicked location
 		new Path(block.getLocation());
 		AUtil.debug(player, "path created");
 	}

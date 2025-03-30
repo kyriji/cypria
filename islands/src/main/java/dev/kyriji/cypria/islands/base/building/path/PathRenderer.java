@@ -34,7 +34,7 @@ public class PathRenderer {
 			Material.DIRT_PATH,
 			Material.COARSE_DIRT,
 			Material.DIRT,
-			Material.PACKED_MUD,
+			Material.PACKED_MUD
 	};
 
 	private final NoiseGenerator noiseGenerator;
@@ -46,12 +46,7 @@ public class PathRenderer {
 		this.yOffset = yOffset;
 	}
 
-	/**
-	 * Render a complete path segment with variation
-	 */
 	public void renderPathSegment(PathSegment segment) {
-		System.out.println("rendering path segment: " + segment);
-
 		PathType pathType = segment.getPathType();
 		int pathRadius = pathType.getSize() / 2;
 
@@ -70,16 +65,9 @@ public class PathRenderer {
 			PathBlockInfo info = entry.getValue();
 
 			// Select material based on distance and noise
-			Material material = selectPathMaterial(
-					block.getLocation(),
-					info.distanceFromCenter,
-					pathRadius
-			);
+			Material material = selectPathMaterial(block.getLocation(), info.distanceFromCenter, pathRadius);
 
-			// Only set block if material is not null (null represents no change/air)
-			if (material != null) {
-				block.setType(material);
-			}
+			if (material != null) block.setType(material);
 		}
 	}
 
@@ -176,71 +164,38 @@ public class PathRenderer {
 		}
 	}
 
-	/**
-	 * Select an appropriate path material based on location and distance from center
-	 */
 	private Material selectPathMaterial(Location location, double normalizedDistance, int pathRadius) {
-		// Use different noise scales for variation
-		double nx = location.getX() * 0.15;
-		double nz = location.getZ() * 0.15;
-		double noise = noiseGenerator.getNormalizedNoise(nx, nz, 1.0);
+		double noiseX = location.getX() * 0.15;
+		double noiseZ = location.getZ() * 0.15;
 
 		Material[] materialOptions;
-		double skipChance = 0.0; // Chance of not placing a block
+		double skipChance = 0.0;
 
-		// Select material array based on distance from center
 		if (normalizedDistance < 0.3) {
-			// Core center - almost always path blocks
 			materialOptions = CORE_MATERIALS;
-			skipChance = 0.0; // Never skip in the center
 		} else if (normalizedDistance < 0.65) {
-			// Mid section - more variety
 			materialOptions = MID_MATERIALS;
-			skipChance = normalizedDistance * 0.15; // Small chance of skipping, increasing with distance
+			skipChance = normalizedDistance * 0.4;
 		} else {
-			// Edge section - gradually blending with terrain
 			materialOptions = EDGE_MATERIALS;
-
-			// Progressive skip chance:
-			// - At 0.65 distance: ~20% skip chance
-			// - At 0.80 distance: ~50% skip chance
-			// - At 0.90 distance: ~70% skip chance
-			// - At 1.00 distance: ~95% skip chance
-			double edgeFactor = (normalizedDistance - 0.65) / 0.35;
-			skipChance = 0.3 + (edgeFactor * edgeFactor * 0.5);
+			skipChance = 0.5;
 		}
 
-		// Apply noise to make skip pattern more natural
-		double skipNoise = noiseGenerator.getNormalizedNoise(nx * 2.5, nz * 2.5, 1.0);
-		if (skipNoise < skipChance) {
-			return null; // null means don't place a block (leave as is)
-		}
+		double skipNoise = noiseGenerator.getNormalizedNoise(noiseX * 2.5, noiseZ * 2.5, 1.0);
+		if (skipNoise < skipChance) return null;
 
-		// Adjust noise to select from material options
-		double materialNoise = noiseGenerator.getNormalizedNoise(nx * 1.7, nz * 1.7, 1.0);
+		double materialNoise = noiseGenerator.getNormalizedNoise(noiseX * 1.7, noiseZ * 1.7, 1.0);
 		int index = (int)(materialNoise * materialOptions.length);
 		if (index >= materialOptions.length) index = materialOptions.length - 1;
 
 		return materialOptions[index];
 	}
 
-	/**
-	 * Render an entire path network
-	 */
 	public void renderPathNetwork(List<PathSegment> segments) {
 		for (PathSegment segment : segments) {
 			renderPathSegment(segment);
 		}
 	}
 
-	/**
-	 * Helper class to track information about blocks in the path
-	 */
-	private static class PathBlockInfo {
-		final double distanceFromCenter;
-
-		PathBlockInfo(double distanceFromCenter) {
-			this.distanceFromCenter = distanceFromCenter;
-		}
-	}
+	private record PathBlockInfo(double distanceFromCenter) { }
 }

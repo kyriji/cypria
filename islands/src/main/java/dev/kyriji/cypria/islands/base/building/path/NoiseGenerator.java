@@ -8,15 +8,14 @@ import java.util.Random;
 public class NoiseGenerator {
 	private final long seed;
 	private final Random random;
+	private final int[] perm = new int[512];
 
 	// Simplex noise parameters
-	private static final int GRAD3[][] = {
+	private static final int[][] GRAD3 = {
 			{1, 1, 0}, {-1, 1, 0}, {1, -1, 0}, {-1, -1, 0},
 			{1, 0, 1}, {-1, 0, 1}, {1, 0, -1}, {-1, 0, -1},
 			{0, 1, 1}, {0, -1, 1}, {0, 1, -1}, {0, -1, -1}
 	};
-
-	private int perm[] = new int[512];
 
 	public NoiseGenerator(long seed) {
 		this.seed = seed;
@@ -26,9 +25,7 @@ public class NoiseGenerator {
 
 	private void initPermutationTable() {
 		// Initialize permutation table with randomized indices 0..255
-		for (int i = 0; i < 256; i++) {
-			perm[i] = i;
-		}
+		for (int i = 0; i < 256; i++) perm[i] = i;
 
 		// Shuffle
 		for (int i = 0; i < 255; i++) {

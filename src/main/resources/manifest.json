@@ -1,0 +1,19 @@
+{
+  "Group": "HytaleDemo",
+  "Name": "HytaleDemo",
+  "Version": "1.0.0",
+  "Description": "A Hytale plugin template",
+  "Authors": [
+    {
+      "Name": "YourName",
+      "Email": "your.email@example.com",
+      "Url": "https://your-website.com"
+    }
+  ],
+  "Website": "https://github.com/yourusername/hytale-plugin-template",
+  "Main": "dev.kyriji.Main",
+  "ServerVersion": "*",
+  "Dependencies": {},
+  "OptionalDependencies": {},
+  "DisabledByDefault": false
+}

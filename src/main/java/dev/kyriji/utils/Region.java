@@ -1,4 +1,4 @@
-package dev.kyriji.controllers;
+package dev.kyriji.utils;
 
 import com.hypixel.hytale.math.vector.Vector3d;
 

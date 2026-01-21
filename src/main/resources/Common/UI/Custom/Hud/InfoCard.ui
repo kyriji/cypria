@@ -1,0 +1,53 @@
+Group {
+  LayoutMode: Right;
+  Anchor: (Top: 20, Height: 60);
+
+  Group #MyPanel {
+    Background: #33333380;
+    Anchor: (Right: 0, Top: 200, Width: 250, Height: 400);
+    Padding: (Horizontal: 0, Vertical: 0);
+    LayoutMode: Top;
+
+    Label #Title {
+      Style: (FontSize: 48, Alignment: Center);
+      Anchor: (Height: 70);
+      Text: "MyText";
+    }
+
+    Label #Row1 {
+      Style: (FontSize: 24, Alignment: Center);
+      Anchor: (Height: 55);
+      Text: "MyText";
+    }
+
+    Label #Row2 {
+      Style: (FontSize: 24, Alignment: Center);
+      Anchor: (Height: 55);
+      Text: "MyText";
+    }
+
+    Label #Row3 {
+      Style: (FontSize: 24, Alignment: Center);
+      Anchor: (Height: 55);
+      Text: "MyText";
+    }
+
+    Label #Row4 {
+      Style: (FontSize: 24, Alignment: Center);
+      Anchor: (Height: 55);
+      Text: "MyText";
+    }
+
+    Label #Row5 {
+      Style: (FontSize: 24, Alignment: Center);
+      Anchor: (Height: 55);
+      Text: "MyText";
+    }
+
+    Label #Row6 {
+      Style: (FontSize: 24, Alignment: Center);
+      Anchor: (Height: 55);
+      Text: "MyText";
+    }
+  }
+}

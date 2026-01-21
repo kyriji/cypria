@@ -10,7 +10,7 @@ import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.event.events.ecs.DamageBlockEvent;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import dev.kyriji.controllers.SpawnManager;
+import dev.kyriji.controllers.GameManager;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,7 +28,7 @@ public class BlockDamageSystem extends EntityEventSystem<EntityStore, DamageBloc
 		Player player = store.getComponent(playerRef, Player.getComponentType());
 
 		if(player == null) return;
-		if(player.getWorld() != SpawnManager.PIT) return;
+		if(player.getWorld() != GameManager.PIT) return;
 
 		breakBlockEvent.setCancelled(true);
 		System.out.println("Canceled block damage for player: " + player.getDisplayName());

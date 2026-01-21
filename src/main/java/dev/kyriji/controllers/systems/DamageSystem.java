@@ -10,6 +10,7 @@ import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageEventSystem;
@@ -17,7 +18,10 @@ import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import dev.kyriji.controllers.SpawnManager;
+import dev.kyriji.Main;
+import dev.kyriji.controllers.PlayerManager;
+import dev.kyriji.controllers.GameManager;
+import dev.kyriji.objects.PitPlayer;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
 import javax.annotation.Nonnull;
@@ -34,15 +38,18 @@ public class DamageSystem extends DamageEventSystem {
 		Player player = store.getComponent(playerRef, Player.getComponentType());
 		if(player == null) return;
 
-		if(player.getWorld() != SpawnManager.PIT) return;
+		if(player.getWorld() != GameManager.PIT) return;
 
 		EntityStatMap stats = store.getComponent(playerRef, EntityStatMap.getComponentType());
 		if(stats == null) return;
 
 		if(damage.getAmount() >= Objects.requireNonNull(stats.get(DefaultEntityStatTypes.getHealth())).get()) {
 			Player killer = null;
-			if(damage.getSource() instanceof Player) {
-				killer = (Player) damage.getSource();
+			if(damage.getSource() instanceof Damage.EntitySource entitySource) {
+				Ref<EntityStore> entityRef = entitySource.getRef();
+				Player killerPlayer = store.getComponent(entityRef, Player.getComponentType());
+
+				if(killerPlayer != null) killer = killerPlayer;
 			}
 
 			killPlayer(killer, player);
@@ -56,21 +63,32 @@ public class DamageSystem extends DamageEventSystem {
 
 		Vector3d position = transform.getPosition();
 
-		if(!SpawnManager.SPAWN_REGION.contains(position)) return;
+		if(!GameManager.SPAWN_REGION.contains(position)) return;
 
 		damage.setCancelled(true);
 	}
 
 	public void killPlayer(@Nullable Player killer, Player victim) {
-		SpawnManager.preparePlayer(victim);
-		SpawnManager.teleportToSpawn(victim);
+		PitPlayer victimPitPlayer = PlayerManager.getPitPlayer(victim);
+
+		GameManager.preparePlayer(victim);
+		GameManager.teleportToSpawn(victim, true);
 		String message = killer == null ? "You were killed!" : "You were killed by " + killer.getDisplayName() + "!";
 		victim.sendMessage(Message.raw(message).color(Color.RED));
 
+		victimPitPlayer.deaths++;
+		victimPitPlayer.currentStreak = 0;
+
 		if(killer == null) return;
+		PitPlayer killerPitPlayer = PlayerManager.getPitPlayer(killer);
+
 		killer.sendMessage(Message.raw("You killed " + victim.getDisplayName() + "!").color(Color.GREEN));
 
-		//TODO: Give kill rewards
+		ItemStack potion = new ItemStack("Potion_Health_Greater");
+		killer.getInventory().getHotbar().addItemStack(potion);
+
+		killerPitPlayer.kills++;
+		killerPitPlayer.currentStreak++;
 	}
 
 	@Nullable

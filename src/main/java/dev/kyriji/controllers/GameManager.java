@@ -1,13 +1,12 @@
 package dev.kyriji.controllers;
 
 import com.hypixel.hytale.component.Store;
-import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.math.vector.Vector3f;
-import com.hypixel.hytale.protocol.Packet;
 import com.hypixel.hytale.protocol.packets.player.JoinWorld;
 import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.event.events.player.PlayerReadyEvent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.io.PacketHandler;
 import com.hypixel.hytale.server.core.modules.entity.teleport.Teleport;
@@ -18,19 +17,22 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.core.universe.world.worldmap.WorldMapManager;
 import dev.kyriji.controllers.systems.BlockBreakSystem;
 import dev.kyriji.controllers.systems.BlockDamageSystem;
 import dev.kyriji.controllers.systems.BlockPlaceSystem;
 import dev.kyriji.controllers.systems.BlockUseSystem;
 import dev.kyriji.controllers.systems.DamageSystem;
+import dev.kyriji.controllers.systems.ItemDropSystem;
+import dev.kyriji.controllers.systems.ItemPickupSystem;
 import dev.kyriji.controllers.systems.PlayerSpawnedSystem;
+import dev.kyriji.utils.Region;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
 
-public class SpawnManager {
-	private final JavaPlugin plugin;
+public class GameManager {
 
 	public static final World PIT = Universe.get().getWorld("pit");
 	public static final Vector3d SPAWN_POINT = new Vector3d(377.5, 139, 297);
@@ -39,26 +41,41 @@ public class SpawnManager {
 			new Vector3d(392, 165, 303)
 	);
 
-	public SpawnManager(JavaPlugin plugin) {
-		this.plugin = plugin;
-
+	public GameManager(JavaPlugin plugin) {
 		plugin.getEntityStoreRegistry().registerSystem(new BlockBreakSystem());
 		plugin.getEntityStoreRegistry().registerSystem(new BlockDamageSystem());
 		plugin.getEntityStoreRegistry().registerSystem(new BlockPlaceSystem());
 		plugin.getEntityStoreRegistry().registerSystem(new BlockUseSystem());
+		plugin.getEntityStoreRegistry().registerSystem(new ItemPickupSystem());
+		plugin.getEntityStoreRegistry().registerSystem(new ItemDropSystem());
 
 		plugin.getEntityStoreRegistry().registerSystem(new DamageSystem());
 		plugin.getEntityStoreRegistry().registerSystem(new PlayerSpawnedSystem());
+
+		plugin.getEventRegistry().registerGlobal(PlayerReadyEvent.class, event -> {
+			preparePlayer(event.getPlayer());
+			teleportToSpawn(event.getPlayer(), false);
+		});
 	}
 
 	public static void preparePlayer(Player player) {
 		Store<EntityStore> store = Objects.requireNonNull(player.getReference()).getStore();
 		EntityStatMap stats = Objects.requireNonNull(store.getComponent(player.getReference(), EntityStatMap.getComponentType()));
 
-		stats.setStatValue(DefaultEntityStatTypes.getHealth(), 100);
-		stats.setStatValue(DefaultEntityStatTypes.getStamina(), 10);
+		float maxHealth = Objects.requireNonNull(stats.get(DefaultEntityStatTypes.getHealth())).getMax();
+		float maxStamina = Objects.requireNonNull(stats.get(DefaultEntityStatTypes.getStamina())).getMax();
+
+		stats.setStatValue(DefaultEntityStatTypes.getHealth(), maxHealth);
+		stats.setStatValue(DefaultEntityStatTypes.getStamina(), maxStamina);
 
 		player.getInventory().clear();
+
+		World world = player.getWorld();
+		if (world == null) return;
+
+		WorldMapManager wmm = world.getWorldMapManager();
+		Map<String, WorldMapManager.MarkerProvider> providers = wmm.getMarkerProviders();
+		providers.clear();
 
 		ItemStack sword = new ItemStack("Weapon_Sword_Iron");
 		ItemStack bow = new ItemStack("Weapon_Shortbow_Iron");
@@ -78,22 +95,23 @@ public class SpawnManager {
 		player.getInventory().getArmor().setItemStackForSlot((short) 1, chestplate);
 		player.getInventory().getArmor().setItemStackForSlot((short) 2, gloves);
 		player.getInventory().getArmor().setItemStackForSlot((short) 3, leggings);
-
-
 	}
 
-	public static void teleportToSpawn(Player player) {
+	public static void teleportToSpawn(Player player, boolean fade) {
 		player.getPageManager().clearCustomPageAcknowledgements();
-		JoinWorld packet = new JoinWorld(false, true, Objects.requireNonNull(PIT).getWorldConfig().getUuid());
-
 		Store<EntityStore> store = Objects.requireNonNull(player.getReference()).getStore();
-		PlayerRef playerRef = Objects.requireNonNull(store.getComponent(player.getReference(), PlayerRef.getComponentType()));
 
-		PacketHandler packetHandler = playerRef.getPacketHandler();
+		if(fade) {
+			JoinWorld packet = new JoinWorld(false, true, Objects.requireNonNull(PIT).getWorldConfig().getUuid());
+			PlayerRef playerRef = Objects.requireNonNull(store.getComponent(player.getReference(), PlayerRef.getComponentType()));
 
-		packetHandler.write(packet);
-		packetHandler.tryFlush();
-		packetHandler.setQueuePackets(true);
+			PacketHandler packetHandler = playerRef.getPacketHandler();
+
+			packetHandler.write(packet);
+			packetHandler.tryFlush();
+			packetHandler.setQueuePackets(true);
+		}
+
 
 		World world = player.getWorld();
 		if (world == null) return;
@@ -102,7 +120,7 @@ public class SpawnManager {
 			if (player.getReference() == null) return;
 
 			world.execute(() -> {
-				Teleport teleport = new Teleport(SpawnManager.PIT, SpawnManager.SPAWN_POINT, new Vector3f(0, 0, 0));
+				Teleport teleport = new Teleport(GameManager.PIT, GameManager.SPAWN_POINT, new Vector3f(0, 0, 0));
 				store.addComponent(player.getReference(), Teleport.getComponentType(), teleport);
 			});
 		}, 250, TimeUnit.MILLISECONDS);

@@ -9,10 +9,10 @@ import com.hypixel.hytale.server.core.command.system.arguments.system.RequiredAr
 import com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes;
 import com.hypixel.hytale.server.core.command.system.basecommands.AbstractAsyncPlayerCommand;
 import com.hypixel.hytale.server.core.entity.entities.Player;
-import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import dev.kyriji.controllers.UI.PlayerHud;
 
 import javax.annotation.Nonnull;
 import java.util.concurrent.CompletableFuture;
@@ -25,7 +25,7 @@ public class TestCommand extends AbstractAsyncPlayerCommand {
 	public TestCommand() {
 		super("test", "A Simple Test Command");
 
-		System.out.println("[HytaleDemo] TestCommand initialized.");
+		System.out.println("[HytaleDemo] TestCommand initialized!");
 
 		this.playerArg = this.withRequiredArg("player", "A Simple Test Command", ArgTypes.PLAYER_REF);
 		this.itemArg = this.withRequiredArg("item", "A Simple Test Command", ArgTypes.ITEM_ASSET);
@@ -52,7 +52,8 @@ public class TestCommand extends AbstractAsyncPlayerCommand {
 			return CompletableFuture.completedFuture(null);
 		}
 
-		player.getInventory().getStorage().addItemStack(new ItemStack(item.getId(), 1));
+		if (player.getHudManager().getCustomHud() == null) player.getHudManager().setCustomHud(playerRef, new PlayerHud(playerRef));
+
 		return CompletableFuture.completedFuture(null);
 	}
 }

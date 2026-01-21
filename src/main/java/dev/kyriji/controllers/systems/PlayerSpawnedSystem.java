@@ -8,7 +8,6 @@ import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.modules.entity.player.PlayerSystems;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import dev.kyriji.controllers.SpawnManager;
 
 import javax.annotation.Nonnull;
 
@@ -24,6 +23,7 @@ public class PlayerSpawnedSystem extends PlayerSystems.PlayerSpawnedSystem {
 		Player player = store.getComponent(ref, Player.getComponentType());
 		if (player == null) return;
 
-		SpawnManager.preparePlayer(player);
+		player.setFirstSpawn(true);
+
 	}
 }

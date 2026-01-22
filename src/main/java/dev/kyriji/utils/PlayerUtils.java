@@ -36,4 +36,13 @@ public class PlayerUtils {
 		return future;
 	}
 
+	public static CompletableFuture<Player> getPlayerFromUUID(UUID uuid) {
+		for(PlayerRef playerRef : Universe.get().getPlayers()) {
+			if (!playerRef.getUuid().equals(uuid)) continue;
+
+			return getPlayerFromRef(playerRef);
+		}
+
+		return CompletableFuture.completedFuture(null);
+	}
 }

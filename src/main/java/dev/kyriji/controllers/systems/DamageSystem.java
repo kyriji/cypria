@@ -21,7 +21,9 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import dev.kyriji.Main;
 import dev.kyriji.controllers.PlayerManager;
 import dev.kyriji.controllers.GameManager;
+import dev.kyriji.objects.DamageEntry;
 import dev.kyriji.objects.PitPlayer;
+import dev.kyriji.utils.PlayerUtils;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
 import javax.annotation.Nonnull;
@@ -30,29 +32,45 @@ import java.awt.*;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 public class DamageSystem extends DamageEventSystem {
+	public static final int ASSIST_TIMEFRAME_SECONDS = 30;
+	public static final int BASE_GOLD_REWARD = 10;
+
 	@Override
 	public void handle(int i, @Nonnull ArchetypeChunk<EntityStore> archetypeChunk, @Nonnull Store<EntityStore> store, @Nonnull CommandBuffer<EntityStore> commandBuffer, @Nonnull Damage damage) {
 		Ref<EntityStore> playerRef = archetypeChunk.getReferenceTo(i);
 		Player player = store.getComponent(playerRef, Player.getComponentType());
 		if(player == null) return;
 
+		PitPlayer pitPlayer = PlayerManager.getPitPlayer(player);
+
 		if(player.getWorld() != GameManager.PIT) return;
 
 		EntityStatMap stats = store.getComponent(playerRef, EntityStatMap.getComponentType());
 		if(stats == null) return;
 
+		Player attacker = null;
+		if(damage.getSource() instanceof Damage.EntitySource entitySource) {
+			Ref<EntityStore> entityRef = entitySource.getRef();
+			Player attackerPlayer = store.getComponent(entityRef, Player.getComponentType());
+
+			if(attackerPlayer != null) attacker = attackerPlayer;
+		}
+
+		if (attacker != null) {
+			PlayerRef attackerRef = PlayerUtils.getPlayerRef(attacker);
+			DamageEntry entry = pitPlayer.damageMap.getOrDefault(attackerRef.getUuid(), new DamageEntry(damage.getAmount()));
+
+			entry.addDamage(damage.getAmount());
+			entry.updateTimestamp();
+
+			pitPlayer.damageMap.put(attackerRef.getUuid(), entry);
+		}
+
 		if(damage.getAmount() >= Objects.requireNonNull(stats.get(DefaultEntityStatTypes.getHealth())).get()) {
-			Player killer = null;
-			if(damage.getSource() instanceof Damage.EntitySource entitySource) {
-				Ref<EntityStore> entityRef = entitySource.getRef();
-				Player killerPlayer = store.getComponent(entityRef, Player.getComponentType());
-
-				if(killerPlayer != null) killer = killerPlayer;
-			}
-
-			killPlayer(killer, player);
+			killPlayer(attacker, player);
 
 			damage.setCancelled(true);
 			return;
@@ -76,8 +94,11 @@ public class DamageSystem extends DamageEventSystem {
 		String message = killer == null ? "You were killed!" : "You were killed by " + killer.getDisplayName() + "!";
 		victim.sendMessage(Message.raw(message).color(Color.RED));
 
+		calculateAssists(victimPitPlayer, killer);
+
 		victimPitPlayer.deaths++;
 		victimPitPlayer.currentStreak = 0;
+		victimPitPlayer.damageMap.clear();
 
 		if(killer == null) return;
 		PitPlayer killerPitPlayer = PlayerManager.getPitPlayer(killer);
@@ -88,7 +109,37 @@ public class DamageSystem extends DamageEventSystem {
 		killer.getInventory().getHotbar().addItemStack(potion);
 
 		killerPitPlayer.kills++;
+		killerPitPlayer.gold += BASE_GOLD_REWARD;
 		killerPitPlayer.currentStreak++;
+	}
+
+	public void calculateAssists(PitPlayer pitPlayer, Player killer) {
+		float totalDamage = 0f;
+		for(DamageEntry value : pitPlayer.damageMap.values()) {
+			if (value.getTimestamp() < System.currentTimeMillis() - (ASSIST_TIMEFRAME_SECONDS * 1000)) continue;
+			totalDamage += value.getDamageAmount();
+		}
+
+		final float finalTotalDamage = totalDamage;
+
+		pitPlayer.damageMap.forEach((key, value) -> {
+			PlayerUtils.getPlayerFromUUID(pitPlayer.uuid).thenAccept(player -> {
+				if (player == null || player == killer) return;
+				if (value.getTimestamp() < System.currentTimeMillis() - (ASSIST_TIMEFRAME_SECONDS * 1000)) return;
+
+				PitPlayer assistPitPlayer = PlayerManager.getPitPlayer(key);
+				double damageFraction = value.getDamageAmount() / finalTotalDamage;
+
+				assistPitPlayer.assists++;
+				assistPitPlayer.gold += BASE_GOLD_REWARD * damageFraction;
+
+				player.sendMessage(Message.raw("You assisted in killing " + player.getDisplayName() + "!")
+					.color(Color.YELLOW)
+					.insert(Message.raw(String.format(" (%.1f%% of damage)", damageFraction * 100)).color(Color.GRAY))
+				);
+			});
+
+		});
 	}
 
 	@Nullable

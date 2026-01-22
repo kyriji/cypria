@@ -94,7 +94,7 @@ public class DamageSystem extends DamageEventSystem {
 		String message = killer == null ? "You were killed!" : "You were killed by " + killer.getDisplayName() + "!";
 		victim.sendMessage(Message.raw(message).color(Color.RED));
 
-		calculateAssists(victimPitPlayer, killer);
+		calculateAssists(victimPitPlayer, victim, killer);
 
 		victimPitPlayer.addDeath();
 		victimPitPlayer.damageMap.clear();
@@ -111,17 +111,17 @@ public class DamageSystem extends DamageEventSystem {
 		killerPitPlayer.addGold(BASE_GOLD_REWARD);
 	}
 
-	public void calculateAssists(PitPlayer pitPlayer, Player killer) {
+	public void calculateAssists(PitPlayer victimPitPlayer, Player victim, Player killer) {
 		float totalDamage = 0f;
-		for(DamageEntry value : pitPlayer.damageMap.values()) {
+		for(DamageEntry value : victimPitPlayer.damageMap.values()) {
 			if (value.getTimestamp() < System.currentTimeMillis() - (ASSIST_TIMEFRAME_SECONDS * 1000)) continue;
 			totalDamage += value.getDamageAmount();
 		}
 
 		final float finalTotalDamage = totalDamage;
 
-		pitPlayer.damageMap.forEach((key, value) -> {
-			PlayerUtils.getPlayerFromUUID(pitPlayer.uuid).thenAccept(player -> {
+		victimPitPlayer.damageMap.forEach((key, value) -> {
+			PlayerUtils.getPlayerFromUUID(key).thenAccept(player -> {
 				if (player == null || player == killer) return;
 				if (value.getTimestamp() < System.currentTimeMillis() - (ASSIST_TIMEFRAME_SECONDS * 1000)) return;
 
@@ -131,7 +131,7 @@ public class DamageSystem extends DamageEventSystem {
 				assistPitPlayer.addAssist();
 				assistPitPlayer.addGold(BASE_GOLD_REWARD * damageFraction);
 
-				player.sendMessage(Message.raw("You assisted in killing " + player.getDisplayName() + "!")
+				player.sendMessage(Message.raw("You assisted in killing " + victim.getDisplayName() + "!")
 					.color(Color.YELLOW)
 					.insert(Message.raw(String.format(" (%.1f%% of damage)", damageFraction * 100)).color(Color.GRAY))
 				);

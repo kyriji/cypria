@@ -1,14 +1,22 @@
 plugins {
     id 'java'
+    id 'com.gradleup.shadow' version '8.3.0' apply false
 }
 
-group = 'dev.kyriji'
-version = ''
-
-repositories {
-    mavenCentral()
+allprojects {
+    group = 'dev.kyriji'
+    version = ''
 }
 
-dependencies {
-    implementation files('libs/HytaleServer.jar')
+subprojects {
+    apply plugin: 'java'
+
+    repositories {
+        mavenCentral()
+    }
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
 }

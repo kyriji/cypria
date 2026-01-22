@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id 'com.gradleup.shadow'
+}
+
+group = 'dev.kyriji'
+version = ''
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':common')
+    compileOnly files('../libs/HytaleServer.jar')
+}
+
+shadowJar {
+    archiveClassifier.set('')
+    archiveBaseName.set('pit')
+
+    configurations = [project.configurations.runtimeClasspath]
+
+    relocate 'com.mongodb', 'dev.kyriji.libs.mongodb'
+    relocate 'org.bson', 'dev.kyriji.libs.bson'
+    relocate 'redis.clients', 'dev.kyriji.libs.jedis'
+    relocate 'com.google.gson', 'dev.kyriji.libs.gson'
+}
+
+build.dependsOn shadowJar

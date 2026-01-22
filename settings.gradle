@@ -1,2 +1,4 @@
-rootProject.name = 'hytale-demo'
+rootProject.name = 'Pit'
 
+include 'common'
+include 'pit'

@@ -32,6 +32,7 @@ import java.awt.*;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public class DamageSystem extends DamageEventSystem {
@@ -59,15 +60,13 @@ public class DamageSystem extends DamageEventSystem {
 			if(attackerPlayer != null) attacker = attackerPlayer;
 		}
 
-		if (attacker != null) {
-			PlayerRef attackerRef = PlayerUtils.getPlayerRef(attacker);
-			DamageEntry entry = pitPlayer.damageMap.getOrDefault(attackerRef.getUuid(), new DamageEntry(damage.getAmount()));
+		UUID key = attacker == null ? null : PlayerUtils.getPlayerRef(attacker).getUuid();
+		DamageEntry entry = pitPlayer.damageMap.getOrDefault(key, new DamageEntry(damage.getAmount()));
 
-			entry.addDamage(damage.getAmount());
-			entry.updateTimestamp();
+		entry.addDamage(damage.getAmount());
+		entry.updateTimestamp();
 
-			pitPlayer.damageMap.put(attackerRef.getUuid(), entry);
-		}
+		pitPlayer.damageMap.put(key, entry);
 
 		if(damage.getAmount() >= Objects.requireNonNull(stats.get(DefaultEntityStatTypes.getHealth())).get()) {
 			killPlayer(attacker, player);
@@ -121,6 +120,8 @@ public class DamageSystem extends DamageEventSystem {
 		final float finalTotalDamage = totalDamage;
 
 		victimPitPlayer.damageMap.forEach((key, value) -> {
+			if (key == null) return;
+
 			PlayerUtils.getPlayerFromUUID(key).thenAccept(player -> {
 				if (player == null || player == killer) return;
 				if (value.getTimestamp() < System.currentTimeMillis() - (ASSIST_TIMEFRAME_SECONDS * 1000)) return;

@@ -76,6 +76,7 @@ public class Main extends JavaPlugin {
 		});
 
 		AssetModule.get().unregisterPack(getIdentifier().toString());
+		GameManager.cleanup();
 		hytaleCommon.shutdown();
 	}
 

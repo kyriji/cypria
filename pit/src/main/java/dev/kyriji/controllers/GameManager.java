@@ -1,43 +1,26 @@
 package dev.kyriji.controllers;
 
-import com.hypixel.hytale.component.AddReason;
-import com.hypixel.hytale.component.Holder;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.math.vector.Vector3f;
-import com.hypixel.hytale.protocol.AnimationSlot;
-import com.hypixel.hytale.protocol.InteractionType;
 import com.hypixel.hytale.protocol.packets.player.JoinWorld;
 import com.hypixel.hytale.server.core.HytaleServer;
-import com.hypixel.hytale.server.core.asset.type.model.config.Model;
-import com.hypixel.hytale.server.core.asset.type.model.config.ModelAsset;
-import com.hypixel.hytale.server.core.entity.UUIDComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.event.events.player.PlayerReadyEvent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.io.PacketHandler;
-import com.hypixel.hytale.server.core.modules.entity.component.BoundingBox;
-import com.hypixel.hytale.server.core.modules.entity.component.HeadRotation;
-import com.hypixel.hytale.server.core.modules.entity.component.Interactable;
-import com.hypixel.hytale.server.core.modules.entity.component.Invulnerable;
-import com.hypixel.hytale.server.core.modules.entity.component.ModelComponent;
-import com.hypixel.hytale.server.core.modules.entity.component.PersistentModel;
-import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.teleport.Teleport;
-import com.hypixel.hytale.server.core.modules.entity.tracker.NetworkId;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
-import com.hypixel.hytale.server.core.modules.interaction.Interactions;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.universe.world.worldmap.WorldMapManager;
-import com.hypixel.hytale.server.npc.NPCPlugin;
-import com.hypixel.hytale.server.npc.asset.builder.BuilderInfo;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
+import dev.kyriji.controllers.UI.ShopUI;
 import dev.kyriji.controllers.systems.BlockBreakSystem;
 import dev.kyriji.controllers.systems.BlockDamageSystem;
 import dev.kyriji.controllers.systems.BlockPlaceSystem;
@@ -46,8 +29,9 @@ import dev.kyriji.controllers.systems.DamageSystem;
 import dev.kyriji.controllers.systems.ItemDropSystem;
 import dev.kyriji.controllers.systems.ItemPickupSystem;
 import dev.kyriji.controllers.systems.PlayerSpawnedSystem;
+import dev.kyriji.objects.PitNPC;
+import dev.kyriji.utils.PlayerUtils;
 import dev.kyriji.utils.Region;
-import it.unimi.dsi.fastutil.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +48,8 @@ public class GameManager {
 			new Vector3d(392, 165, 303)
 	);
 
-	public static List<NPCEntity> spawnedNPCs;
+	public static List<PitNPC> spawnedNPCs;
+	private boolean npcsSpawned = false;
 
 	public GameManager(JavaPlugin plugin) {
 		plugin.getEntityStoreRegistry().registerSystem(new BlockBreakSystem());
@@ -78,11 +63,13 @@ public class GameManager {
 		plugin.getEntityStoreRegistry().registerSystem(new PlayerSpawnedSystem());
 
 		plugin.getEventRegistry().registerGlobal(PlayerReadyEvent.class, event -> {
+			if (!npcsSpawned) {
+				npcsSpawned = true;
+				spawnNPCs();
+			}
 			preparePlayer(event.getPlayer());
 			teleportToSpawn(event.getPlayer(), false);
 		});
-
-		HytaleServer.SCHEDULED_EXECUTOR.schedule(this::spawnNPCs, 5, TimeUnit.SECONDS);
 	}
 
 	public void spawnNPCs() {
@@ -91,35 +78,30 @@ public class GameManager {
 		spawnedNPCs = new ArrayList<>();
 
 		PIT.execute(() -> {
-			//TODO: Abstract this into a custom NPC class.
-			ModelAsset modelAsset = Objects.requireNonNull(ModelAsset.getAssetMap().getAsset("Feran_Civilian"));
-			Model model = Model.createScaledModel(modelAsset, 1.0f);
+			PIT.getEntityStore().getStore().forEachEntityParallel(NPCEntity.getComponentType(),
+					(index, archetypeChunk, commandBuffer) -> {
+						NPCEntity npc = archetypeChunk.getComponent(index, Objects.requireNonNull(NPCEntity.getComponentType()));
+						if (npc == null) return;
+
+						npc.setToDespawn();
+					}
+			);
 
 			Store<EntityStore> store = PIT.getEntityStore().getStore();
-			NPCPlugin npcPlugin = NPCPlugin.get();
-
-			int roleIndex = npcPlugin.getIndex("Empty_Role");
 
 			Vector3d position = new Vector3d(387.5, 139, 293.5);
 			Vector3f rotation = new Vector3f(0, 90, 0);
 
-			Pair<Ref<EntityStore>, NPCEntity> npcPair = npcPlugin.spawnEntity(store, roleIndex, position, rotation, model,
-					(npcComponent, holder, storeParam) -> {
-						holder.addComponent(Invulnerable.getComponentType(), Invulnerable.INSTANCE);
-						holder.addComponent(Interactions.getComponentType(), new Interactions());
-						holder.ensureComponent(Interactable.getComponentType());
+			spawnedNPCs.add(PitNPC.spawn(store, "Slothian_Villager", position, rotation, PIT, playerUuid -> {
+				PlayerUtils.getPlayerFromUUID(playerUuid).thenAccept(player -> {
+					if (player == null) return;
 
-						Interactions interactions = holder.ensureAndGetComponent(Interactions.getComponentType());
-						interactions.setInteractionId(InteractionType.Use, "*ShopInteraction");
+					Ref<EntityStore> playerRef = player.getReference();
+					if (playerRef == null) return;
 
-						//TODO: Finish listening for interactions.
-					},
-					(npcComponent, ref, storeParam) -> {
-						npcComponent.playAnimation(ref, AnimationSlot.Status, "Idle", storeParam);
-					}
-			);
-
-			if (npcPair != null) spawnedNPCs.add(npcPair.second());
+					player.getPageManager().openCustomPage(playerRef, playerRef.getStore(), new ShopUI(PlayerUtils.getPlayerRef(player)));
+				});
+			}));
 		});
 	}
 
@@ -192,7 +174,6 @@ public class GameManager {
 	}
 
 	public static void cleanup() {
-		spawnedNPCs.forEach(NPCEntity::setToDespawn);
+		spawnedNPCs.forEach(PitNPC::despawn);
 	}
-
 }

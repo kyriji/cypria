@@ -37,10 +37,17 @@ public class PlayerUtils {
 	}
 
 	public static CompletableFuture<Player> getPlayerFromUUID(UUID uuid) {
-		for(PlayerRef playerRef : Universe.get().getPlayers()) {
-			if (!playerRef.getUuid().equals(uuid)) continue;
-
+		return getPlayerRefFromUUID(uuid).thenCompose(playerRef -> {
+			if (playerRef == null) return CompletableFuture.completedFuture(null);
 			return getPlayerFromRef(playerRef);
+		});
+	}
+
+	public static CompletableFuture<PlayerRef> getPlayerRefFromUUID(UUID uuid) {
+		for(PlayerRef playerRef : Universe.get().getPlayers()) {
+			if (playerRef.getUuid().equals(uuid)) {
+				return CompletableFuture.completedFuture(playerRef);
+			}
 		}
 
 		return CompletableFuture.completedFuture(null);

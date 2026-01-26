@@ -1,0 +1,399 @@
+Group {
+  LayoutMode: Center;
+
+  Group {
+    Anchor: (Width: 800, Height: 600);
+    Background: #333333;
+    LayoutMode: Top;
+
+    Group #TitleBar {
+      Anchor: (Height: 50);
+      Background: #222222;
+      LayoutMode: Left;
+      Padding: (Horizontal: 20, Vertical: 10);
+
+      Label {
+        Style: (
+          FontSize: 24,
+          TextColor: #ffffff,
+          RenderBold: true,
+          VerticalAlignment: Center
+        );
+        Text: "Shop";
+      }
+
+      Group {
+        FlexWeight: 1;
+      }
+
+      Group {
+        LayoutMode: Left;
+        Padding: (Right: 10);
+
+        ItemIcon #GoldIcon {
+          Anchor: (Width: 24, Height: 24);
+          Visible: true;
+        }
+
+        Label #GoldAmount {
+          Style: (
+            FontSize: 18,
+            TextColor: #ffd700,
+            RenderBold: true,
+            VerticalAlignment: Center
+          );
+          Text: "0g";
+          Padding: (Left: 5);
+        }
+      }
+
+      Button #CloseButton {
+        Anchor: (Width: 30, Height: 30);
+        LayoutMode: Center;
+        Style: (
+          Default: (Background: #aa2222),
+          Hovered: (Background: #cc3333),
+          Pressed: (Background: #dd4444)
+        );
+
+        Label {
+          Style: (
+            FontSize: 20,
+            TextColor: #ffffff,
+            RenderBold: true,
+            HorizontalAlignment: Center,
+            VerticalAlignment: Center
+          );
+          Text: "X";
+        }
+      }
+    }
+
+    Group #Content {
+      LayoutMode: Top;
+      Padding: (Full: 20);
+
+      Group #CategoryTabs {
+        LayoutMode: Left;
+        Anchor: (Height: 50);
+        Padding: (Bottom: 10);
+
+        Button #CategoryWeapons {
+          Anchor: (Width: 120, Height: 40);
+          LayoutMode: Center;
+          Style: (
+            Default: (Background: #555555),
+            Hovered: (Background: #666666),
+            Pressed: (Background: #777777)
+          );
+
+          Label {
+            Style: (
+              FontSize: 14,
+              TextColor: #ffffff,
+              RenderBold: true,
+              HorizontalAlignment: Center,
+              VerticalAlignment: Center
+            );
+            Text: "Weapons";
+          }
+        }
+
+        Group {
+          Anchor: (Width: 8);
+        }
+
+        Button #CategoryArmor {
+          Anchor: (Width: 120, Height: 40);
+          LayoutMode: Center;
+          Style: (
+            Default: (Background: #555555),
+            Hovered: (Background: #666666),
+            Pressed: (Background: #777777)
+          );
+
+          Label {
+            Style: (
+              FontSize: 14,
+              TextColor: #ffffff,
+              RenderBold: true,
+              HorizontalAlignment: Center,
+              VerticalAlignment: Center
+            );
+            Text: "Armor";
+          }
+        }
+
+        Group {
+          Anchor: (Width: 8);
+        }
+
+        Button #CategoryItems {
+          Anchor: (Width: 120, Height: 40);
+          LayoutMode: Center;
+          Style: (
+            Default: (Background: #555555),
+            Hovered: (Background: #666666),
+            Pressed: (Background: #777777)
+          );
+
+          Label {
+            Style: (
+              FontSize: 14,
+              TextColor: #ffffff,
+              RenderBold: true,
+              HorizontalAlignment: Center,
+              VerticalAlignment: Center
+            );
+            Text: "Items";
+          }
+        }
+      }
+
+      Group #ItemsContainer {
+        LayoutMode: Top;
+        Padding: (Top: 10);
+
+        Group #Item1 {
+          LayoutMode: Left;
+          Anchor: (Height: 100);
+          Padding: (Bottom: 10, Full: 10);
+          Background: #444444;
+
+          Group #ItemIconContainer {
+            LayoutMode: Center;
+            Anchor: (Width: 80);
+            Background: #333333;
+
+            ItemIcon #ItemIcon {
+              Anchor: (Width: 64, Height: 64);
+              Visible: true;
+            }
+          }
+
+          Group #ItemInfo {
+            LayoutMode: Top;
+            FlexWeight: 1;
+            Padding: (Full: 10);
+
+            Label #ItemName {
+              Style: (
+                FontSize: 18,
+                TextColor: #ffffff,
+                RenderBold: true
+              );
+              Text: "Adamantite Sword";
+              Padding: (Bottom: 5);
+            }
+
+            Label #ItemDescription {
+              Style: (
+                FontSize: 14,
+                TextColor: #aaaaaa
+              );
+              Text: "A reliable sword";
+            }
+          }
+
+          Group #PurchaseSection {
+            LayoutMode: Top;
+            Anchor: (Width: 150);
+            Padding: (Full: 15);
+
+            Label #ItemPrice {
+              Style: (
+                FontSize: 16,
+                TextColor: #ffd700,
+                RenderBold: true,
+                HorizontalAlignment: Center
+              );
+              Text: "100g";
+              Padding: (Bottom: 10);
+            }
+
+            Button #BuyButton1 {
+              Anchor: (Height: 35);
+              LayoutMode: Center;
+              Style: (
+                Default: (Background: #228822),
+                Hovered: (Background: #33aa33),
+                Pressed: (Background: #44cc44)
+              );
+
+              Label {
+                Style: (
+                  FontSize: 16,
+                  TextColor: #ffffff,
+                  RenderBold: true,
+                  HorizontalAlignment: Center,
+                  VerticalAlignment: Center
+                );
+                Text: "BUY";
+              }
+            }
+          }
+        }
+
+        Group #Item2 {
+          LayoutMode: Left;
+          Anchor: (Height: 100);
+          Padding: (Bottom: 10, Full: 10);
+          Background: #444444;
+
+          Group #ItemIconContainer {
+            LayoutMode: Center;
+            Anchor: (Width: 80);
+            Background: #333333;
+
+            ItemIcon #ItemIcon {
+              Anchor: (Width: 64, Height: 64);
+              Visible: true;
+            }
+          }
+
+          Group #ItemInfo {
+            LayoutMode: Top;
+            FlexWeight: 1;
+            Padding: (Full: 10);
+
+            Label #ItemName {
+              Style: (
+                FontSize: 18,
+                TextColor: #ffffff,
+                RenderBold: true
+              );
+              Text: "Mithril Sword";
+              Padding: (Bottom: 5);
+            }
+
+            Label #ItemDescription {
+              Style: (
+                FontSize: 14,
+                TextColor: #aaaaaa
+              );
+              Text: "A powerful weapon";
+            }
+          }
+
+          Group #PurchaseSection {
+            LayoutMode: Top;
+            Anchor: (Width: 150);
+            Padding: (Full: 15);
+
+            Label #ItemPrice {
+              Style: (
+                FontSize: 16,
+                TextColor: #ffd700,
+                RenderBold: true,
+                HorizontalAlignment: Center
+              );
+              Text: "500g";
+              Padding: (Bottom: 10);
+            }
+
+            Button #BuyButton2 {
+              Anchor: (Height: 35);
+              LayoutMode: Center;
+              Style: (
+                Default: (Background: #228822),
+                Hovered: (Background: #33aa33),
+                Pressed: (Background: #44cc44)
+              );
+
+              Label {
+                Style: (
+                  FontSize: 16,
+                  TextColor: #ffffff,
+                  RenderBold: true,
+                  HorizontalAlignment: Center,
+                  VerticalAlignment: Center
+                );
+                Text: "BUY";
+              }
+            }
+          }
+        }
+
+        Group #Item3 {
+          LayoutMode: Left;
+          Anchor: (Height: 100);
+          Padding: (Bottom: 10, Full: 10);
+          Background: #444444;
+
+          Group #ItemIconContainer {
+            LayoutMode: Center;
+            Anchor: (Width: 80);
+            Background: #333333;
+
+            ItemIcon #ItemIcon {
+              Anchor: (Width: 64, Height: 64);
+              Visible: true;
+            }
+          }
+
+          Group #ItemInfo {
+            LayoutMode: Top;
+            FlexWeight: 1;
+            Padding: (Full: 10);
+
+            Label #ItemName {
+              Style: (
+                FontSize: 18,
+                TextColor: #ffffff,
+                RenderBold: true
+              );
+              Text: "Healing Potion";
+              Padding: (Bottom: 5);
+            }
+
+            Label #ItemDescription {
+              Style: (
+                FontSize: 14,
+                TextColor: #aaaaaa
+              );
+              Text: "Restores health";
+            }
+          }
+
+          Group #PurchaseSection {
+            LayoutMode: Top;
+            Anchor: (Width: 150);
+            Padding: (Full: 15);
+
+            Label #ItemPrice {
+              Style: (
+                FontSize: 16,
+                TextColor: #ffd700,
+                RenderBold: true,
+                HorizontalAlignment: Center
+              );
+              Text: "50g";
+              Padding: (Bottom: 10);
+            }
+
+            Button #BuyButton3 {
+              Anchor: (Height: 35);
+              LayoutMode: Center;
+              Style: (
+                Default: (Background: #228822),
+                Hovered: (Background: #33aa33),
+                Pressed: (Background: #44cc44)
+              );
+
+              Label {
+                Style: (
+                  FontSize: 16,
+                  TextColor: #ffffff,
+                  RenderBold: true,
+                  HorizontalAlignment: Center,
+                  VerticalAlignment: Center
+                );
+                Text: "BUY";
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -12,7 +12,7 @@ repositories {
 
 dependencies {
     implementation project(':common')
-    compileOnly files('../libs/HytaleServer.jar')
+    compileOnly files('../libs/HytaleServer-2026.01.28-87d03be09.jar')
 }
 
 shadowJar {

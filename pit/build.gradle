@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'com.gradleup.shadow'
+    id 'org.hidetake.ssh' version '2.12.0'
 }
 
 repositories {
@@ -12,7 +13,7 @@ repositories {
 dependencies {
     implementation project(':common')
     compileOnly 'com.hypixel.hytale:Server:2026.01.28-87d03be09'
-    compileOnly 'com.github.Zoltus:TinyMessage:2.0.1'
+    implementation 'com.github.Zoltus:TinyMessage:2.0.1'
 }
 
 shadowJar {
@@ -27,4 +28,35 @@ shadowJar {
     relocate 'com.google.gson', 'dev.kyriji.libs.gson'
 }
 
+if (env.SFTP_HOST.orNull()) {
+    remotes {
+        server {
+            host = env.SFTP_HOST.value
+            user = env.SFTP_USER.value
+            password = env.SFTP_PASSWORD.value
+            port = env.SFTP_PORT.value as Integer
+        }
+    }
+
+    ssh.settings {
+        knownHosts = allowAnyHosts
+    }
+}
+
+task uploadJar(dependsOn: shadowJar) {
+    doLast {
+        if (env.SFTP_HOST.orNull()) {
+            ssh.run {
+                session(remotes.server) {
+                    put from: shadowJar.archiveFile.get().asFile, into: env.SFTP_REMOTE_PATH.value
+                    println "Uploaded ${shadowJar.archiveFile.get().asFile.name} to ${env.SFTP_REMOTE_PATH.value}"
+                }
+            }
+        } else {
+            println "SFTP upload skipped: SFTP_HOST not configured in .env.local"
+        }
+    }
+}
+
 tasks.build.dependsOn(tasks.shadowJar)
+tasks.build.finalizedBy(tasks.uploadJar)

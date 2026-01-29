@@ -1,6 +1,8 @@
 package dev.kyriji;
 
+import com.hypixel.hytale.protocol.packets.interface_.NotificationStyle;
 import com.hypixel.hytale.server.core.HytaleServer;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.AssetModule;
 import com.hypixel.hytale.server.core.event.events.BootEvent;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
@@ -17,6 +19,7 @@ import dev.kyriji.controllers.PlayerDataManager;
 import dev.kyriji.controllers.ScoreboardManager;
 import dev.kyriji.objects.PitConfig;
 import dev.kyriji.objects.PitPlayer;
+import dev.kyriji.utils.ChatUtils;
 import dev.kyriji.utils.PlayerUtils;
 
 import javax.annotation.Nonnull;
@@ -66,6 +69,15 @@ public class Main extends JavaPlugin {
 					}
 				});
 			});
+
+			ChatUtils.broadcastMessage("Plugin loaded");
+			ChatUtils.broadcastNotification(
+					Message.raw("Plugin loaded"),
+					null,
+					"Icons/AssetNotifications/EditorIcon.png",
+					null,
+					NotificationStyle.Success
+			);
 		});
 	}
 

@@ -4,6 +4,12 @@ mongodb:
     volumeName:
     size: 512Mi
 
+redis:
+  port:
+  storage:
+    volumeName:
+    size: 256Mi
+
 luckperms:
   enabled: true
   mariadb:

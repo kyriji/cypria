@@ -9,7 +9,6 @@ import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.util.Config;
 import dev.kyriji.commands.TestCommand;
 import dev.kyriji.common.HytaleCommon;
-import dev.kyriji.common.enums.Deployment;
 import dev.kyriji.controllers.ChatManager;
 import dev.kyriji.controllers.GameManager;
 import dev.kyriji.controllers.PlayerDataManager;
@@ -45,7 +44,7 @@ public class Main extends JavaPlugin {
 	@Override
 	protected void setup() {
 		config.save();
-		hytaleCommon = new HytaleCommon(config.get().toJsonObject(), Deployment.PIT);
+		// hytaleCommon = new HytaleCommon(config.get().toJsonObject(), Deployment.PIT);
 
 		getCommandRegistry().registerCommand(new TestCommand());
 		getEventRegistry().register(BootEvent.class, event -> initializeSystems());
@@ -77,14 +76,14 @@ public class Main extends JavaPlugin {
 
 		AssetModule.get().unregisterPack(getIdentifier().toString());
 		GameManager.cleanup();
-		hytaleCommon.shutdown();
+		// hytaleCommon.shutdown();
 	}
 
 	private void initializeSystems() {
 		if (this.hasInitialized) return;
-		this.gameManager = new GameManager(this);
-		this.playerDataManager = new PlayerDataManager(this);
-		this.scoreboardManager = new ScoreboardManager(this);
+		// this.gameManager = new GameManager(this);
+		// this.playerDataManager = new PlayerDataManager(this);
+		// this.scoreboardManager = new ScoreboardManager(this);
 		this.chatManager = new ChatManager(this);
 
 		this.hasInitialized = true;

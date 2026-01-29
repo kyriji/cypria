@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mariadb-pvc
+  name: lp-mariadb-pvc
 spec:
   {{- if .Values.luckperms.mariadb.storage.volumeName }}
   volumeName: {{ .Values.luckperms.mariadb.storage.volumeName }}

@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: mariadb-config
+  name: lp-mariadb-config
 data:
   MYSQL_DATABASE: "luckperms"
 {{- end }}

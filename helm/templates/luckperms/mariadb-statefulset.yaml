@@ -2,35 +2,35 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mariadb
+  name: lp-mariadb
 spec:
-  serviceName: mariadb-service
+  serviceName: lp-mariadb-service
   replicas: 1
   selector:
     matchLabels:
-      app: mariadb
+      app: lp-mariadb
   template:
     metadata:
       labels:
-        app: mariadb
+        app: lp-mariadb
     spec:
       volumes:
-        - name: mariadb-data
+        - name: lp-mariadb-data
           persistentVolumeClaim:
-            claimName: mariadb-pvc
+            claimName: lp-mariadb-pvc
       containers:
-        - name: mariadb
+        - name: lp-mariadb
           image: mariadb:8.11
           ports:
             - containerPort: 3306
-              name: mariadb
+              name: lp-mariadb
           envFrom:
             - secretRef:
-                name: mariadb-secret
+                name: lp-mariadb-secret
             - configMapRef:
-                name: mariadb-config
+                name: lp-mariadb-config
           volumeMounts:
-            - name: mariadb-data
+            - name: lp-mariadb-data
               mountPath: /var/lib/mysql
           resources:
             requests:

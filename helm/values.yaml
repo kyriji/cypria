@@ -1,0 +1,13 @@
+mongodb:
+  port:
+  storage:
+    volumeName:
+    size: 512Mi
+
+luckperms:
+  enabled: true
+  mariadb:
+    port:
+    storage:
+      volumeName:
+      size: 512Mi

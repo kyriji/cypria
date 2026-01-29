@@ -45,8 +45,8 @@ public class Main extends JavaPlugin {
 
 	@Override
 	protected void setup() {
-		config.save();
-		 hytaleCommon = new HytaleCommon(config.get().toJsonObject(), Deployment.PIT, false);
+		if (config != null) config.save();
+		hytaleCommon = new HytaleCommon(config.get().toJsonObject(), Deployment.PIT, false);
 
 		getCommandRegistry().registerCommand(new TestCommand());
 //		getCommandRegistry().registerCommand(new BroadcastTestCommand());

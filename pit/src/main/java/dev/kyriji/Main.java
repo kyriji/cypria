@@ -1,18 +1,8 @@
 package dev.kyriji;
 
-import com.hypixel.hytale.codec.util.RawJsonReader;
-import com.hypixel.hytale.protocol.InteractionSyncData;
-import com.hypixel.hytale.protocol.Packet;
-import com.hypixel.hytale.protocol.packets.interaction.PlayInteractionFor;
-import com.hypixel.hytale.protocol.packets.interaction.SyncInteractionChain;
-import com.hypixel.hytale.protocol.packets.interaction.SyncInteractionChains;
-import com.hypixel.hytale.protocol.packets.player.MouseInteraction;
-import com.hypixel.hytale.protocol.packets.setup.PlayerOptions;
 import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.asset.AssetModule;
 import com.hypixel.hytale.server.core.event.events.BootEvent;
-import com.hypixel.hytale.server.core.io.PacketHandler;
-import com.hypixel.hytale.server.core.io.adapter.PacketAdapters;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.universe.Universe;
@@ -20,8 +10,9 @@ import com.hypixel.hytale.server.core.util.Config;
 import dev.kyriji.commands.TestCommand;
 import dev.kyriji.common.HytaleCommon;
 import dev.kyriji.common.enums.Deployment;
-import dev.kyriji.controllers.PlayerManager;
+import dev.kyriji.controllers.ChatManager;
 import dev.kyriji.controllers.GameManager;
+import dev.kyriji.controllers.PlayerManager;
 import dev.kyriji.controllers.UIManager;
 import dev.kyriji.objects.PitConfig;
 import dev.kyriji.objects.PitPlayer;
@@ -30,7 +21,6 @@ import dev.kyriji.utils.PlayerUtils;
 import javax.annotation.Nonnull;
 
 public class Main extends JavaPlugin {
-
 	private static Main instance;
 	private static HytaleCommon hytaleCommon;
 
@@ -39,6 +29,7 @@ public class Main extends JavaPlugin {
 	private GameManager gameManager;
 	private PlayerManager playerManager;
 	private UIManager uiManager;
+	private ChatManager chatManager;
 
 	Config<PitConfig> config;
 
@@ -94,6 +85,7 @@ public class Main extends JavaPlugin {
 		this.gameManager = new GameManager(this);
 		this.playerManager = new PlayerManager(this);
 		this.uiManager = new UIManager(this);
+		this.chatManager = new ChatManager(this);
 
 		this.hasInitialized = true;
 	}
@@ -108,6 +100,10 @@ public class Main extends JavaPlugin {
 
 	public UIManager getUiManager() {
 		return uiManager;
+	}
+
+	public ChatManager getChatManager() {
+		return chatManager;
 	}
 
 	public static Main getInstance() {

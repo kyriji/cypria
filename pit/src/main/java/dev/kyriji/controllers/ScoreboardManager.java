@@ -4,17 +4,17 @@ import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.event.events.player.PlayerReadyEvent;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
-import dev.kyriji.controllers.UI.PlayerHud;
+import dev.kyriji.ui.PlayerHud;
 import dev.kyriji.utils.PlayerUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class UIManager {
+public class ScoreboardManager {
 	private static final Map<UUID, PlayerHud> playerHuds = new HashMap<>();
 
-	public UIManager(JavaPlugin plugin) {
+	public ScoreboardManager(JavaPlugin plugin) {
 		plugin.getEventRegistry().registerGlobal(PlayerReadyEvent.class, event -> {
 			preparePlayer(event.getPlayer());
 		});

@@ -1,11 +1,11 @@
-package dev.kyriji.controllers.UI;
+package dev.kyriji.ui;
 
 import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.player.hud.CustomUIHud;
 import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
-import dev.kyriji.controllers.PlayerManager;
+import dev.kyriji.controllers.PlayerDataManager;
 import dev.kyriji.objects.PitPlayer;
 import dev.kyriji.utils.ColorUtils;
 
@@ -30,7 +30,7 @@ public class PlayerHud extends CustomUIHud {
 	}
 
 	private void update() {
-		PitPlayer pitPlayer = PlayerManager.getPitPlayer(playerRef.getUuid());
+		PitPlayer pitPlayer = PlayerDataManager.getPitPlayer(playerRef.getUuid());
 
 		UICommandBuilder builder = new UICommandBuilder();
 		builder.append("Hud/InfoCard.ui");

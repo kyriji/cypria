@@ -1,18 +1,8 @@
 package dev.kyriji;
 
-import com.hypixel.hytale.codec.util.RawJsonReader;
-import com.hypixel.hytale.protocol.InteractionSyncData;
-import com.hypixel.hytale.protocol.Packet;
-import com.hypixel.hytale.protocol.packets.interaction.PlayInteractionFor;
-import com.hypixel.hytale.protocol.packets.interaction.SyncInteractionChain;
-import com.hypixel.hytale.protocol.packets.interaction.SyncInteractionChains;
-import com.hypixel.hytale.protocol.packets.player.MouseInteraction;
-import com.hypixel.hytale.protocol.packets.setup.PlayerOptions;
 import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.asset.AssetModule;
 import com.hypixel.hytale.server.core.event.events.BootEvent;
-import com.hypixel.hytale.server.core.io.PacketHandler;
-import com.hypixel.hytale.server.core.io.adapter.PacketAdapters;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.universe.Universe;
@@ -20,9 +10,10 @@ import com.hypixel.hytale.server.core.util.Config;
 import dev.kyriji.commands.TestCommand;
 import dev.kyriji.common.HytaleCommon;
 import dev.kyriji.common.enums.Deployment;
-import dev.kyriji.controllers.PlayerManager;
+import dev.kyriji.controllers.ChatManager;
 import dev.kyriji.controllers.GameManager;
-import dev.kyriji.controllers.UIManager;
+import dev.kyriji.controllers.PlayerDataManager;
+import dev.kyriji.controllers.ScoreboardManager;
 import dev.kyriji.objects.PitConfig;
 import dev.kyriji.objects.PitPlayer;
 import dev.kyriji.utils.PlayerUtils;
@@ -30,17 +21,17 @@ import dev.kyriji.utils.PlayerUtils;
 import javax.annotation.Nonnull;
 
 public class Main extends JavaPlugin {
-
 	private static Main instance;
 	private static HytaleCommon hytaleCommon;
 
 	private boolean hasInitialized = false;
 
 	private GameManager gameManager;
-	private PlayerManager playerManager;
-	private UIManager uiManager;
+	private PlayerDataManager playerDataManager;
+	private ScoreboardManager scoreboardManager;
+	private ChatManager chatManager;
 
-	Config<PitConfig> config;
+	public Config<PitConfig> config;
 
 	public Main(@Nonnull JavaPluginInit init) {
 		super(init);
@@ -63,11 +54,11 @@ public class Main extends JavaPlugin {
 
 		Universe.get().getPlayers().forEach(playerRef -> {
 			PlayerUtils.getPlayerFromRef(playerRef).thenAccept(player -> {
-				playerManager.loadPlayer(playerRef.getUuid());
+				playerDataManager.loadPlayer(playerRef.getUuid());
 
-				if (PlayerManager.isLoaded(playerRef.getUuid())) {
+				if (PlayerDataManager.isLoaded(playerRef.getUuid())) {
 					GameManager.preparePlayer(player);
-					UIManager.preparePlayer(player);
+					ScoreboardManager.preparePlayer(player);
 				}
 			});
 		});
@@ -77,11 +68,11 @@ public class Main extends JavaPlugin {
 	public void shutdown() {
 		//TODO: Fix errors with data saving during hot-reload
 		Universe.get().getPlayers().forEach(playerRef -> {
-			PitPlayer pitPlayer = PlayerManager.getPitPlayer(playerRef.getUuid());
+			PitPlayer pitPlayer = PlayerDataManager.getPitPlayer(playerRef.getUuid());
 
 			pitPlayer.save();
 
-			PlayerUtils.getPlayerFromRef(playerRef).thenAccept(UIManager::removePlayer);
+			PlayerUtils.getPlayerFromRef(playerRef).thenAccept(ScoreboardManager::removePlayer);
 		});
 
 		AssetModule.get().unregisterPack(getIdentifier().toString());
@@ -92,8 +83,9 @@ public class Main extends JavaPlugin {
 	private void initializeSystems() {
 		if (this.hasInitialized) return;
 		this.gameManager = new GameManager(this);
-		this.playerManager = new PlayerManager(this);
-		this.uiManager = new UIManager(this);
+		this.playerDataManager = new PlayerDataManager(this);
+		this.scoreboardManager = new ScoreboardManager(this);
+		this.chatManager = new ChatManager(this);
 
 		this.hasInitialized = true;
 	}
@@ -102,12 +94,16 @@ public class Main extends JavaPlugin {
 		return gameManager;
 	}
 
-	public PlayerManager getPlayerManager() {
-		return playerManager;
+	public PlayerDataManager getPlayerManager() {
+		return playerDataManager;
 	}
 
-	public UIManager getUiManager() {
-		return uiManager;
+	public ScoreboardManager getUiManager() {
+		return scoreboardManager;
+	}
+
+	public ChatManager getChatManager() {
+		return chatManager;
 	}
 
 	public static Main getInstance() {

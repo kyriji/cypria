@@ -1,4 +1,4 @@
-package dev.kyriji.controllers.systems;
+package dev.kyriji.systems;
 
 import com.hypixel.hytale.component.ArchetypeChunk;
 import com.hypixel.hytale.component.CommandBuffer;

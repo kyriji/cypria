@@ -3,7 +3,7 @@ package dev.kyriji.common;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import dev.kyriji.common.config.controllers.ConfigManager;
-import dev.kyriji.common.controllers.RedisManager;
+import dev.kyriji.common.messaging.controllers.RedisManager;
 import dev.kyriji.common.enums.Deployment;
 import dev.kyriji.common.messaging.controllers.MessageManager;
 import dev.kyriji.common.playerdata.controllers.PlayerDataManager;

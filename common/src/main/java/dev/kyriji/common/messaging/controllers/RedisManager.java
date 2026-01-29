@@ -1,4 +1,4 @@
-package dev.kyriji.common.controllers;
+package dev.kyriji.common.messaging.controllers;
 
 import com.google.gson.reflect.TypeToken;
 import dev.kyriji.common.HytaleCommon;

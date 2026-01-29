@@ -11,7 +11,7 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 import static dev.kyriji.common.HytaleCommon.gson;
-import static dev.kyriji.common.controllers.RedisManager.CHANNEL_NAME;
+import static dev.kyriji.common.messaging.controllers.RedisManager.CHANNEL_NAME;
 
 public abstract class RedisMessage<T extends RedisMessageResponse> {
 

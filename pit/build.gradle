@@ -3,16 +3,16 @@ plugins {
     id 'com.gradleup.shadow'
 }
 
-group = 'dev.kyriji'
-version = ''
-
 repositories {
     mavenCentral()
+    maven { url 'https://maven.hytale.com/release' }
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
     implementation project(':common')
-    compileOnly files('../libs/HytaleServer-2026.01.28-87d03be09.jar')
+    compileOnly 'com.hypixel.hytale:Server:2026.01.28-87d03be09'
+    compileOnly 'com.github.Zoltus:TinyMessage:2.0.1'
 }
 
 shadowJar {
@@ -27,4 +27,4 @@ shadowJar {
     relocate 'com.google.gson', 'dev.kyriji.libs.gson'
 }
 
-build.dependsOn shadowJar
+tasks.build.dependsOn(tasks.shadowJar)

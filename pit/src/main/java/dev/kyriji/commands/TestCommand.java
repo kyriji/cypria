@@ -12,6 +12,7 @@ import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import dev.kyriji.controllers.EnderChestWindow;
 import dev.kyriji.controllers.UI.PlayerHud;
 
 import javax.annotation.Nonnull;
@@ -20,7 +21,6 @@ import java.util.concurrent.CompletableFuture;
 public class TestCommand extends AbstractAsyncPlayerCommand {
 
 	private final RequiredArg<PlayerRef> playerArg;
-	private final RequiredArg<Item> itemArg;
 
 	public TestCommand() {
 		super("test", "A Simple Test Command");
@@ -28,14 +28,12 @@ public class TestCommand extends AbstractAsyncPlayerCommand {
 		System.out.println("[Pit] TestCommand initialized!");
 
 		this.playerArg = this.withRequiredArg("player", "A Simple Test Command", ArgTypes.PLAYER_REF);
-		this.itemArg = this.withRequiredArg("item", "A Simple Test Command", ArgTypes.ITEM_ASSET);
 	}
 
 	@Nonnull
 	@Override
 	protected CompletableFuture<Void> executeAsync(@Nonnull CommandContext context, @Nonnull Store<EntityStore> store, @Nonnull Ref<EntityStore> ref, @Nonnull PlayerRef playerRef, @Nonnull World world) {
 		PlayerRef targetRef = this.playerArg.get(context);
-		Item item = this.itemArg.get(context);
 
 		Ref<EntityStore> storeRef = targetRef.getReference();
 
@@ -52,7 +50,8 @@ public class TestCommand extends AbstractAsyncPlayerCommand {
 			return CompletableFuture.completedFuture(null);
 		}
 
-		if (player.getHudManager().getCustomHud() == null) player.getHudManager().setCustomHud(playerRef, new PlayerHud(playerRef));
+		EnderChestWindow enderChestWindow = new EnderChestWindow(player);
+		enderChestWindow.open();
 
 		return CompletableFuture.completedFuture(null);
 	}

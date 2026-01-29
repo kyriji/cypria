@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
@@ -42,6 +43,7 @@ public class PitNPC {
 	private final int networkId;
 	private final Consumer<UUID> interactionHandler;
 	private boolean despawned = false;
+	private ScheduledFuture<?> maintenanceTask;
 
 	private PitNPC(NPCEntity npcEntity, Ref<EntityStore> entityRef, int networkId, Consumer<UUID> interactionHandler) {
 		this.npcEntity = npcEntity;
@@ -57,6 +59,22 @@ public class PitNPC {
 			registerGlobalInteractionPacketHandler();
 			HANDLER_REGISTERED = true;
 		}
+
+		// Start a periodic task to maintain NPC state (knockback disabled, idle animation)
+		this.maintenanceTask = HytaleServer.SCHEDULED_EXECUTOR.scheduleAtFixedRate(() -> {
+			if (this.despawned || GameManager.PIT == null) return;
+
+			GameManager.PIT.execute(() -> {
+				if (this.despawned || this.npcEntity == null) return;
+
+				Role role = this.npcEntity.getRole();
+				if (role != null) {
+					role.getActiveMotionController().setKnockbackScale(0.0);
+				}
+
+				this.npcEntity.playAnimation(this.entityRef, AnimationSlot.Status, "Idle", this.entityRef.getStore());
+			});
+		}, 1000, 1000, TimeUnit.MILLISECONDS);
 	}
 
 	public static PitNPC spawn(Store<EntityStore> store, String modelAssetId, Vector3d position, Vector3f rotation, World world, Consumer<UUID> interactionHandler) {
@@ -84,14 +102,10 @@ public class PitNPC {
 					networkIdHolder[0] = networkId;
 				},
 				(npcComponent, ref, storeParam) -> {
-					HytaleServer.SCHEDULED_EXECUTOR.schedule(() -> {
-						world.execute(() -> {
-							npcComponent.playAnimation(ref, AnimationSlot.Status, "Idle", storeParam);
+					Role role = npcComponent.getRole();
+					if (role != null) role.getActiveMotionController().setKnockbackScale(0.0);
 
-							Role role = npcComponent.getRole();
-							if (role != null) role.getActiveMotionController().setKnockbackScale(0.0);
-						});
-					}, 500, TimeUnit.MILLISECONDS);
+					npcComponent.playAnimation(ref, AnimationSlot.Status, "Idle", storeParam);
 				}
 		);
 
@@ -146,6 +160,7 @@ public class PitNPC {
 		synchronized (ACTIVE_NPCS) {
 			ACTIVE_NPCS.remove(this);
 		}
+		if (maintenanceTask != null) maintenanceTask.cancel(false);
 		if (npcEntity != null) {
 			npcEntity.setToDespawn();
 		}

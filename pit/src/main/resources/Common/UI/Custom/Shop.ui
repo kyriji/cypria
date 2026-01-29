@@ -70,8 +70,9 @@ Group {
     }
 
     Group #Content {
+      FlexWeight: 1;
       LayoutMode: Top;
-      Padding: (Full: 20);
+      Padding: (Top: 20, Left: 20, Right: 20, Bottom: 20);
 
       Group #CategoryTabs {
         LayoutMode: Left;
@@ -150,95 +151,103 @@ Group {
         }
       }
 
-      Group #ItemsContainer {
-        LayoutMode: Top;
-        Padding: (Top: 10);
+      Group #ScrollWrapper {
+        FlexWeight: 1;
+        LayoutMode: TopScrolling;
+        Padding: (Left: 0, Right: 10, Top: 0, Bottom: 0);
 
-        Group #Item1 {
-          LayoutMode: Left;
-          Anchor: (Height: 100);
-          Padding: (Bottom: 10, Full: 10);
-          Background: #444444;
+        Group #ItemsContainer {
+          LayoutMode: Top;
 
-          Group #ItemIconContainer {
-            LayoutMode: Center;
-            Anchor: (Width: 80);
-            Background: #333333;
+          // Item slot 0
+          Group #Item0 {
+            LayoutMode: Left;
+            Anchor: (Height: 100);
+            Padding: (Bottom: 10, Full: 10);
+            Background: #444444;
+            Visible: false;
 
-            ItemIcon #ItemIcon {
-              Anchor: (Width: 64, Height: 64);
-              Visible: true;
-            }
-          }
-
-          Group #ItemInfo {
-            LayoutMode: Top;
-            FlexWeight: 1;
-            Padding: (Full: 10);
-
-            Label #ItemName {
-              Style: (
-                FontSize: 18,
-                TextColor: #ffffff,
-                RenderBold: true
-              );
-              Text: "Adamantite Sword";
-              Padding: (Bottom: 5);
-            }
-
-            Label #ItemDescription {
-              Style: (
-                FontSize: 14,
-                TextColor: #aaaaaa
-              );
-              Text: "A reliable sword";
-            }
-          }
-
-          Group #PurchaseSection {
-            LayoutMode: Top;
-            Anchor: (Width: 150);
-            Padding: (Full: 15);
-
-            Label #ItemPrice {
-              Style: (
-                FontSize: 16,
-                TextColor: #ffd700,
-                RenderBold: true,
-                HorizontalAlignment: Center
-              );
-              Text: "100g";
-              Padding: (Bottom: 10);
-            }
-
-            Button #BuyButton1 {
-              Anchor: (Height: 35);
+            Group #ItemIconContainer {
               LayoutMode: Center;
-              Style: (
-                Default: (Background: #228822),
-                Hovered: (Background: #33aa33),
-                Pressed: (Background: #44cc44)
-              );
+              Anchor: (Width: 80);
+              Background: #333333;
 
-              Label {
+              ItemIcon #ItemIcon {
+                Anchor: (Width: 64, Height: 64);
+                Visible: true;
+              }
+            }
+
+            Group #ItemInfo {
+              LayoutMode: Top;
+              FlexWeight: 1;
+              Padding: (Full: 10);
+
+              Label #ItemName {
+                Style: (
+                  FontSize: 18,
+                  TextColor: #ffffff,
+                  RenderBold: true
+                );
+                Text: "";
+                Padding: (Bottom: 5);
+              }
+
+              Label #ItemDescription {
+                Style: (
+                  FontSize: 14,
+                  TextColor: #aaaaaa
+                );
+                Text: "";
+              }
+            }
+
+            Group #PurchaseSection {
+              LayoutMode: Top;
+              Anchor: (Width: 150);
+              Padding: (Full: 15);
+
+              Label #ItemPrice {
                 Style: (
                   FontSize: 16,
-                  TextColor: #ffffff,
+                  TextColor: #ffd700,
                   RenderBold: true,
-                  HorizontalAlignment: Center,
-                  VerticalAlignment: Center
+                  HorizontalAlignment: Center
                 );
-                Text: "BUY";
+                Text: "";
+                Padding: (Bottom: 10);
+              }
+
+                Button #BuyButton0 {
+                Anchor: (Height: 35);
+                LayoutMode: Center;
+                Style: (
+                  Default: (Background: #228822),
+                  Hovered: (Background: #33aa33),
+                  Pressed: (Background: #44cc44)
+                );
+
+                Label {
+                  Style: (
+                    FontSize: 16,
+                    TextColor: #ffffff,
+                    RenderBold: true,
+                    HorizontalAlignment: Center,
+                    VerticalAlignment: Center
+                  );
+                  Text: "BUY";
+                }
               }
             }
           }
-        }
 
-        Group #Item2 {
+          // Item slot 1
+          Group #Item1 {
           LayoutMode: Left;
           Anchor: (Height: 100);
           Padding: (Bottom: 10, Full: 10);
           Background: #444444;
+          Visible: false;
 
           Group #ItemIconContainer {
             LayoutMode: Center;
@@ -262,7 +271,7 @@ Group {
                 TextColor: #ffffff,
                 RenderBold: true
               );
-              Text: "Mithril Sword";
+              Text: "";
               Padding: (Bottom: 5);
             }
 
@@ -271,7 +280,7 @@ Group {
                 FontSize: 14,
                 TextColor: #aaaaaa
               );
-              Text: "A powerful weapon";
+              Text: "";
             }
           }
 
@@ -287,7 +296,89 @@ Group {
                 RenderBold: true,
                 HorizontalAlignment: Center
               );
-              Text: "500g";
+              Text: "";
+              Padding: (Bottom: 10);
+            }
+
+              Button #BuyButton1 {
+                Anchor: (Height: 35);
+                LayoutMode: Center;
+                Style: (
+                  Default: (Background: #228822),
+                  Hovered: (Background: #33aa33),
+                  Pressed: (Background: #44cc44)
+                );
+
+                Label {
+                  Style: (
+                    FontSize: 16,
+                    TextColor: #ffffff,
+                    RenderBold: true,
+                    HorizontalAlignment: Center,
+                    VerticalAlignment: Center
+                  );
+                  Text: "BUY";
+                }
+              }
+            }
+          }
+
+        // Item slot 2
+          Group #Item2 {
+          LayoutMode: Left;
+          Anchor: (Height: 100);
+          Padding: (Bottom: 10, Full: 10);
+          Background: #444444;
+          Visible: false;
+
+          Group #ItemIconContainer {
+            LayoutMode: Center;
+            Anchor: (Width: 80);
+            Background: #333333;
+
+            ItemIcon #ItemIcon {
+              Anchor: (Width: 64, Height: 64);
+              Visible: true;
+            }
+          }
+
+          Group #ItemInfo {
+            LayoutMode: Top;
+            FlexWeight: 1;
+            Padding: (Full: 10);
+
+            Label #ItemName {
+              Style: (
+                FontSize: 18,
+                TextColor: #ffffff,
+                RenderBold: true
+              );
+              Text: "";
+              Padding: (Bottom: 5);
+            }
+
+            Label #ItemDescription {
+              Style: (
+                FontSize: 14,
+                TextColor: #aaaaaa
+              );
+              Text: "";
+            }
+          }
+
+          Group #PurchaseSection {
+            LayoutMode: Top;
+            Anchor: (Width: 150);
+            Padding: (Full: 15);
+
+            Label #ItemPrice {
+              Style: (
+                FontSize: 16,
+                TextColor: #ffd700,
+                RenderBold: true,
+                HorizontalAlignment: Center
+              );
+              Text: "";
               Padding: (Bottom: 10);
             }
 
@@ -314,11 +405,13 @@ Group {
           }
         }
 
-        Group #Item3 {
+        // Item slot 3
+          Group #Item3 {
           LayoutMode: Left;
           Anchor: (Height: 100);
           Padding: (Bottom: 10, Full: 10);
           Background: #444444;
+          Visible: false;
 
           Group #ItemIconContainer {
             LayoutMode: Center;
@@ -342,7 +435,7 @@ Group {
                 TextColor: #ffffff,
                 RenderBold: true
               );
-              Text: "Healing Potion";
+              Text: "";
               Padding: (Bottom: 5);
             }
 
@@ -351,7 +444,7 @@ Group {
                 FontSize: 14,
                 TextColor: #aaaaaa
               );
-              Text: "Restores health";
+              Text: "";
             }
           }
 
@@ -367,7 +460,7 @@ Group {
                 RenderBold: true,
                 HorizontalAlignment: Center
               );
-              Text: "50g";
+              Text: "";
               Padding: (Bottom: 10);
             }
 
@@ -389,6 +482,499 @@ Group {
                   VerticalAlignment: Center
                 );
                 Text: "BUY";
+              }
+            }
+          }
+        }
+
+        // Item slot 4
+          Group #Item4 {
+          LayoutMode: Left;
+          Anchor: (Height: 100);
+          Padding: (Bottom: 10, Full: 10);
+          Background: #444444;
+          Visible: false;
+
+          Group #ItemIconContainer {
+            LayoutMode: Center;
+            Anchor: (Width: 80);
+            Background: #333333;
+
+            ItemIcon #ItemIcon {
+              Anchor: (Width: 64, Height: 64);
+              Visible: true;
+            }
+          }
+
+          Group #ItemInfo {
+            LayoutMode: Top;
+            FlexWeight: 1;
+            Padding: (Full: 10);
+
+            Label #ItemName {
+              Style: (
+                FontSize: 18,
+                TextColor: #ffffff,
+                RenderBold: true
+              );
+              Text: "";
+              Padding: (Bottom: 5);
+            }
+
+            Label #ItemDescription {
+              Style: (
+                FontSize: 14,
+                TextColor: #aaaaaa
+              );
+              Text: "";
+            }
+          }
+
+          Group #PurchaseSection {
+            LayoutMode: Top;
+            Anchor: (Width: 150);
+            Padding: (Full: 15);
+
+            Label #ItemPrice {
+              Style: (
+                FontSize: 16,
+                TextColor: #ffd700,
+                RenderBold: true,
+                HorizontalAlignment: Center
+              );
+              Text: "";
+              Padding: (Bottom: 10);
+            }
+
+            Button #BuyButton4 {
+              Anchor: (Height: 35);
+              LayoutMode: Center;
+              Style: (
+                Default: (Background: #228822),
+                Hovered: (Background: #33aa33),
+                Pressed: (Background: #44cc44)
+              );
+
+              Label {
+                Style: (
+                  FontSize: 16,
+                  TextColor: #ffffff,
+                  RenderBold: true,
+                  HorizontalAlignment: Center,
+                  VerticalAlignment: Center
+                );
+                Text: "BUY";
+              }
+            }
+          }
+        }
+
+        // Item slot 5
+          Group #Item5 {
+          LayoutMode: Left;
+          Anchor: (Height: 100);
+          Padding: (Bottom: 10, Full: 10);
+          Background: #444444;
+          Visible: false;
+
+          Group #ItemIconContainer {
+            LayoutMode: Center;
+            Anchor: (Width: 80);
+            Background: #333333;
+
+            ItemIcon #ItemIcon {
+              Anchor: (Width: 64, Height: 64);
+              Visible: true;
+            }
+          }
+
+          Group #ItemInfo {
+            LayoutMode: Top;
+            FlexWeight: 1;
+            Padding: (Full: 10);
+
+            Label #ItemName {
+              Style: (
+                FontSize: 18,
+                TextColor: #ffffff,
+                RenderBold: true
+              );
+              Text: "";
+              Padding: (Bottom: 5);
+            }
+
+            Label #ItemDescription {
+              Style: (
+                FontSize: 14,
+                TextColor: #aaaaaa
+              );
+              Text: "";
+            }
+          }
+
+          Group #PurchaseSection {
+            LayoutMode: Top;
+            Anchor: (Width: 150);
+            Padding: (Full: 15);
+
+            Label #ItemPrice {
+              Style: (
+                FontSize: 16,
+                TextColor: #ffd700,
+                RenderBold: true,
+                HorizontalAlignment: Center
+              );
+              Text: "";
+              Padding: (Bottom: 10);
+            }
+
+            Button #BuyButton5 {
+              Anchor: (Height: 35);
+              LayoutMode: Center;
+              Style: (
+                Default: (Background: #228822),
+                Hovered: (Background: #33aa33),
+                Pressed: (Background: #44cc44)
+              );
+
+              Label {
+                Style: (
+                  FontSize: 16,
+                  TextColor: #ffffff,
+                  RenderBold: true,
+                  HorizontalAlignment: Center,
+                  VerticalAlignment: Center
+                );
+                Text: "BUY";
+              }
+            }
+          }
+        }
+
+        // Item slot 6
+          Group #Item6 {
+          LayoutMode: Left;
+          Anchor: (Height: 100);
+          Padding: (Bottom: 10, Full: 10);
+          Background: #444444;
+          Visible: false;
+
+          Group #ItemIconContainer {
+            LayoutMode: Center;
+            Anchor: (Width: 80);
+            Background: #333333;
+
+            ItemIcon #ItemIcon {
+              Anchor: (Width: 64, Height: 64);
+              Visible: true;
+            }
+          }
+
+          Group #ItemInfo {
+            LayoutMode: Top;
+            FlexWeight: 1;
+            Padding: (Full: 10);
+
+            Label #ItemName {
+              Style: (
+                FontSize: 18,
+                TextColor: #ffffff,
+                RenderBold: true
+              );
+              Text: "";
+              Padding: (Bottom: 5);
+            }
+
+            Label #ItemDescription {
+              Style: (
+                FontSize: 14,
+                TextColor: #aaaaaa
+              );
+              Text: "";
+            }
+          }
+
+          Group #PurchaseSection {
+            LayoutMode: Top;
+            Anchor: (Width: 150);
+            Padding: (Full: 15);
+
+            Label #ItemPrice {
+              Style: (
+                FontSize: 16,
+                TextColor: #ffd700,
+                RenderBold: true,
+                HorizontalAlignment: Center
+              );
+              Text: "";
+              Padding: (Bottom: 10);
+            }
+
+            Button #BuyButton6 {
+              Anchor: (Height: 35);
+              LayoutMode: Center;
+              Style: (
+                Default: (Background: #228822),
+                Hovered: (Background: #33aa33),
+                Pressed: (Background: #44cc44)
+              );
+
+              Label {
+                Style: (
+                  FontSize: 16,
+                  TextColor: #ffffff,
+                  RenderBold: true,
+                  HorizontalAlignment: Center,
+                  VerticalAlignment: Center
+                );
+                Text: "BUY";
+              }
+            }
+          }
+        }
+
+        // Item slot 7
+          Group #Item7 {
+          LayoutMode: Left;
+          Anchor: (Height: 100);
+          Padding: (Bottom: 10, Full: 10);
+          Background: #444444;
+          Visible: false;
+
+          Group #ItemIconContainer {
+            LayoutMode: Center;
+            Anchor: (Width: 80);
+            Background: #333333;
+
+            ItemIcon #ItemIcon {
+              Anchor: (Width: 64, Height: 64);
+              Visible: true;
+            }
+          }
+
+          Group #ItemInfo {
+            LayoutMode: Top;
+            FlexWeight: 1;
+            Padding: (Full: 10);
+
+            Label #ItemName {
+              Style: (
+                FontSize: 18,
+                TextColor: #ffffff,
+                RenderBold: true
+              );
+              Text: "";
+              Padding: (Bottom: 5);
+            }
+
+            Label #ItemDescription {
+              Style: (
+                FontSize: 14,
+                TextColor: #aaaaaa
+              );
+              Text: "";
+            }
+          }
+
+          Group #PurchaseSection {
+            LayoutMode: Top;
+            Anchor: (Width: 150);
+            Padding: (Full: 15);
+
+            Label #ItemPrice {
+              Style: (
+                FontSize: 16,
+                TextColor: #ffd700,
+                RenderBold: true,
+                HorizontalAlignment: Center
+              );
+              Text: "";
+              Padding: (Bottom: 10);
+            }
+
+            Button #BuyButton7 {
+              Anchor: (Height: 35);
+              LayoutMode: Center;
+              Style: (
+                Default: (Background: #228822),
+                Hovered: (Background: #33aa33),
+                Pressed: (Background: #44cc44)
+              );
+
+              Label {
+                Style: (
+                  FontSize: 16,
+                  TextColor: #ffffff,
+                  RenderBold: true,
+                  HorizontalAlignment: Center,
+                  VerticalAlignment: Center
+                );
+                Text: "BUY";
+              }
+            }
+          }
+        }
+
+        // Item slot 8
+          Group #Item8 {
+          LayoutMode: Left;
+          Anchor: (Height: 100);
+          Padding: (Bottom: 10, Full: 10);
+          Background: #444444;
+          Visible: false;
+
+          Group #ItemIconContainer {
+            LayoutMode: Center;
+            Anchor: (Width: 80);
+            Background: #333333;
+
+            ItemIcon #ItemIcon {
+              Anchor: (Width: 64, Height: 64);
+              Visible: true;
+            }
+          }
+
+          Group #ItemInfo {
+            LayoutMode: Top;
+            FlexWeight: 1;
+            Padding: (Full: 10);
+
+            Label #ItemName {
+              Style: (
+                FontSize: 18,
+                TextColor: #ffffff,
+                RenderBold: true
+              );
+              Text: "";
+              Padding: (Bottom: 5);
+            }
+
+            Label #ItemDescription {
+              Style: (
+                FontSize: 14,
+                TextColor: #aaaaaa
+              );
+              Text: "";
+            }
+          }
+
+          Group #PurchaseSection {
+            LayoutMode: Top;
+            Anchor: (Width: 150);
+            Padding: (Full: 15);
+
+            Label #ItemPrice {
+              Style: (
+                FontSize: 16,
+                TextColor: #ffd700,
+                RenderBold: true,
+                HorizontalAlignment: Center
+              );
+              Text: "";
+              Padding: (Bottom: 10);
+            }
+
+            Button #BuyButton8 {
+              Anchor: (Height: 35);
+              LayoutMode: Center;
+              Style: (
+                Default: (Background: #228822),
+                Hovered: (Background: #33aa33),
+                Pressed: (Background: #44cc44)
+              );
+
+              Label {
+                Style: (
+                  FontSize: 16,
+                  TextColor: #ffffff,
+                  RenderBold: true,
+                  HorizontalAlignment: Center,
+                  VerticalAlignment: Center
+                );
+                Text: "BUY";
+              }
+            }
+          }
+        }
+
+        // Item slot 9
+        Group #Item9 {
+          LayoutMode: Left;
+          Anchor: (Height: 100);
+          Padding: (Bottom: 10, Full: 10);
+          Background: #444444;
+          Visible: false;
+
+          Group #ItemIconContainer {
+            LayoutMode: Center;
+            Anchor: (Width: 80);
+            Background: #333333;
+
+            ItemIcon #ItemIcon {
+              Anchor: (Width: 64, Height: 64);
+              Visible: true;
+            }
+          }
+
+          Group #ItemInfo {
+            LayoutMode: Top;
+            FlexWeight: 1;
+            Padding: (Full: 10);
+
+            Label #ItemName {
+              Style: (
+                FontSize: 18,
+                TextColor: #ffffff,
+                RenderBold: true
+              );
+              Text: "";
+              Padding: (Bottom: 5);
+            }
+
+            Label #ItemDescription {
+              Style: (
+                FontSize: 14,
+                TextColor: #aaaaaa
+              );
+              Text: "";
+            }
+          }
+
+          Group #PurchaseSection {
+            LayoutMode: Top;
+            Anchor: (Width: 150);
+            Padding: (Full: 15);
+
+            Label #ItemPrice {
+              Style: (
+                FontSize: 16,
+                TextColor: #ffd700,
+                RenderBold: true,
+                HorizontalAlignment: Center
+              );
+              Text: "";
+              Padding: (Bottom: 10);
+            }
+
+              Button #BuyButton9 {
+                Anchor: (Height: 35);
+                LayoutMode: Center;
+                Style: (
+                  Default: (Background: #228822),
+                  Hovered: (Background: #33aa33),
+                  Pressed: (Background: #44cc44)
+                );
+
+                Label {
+                  Style: (
+                    FontSize: 16,
+                    TextColor: #ffffff,
+                    RenderBold: true,
+                    HorizontalAlignment: Center,
+                    VerticalAlignment: Center
+                  );
+                  Text: "BUY";
+                }
               }
             }
           }

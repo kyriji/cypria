@@ -5,7 +5,7 @@ import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.math.vector.Vector3f;
 import com.hypixel.hytale.protocol.AnimationSlot;
-import com.hypixel.hytale.protocol.InteractionSyncData;
+import com.hypixel.hytale.protocol.InteractionType;
 import com.hypixel.hytale.protocol.Packet;
 import com.hypixel.hytale.protocol.packets.interaction.SyncInteractionChain;
 import com.hypixel.hytale.protocol.packets.interaction.SyncInteractionChains;
@@ -22,8 +22,11 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.npc.NPCPlugin;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
 import com.hypixel.hytale.server.npc.role.Role;
+import dev.kyriji.controllers.GameManager;
 import it.unimi.dsi.fastutil.Pair;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -31,10 +34,14 @@ import java.util.function.Consumer;
 
 public class PitNPC {
 
+	private static final List<PitNPC> ACTIVE_NPCS = new ArrayList<>();
+	private static boolean HANDLER_REGISTERED = false;
+
 	private final NPCEntity npcEntity;
 	private final Ref<EntityStore> entityRef;
 	private final int networkId;
 	private final Consumer<UUID> interactionHandler;
+	private boolean despawned = false;
 
 	private PitNPC(NPCEntity npcEntity, Ref<EntityStore> entityRef, int networkId, Consumer<UUID> interactionHandler) {
 		this.npcEntity = npcEntity;
@@ -42,8 +49,13 @@ public class PitNPC {
 		this.networkId = networkId;
 		this.interactionHandler = interactionHandler;
 
-		if (interactionHandler != null) {
-			registerInteractionPacketHandler();
+		synchronized (ACTIVE_NPCS) {
+			ACTIVE_NPCS.add(this);
+		}
+
+		if (!HANDLER_REGISTERED && interactionHandler != null) {
+			registerGlobalInteractionPacketHandler();
+			HANDLER_REGISTERED = true;
 		}
 	}
 
@@ -88,26 +100,52 @@ public class PitNPC {
 		return new PitNPC(npcPair.second(), npcPair.first(), networkIdHolder[0], interactionHandler);
 	}
 
-	private void registerInteractionPacketHandler() {
+	private static void registerGlobalInteractionPacketHandler() {
 		PacketAdapters.registerInbound((PacketHandler handler, Packet packet) -> {
 			if (packet instanceof SyncInteractionChains interactionPacket) {
 				for (SyncInteractionChain update : interactionPacket.updates) {
-					if (update.interactionData == null) continue;
+					if (update.interactionType != InteractionType.Use) return;
+					if (update.interactionData == null || update.data == null) continue;
 
-					for (InteractionSyncData interactionDatum : update.interactionData) {
-						if (interactionDatum == null || interactionDatum.entityId != this.networkId + 1) continue;
+					assert GameManager.PIT != null;
+					int targetEntityId = update.data.entityId;
+
+					GameManager.PIT.execute(() -> {
+						EntityStore entityStore = GameManager.PIT.getEntityStore();
+						Ref<EntityStore> clickedEntityRef = entityStore.getRefFromNetworkId(targetEntityId);
+
+						if (clickedEntityRef == null) return;
+
+						NPCEntity clickedNPC = clickedEntityRef.getStore().getComponent(clickedEntityRef, Objects.requireNonNull(NPCEntity.getComponentType()));
+						if (clickedNPC == null) return;
+
+						PitNPC matchingNPC = null;
+						synchronized (ACTIVE_NPCS) {
+							for (PitNPC npc : ACTIVE_NPCS) {
+								if (!npc.despawned && npc.npcEntity == clickedNPC) {
+									matchingNPC = npc;
+									break;
+								}
+							}
+						}
+
+						if (matchingNPC == null) return;
 
 						UUID playerUuid = Objects.requireNonNull(handler.getAuth()).getUuid();
-						if (this.interactionHandler != null) {
-							this.interactionHandler.accept(playerUuid);
+						if (matchingNPC.interactionHandler != null) {
+							matchingNPC.interactionHandler.accept(playerUuid);
 						}
-					}
+					});
 				}
 			}
 		});
 	}
 
 	public void despawn() {
+		this.despawned = true;
+		synchronized (ACTIVE_NPCS) {
+			ACTIVE_NPCS.remove(this);
+		}
 		if (npcEntity != null) {
 			npcEntity.setToDespawn();
 		}

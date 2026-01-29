@@ -2,6 +2,7 @@ package dev.kyriji.controllers;
 
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.math.shape.Box2D;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.math.vector.Vector3f;
 import com.hypixel.hytale.protocol.packets.player.JoinWorld;
@@ -52,6 +53,9 @@ public class GameManager {
 	private boolean npcsSpawned = false;
 
 	public GameManager(JavaPlugin plugin) {
+		assert PIT != null;
+		PIT.getWorldConfig().getChunkConfig().setKeepLoadedRegion(new Box2D(250, 150, 500, 400));
+
 		plugin.getEntityStoreRegistry().registerSystem(new BlockBreakSystem());
 		plugin.getEntityStoreRegistry().registerSystem(new BlockDamageSystem());
 		plugin.getEntityStoreRegistry().registerSystem(new BlockPlaceSystem());
@@ -99,7 +103,11 @@ public class GameManager {
 					Ref<EntityStore> playerRef = player.getReference();
 					if (playerRef == null) return;
 
-					player.getPageManager().openCustomPage(playerRef, playerRef.getStore(), new ShopUI(PlayerUtils.getPlayerRef(player)));
+					player.getPageManager().openCustomPage(playerRef, playerRef.getStore(),
+						new ShopUI(PlayerUtils.getPlayerRef(player), itemStack -> {
+							// Give the purchased item to the player
+							player.getInventory().getHotbar().addItemStack(itemStack);
+						}));
 				});
 			}));
 		});

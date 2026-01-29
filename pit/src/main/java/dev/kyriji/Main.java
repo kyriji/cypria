@@ -1,12 +1,12 @@
 package dev.kyriji;
 
 import com.hypixel.hytale.server.core.HytaleServer;
-import com.hypixel.hytale.server.core.asset.AssetModule;
 import com.hypixel.hytale.server.core.event.events.BootEvent;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.util.Config;
+import dev.kyriji.commands.BroadcastTestCommand;
 import dev.kyriji.commands.TestCommand;
 import dev.kyriji.common.HytaleCommon;
 import dev.kyriji.controllers.ChatManager;
@@ -14,7 +14,6 @@ import dev.kyriji.controllers.GameManager;
 import dev.kyriji.controllers.PlayerDataManager;
 import dev.kyriji.controllers.ScoreboardManager;
 import dev.kyriji.objects.PitConfig;
-import dev.kyriji.objects.PitPlayer;
 import dev.kyriji.utils.PlayerUtils;
 
 import javax.annotation.Nonnull;
@@ -47,6 +46,7 @@ public class Main extends JavaPlugin {
 		// hytaleCommon = new HytaleCommon(config.get().toJsonObject(), Deployment.PIT);
 
 		getCommandRegistry().registerCommand(new TestCommand());
+		getCommandRegistry().registerCommand(new BroadcastTestCommand());
 		getEventRegistry().register(BootEvent.class, event -> initializeSystems());
 
 		if (HytaleServer.get().isBooted()) initializeSystems();
@@ -66,16 +66,16 @@ public class Main extends JavaPlugin {
 	@Override
 	public void shutdown() {
 		//TODO: Fix errors with data saving during hot-reload
-		Universe.get().getPlayers().forEach(playerRef -> {
-			PitPlayer pitPlayer = PlayerDataManager.getPitPlayer(playerRef.getUuid());
+		// Universe.get().getPlayers().forEach(playerRef -> {
+		// 	PitPlayer pitPlayer = PlayerDataManager.getPitPlayer(playerRef.getUuid());
+		//
+		// 	pitPlayer.save();
+		//
+		// 	PlayerUtils.getPlayerFromRef(playerRef).thenAccept(ScoreboardManager::removePlayer);
+		// });
 
-			pitPlayer.save();
-
-			PlayerUtils.getPlayerFromRef(playerRef).thenAccept(ScoreboardManager::removePlayer);
-		});
-
-		AssetModule.get().unregisterPack(getIdentifier().toString());
-		GameManager.cleanup();
+		// AssetModule.get().unregisterPack(getIdentifier().toString());
+		// GameManager.cleanup();
 		// hytaleCommon.shutdown();
 	}
 

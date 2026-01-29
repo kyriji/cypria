@@ -1,0 +1,8 @@
+{{- if .Values.luckperms.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mariadb-config
+data:
+  MYSQL_DATABASE: "luckperms"
+{{- end }}

@@ -10,17 +10,15 @@ import dev.kyriji.data.PitPlayerData;
 import dev.kyriji.objects.PitPlayer;
 import dev.kyriji.utils.PlayerUtils;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class PlayerManager {
+public class PlayerDataManager {
 	public static final PlayerDataType PIT_PLAYER_DATA = new PlayerDataType("pit_players", PitPlayerData.class);
 
 	private static final ConcurrentHashMap<UUID, PitPlayer> pitPlayers = new ConcurrentHashMap<>();
 
-	public PlayerManager(JavaPlugin plugin) {
+	public PlayerDataManager(JavaPlugin plugin) {
 		PlayerDataType.register(PIT_PLAYER_DATA);
 
 		plugin.getEventRegistry().registerGlobal(PlayerConnectEvent.class, event -> {

@@ -1,4 +1,4 @@
-package dev.kyriji.controllers.UI;
+package dev.kyriji.ui;
 
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
@@ -14,7 +14,7 @@ import com.hypixel.hytale.server.core.ui.builder.UIEventBuilder;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
-import dev.kyriji.controllers.PlayerManager;
+import dev.kyriji.controllers.PlayerDataManager;
 import dev.kyriji.objects.PitPlayer;
 
 import javax.annotation.Nonnull;
@@ -98,8 +98,8 @@ public class ShopUI extends InteractiveCustomUIPage<ShopUI.ShopUIData> {
 
 		// Set gold display
 		try {
-			if (PlayerManager.isLoaded(playerRef.getUuid())) {
-				PitPlayer pitPlayer = PlayerManager.getPitPlayer(playerRef.getUuid());
+			if (PlayerDataManager.isLoaded(playerRef.getUuid())) {
+				PitPlayer pitPlayer = PlayerDataManager.getPitPlayer(playerRef.getUuid());
 				double gold = pitPlayer.getGold();
 				uiCommandBuilder.set("#GoldAmount.Text", String.format("%.0fg", gold));
 			} else {
@@ -116,8 +116,8 @@ public class ShopUI extends InteractiveCustomUIPage<ShopUI.ShopUIData> {
 		// Get player's gold for affordability check
 		double playerGold = 0;
 		try {
-			if (PlayerManager.isLoaded(playerRef.getUuid())) {
-				PitPlayer pitPlayer = PlayerManager.getPitPlayer(playerRef.getUuid());
+			if (PlayerDataManager.isLoaded(playerRef.getUuid())) {
+				PitPlayer pitPlayer = PlayerDataManager.getPitPlayer(playerRef.getUuid());
 				playerGold = pitPlayer.getGold();
 			}
 		} catch (Exception e) {
@@ -207,7 +207,7 @@ public class ShopUI extends InteractiveCustomUIPage<ShopUI.ShopUIData> {
 	}
 
 	private void handleItemPurchase(Ref<EntityStore> ref, Store<EntityStore> store, int itemIndex) {
-		if (!PlayerManager.isLoaded(playerRef.getUuid())) {
+		if (!PlayerDataManager.isLoaded(playerRef.getUuid())) {
 			return;
 		}
 
@@ -217,7 +217,7 @@ public class ShopUI extends InteractiveCustomUIPage<ShopUI.ShopUIData> {
 		}
 
 		try {
-			PitPlayer pitPlayer = PlayerManager.getPitPlayer(playerRef.getUuid());
+			PitPlayer pitPlayer = PlayerDataManager.getPitPlayer(playerRef.getUuid());
 			ShopItem item = items.get(itemIndex);
 
 			if (pitPlayer.getGold() >= item.price) {

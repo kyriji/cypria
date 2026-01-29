@@ -1,4 +1,4 @@
-package dev.kyriji.controllers.systems;
+package dev.kyriji.systems;
 
 import com.hypixel.hytale.component.ArchetypeChunk;
 import com.hypixel.hytale.component.CommandBuffer;
@@ -18,8 +18,7 @@ import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import dev.kyriji.Main;
-import dev.kyriji.controllers.PlayerManager;
+import dev.kyriji.controllers.PlayerDataManager;
 import dev.kyriji.controllers.GameManager;
 import dev.kyriji.objects.DamageEntry;
 import dev.kyriji.objects.PitPlayer;
@@ -33,7 +32,6 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 public class DamageSystem extends DamageEventSystem {
 	public static final int ASSIST_TIMEFRAME_SECONDS = 30;
@@ -45,7 +43,7 @@ public class DamageSystem extends DamageEventSystem {
 		Player player = store.getComponent(playerRef, Player.getComponentType());
 		if(player == null) return;
 
-		PitPlayer pitPlayer = PlayerManager.getPitPlayer(player);
+		PitPlayer pitPlayer = PlayerDataManager.getPitPlayer(player);
 
 		if(player.getWorld() != GameManager.PIT) return;
 
@@ -86,7 +84,7 @@ public class DamageSystem extends DamageEventSystem {
 	}
 
 	public void killPlayer(@Nullable Player killer, Player victim) {
-		PitPlayer victimPitPlayer = PlayerManager.getPitPlayer(victim);
+		PitPlayer victimPitPlayer = PlayerDataManager.getPitPlayer(victim);
 
 		GameManager.preparePlayer(victim);
 		GameManager.teleportToSpawn(victim, true);
@@ -99,7 +97,7 @@ public class DamageSystem extends DamageEventSystem {
 		victimPitPlayer.damageMap.clear();
 
 		if(killer == null) return;
-		PitPlayer killerPitPlayer = PlayerManager.getPitPlayer(killer);
+		PitPlayer killerPitPlayer = PlayerDataManager.getPitPlayer(killer);
 
 		killer.sendMessage(Message.raw("You killed " + victim.getDisplayName() + "!").color(Color.GREEN));
 
@@ -126,7 +124,7 @@ public class DamageSystem extends DamageEventSystem {
 				if (player == null || player == killer) return;
 				if (value.getTimestamp() < System.currentTimeMillis() - (ASSIST_TIMEFRAME_SECONDS * 1000)) return;
 
-				PitPlayer assistPitPlayer = PlayerManager.getPitPlayer(key);
+				PitPlayer assistPitPlayer = PlayerDataManager.getPitPlayer(key);
 				double damageFraction = value.getDamageAmount() / finalTotalDamage;
 
 				assistPitPlayer.addAssist();

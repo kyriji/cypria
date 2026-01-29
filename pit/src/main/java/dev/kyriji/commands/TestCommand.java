@@ -12,7 +12,7 @@ import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import dev.kyriji.controllers.UI.PlayerHud;
+import dev.kyriji.ui.PlayerHud;
 
 import javax.annotation.Nonnull;
 import java.util.concurrent.CompletableFuture;

@@ -21,6 +21,7 @@ public class ScoreboardManager {
 	}
 
 	public static void preparePlayer(Player player) {
+		System.out.println("Preparing HUD for player: " + player.getDisplayName());
 		PlayerRef playerRef = PlayerUtils.getPlayerRef(player);
 
 		PlayerHud playerHud = new PlayerHud(playerRef);

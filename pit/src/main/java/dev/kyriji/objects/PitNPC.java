@@ -43,7 +43,7 @@ public class PitNPC {
 	private final int networkId;
 	private final Consumer<UUID> interactionHandler;
 	private boolean despawned = false;
-	private ScheduledFuture<?> maintenanceTask;
+	private final ScheduledFuture<?> maintenanceTask;
 
 	private PitNPC(NPCEntity npcEntity, Ref<EntityStore> entityRef, int networkId, Consumer<UUID> interactionHandler) {
 		this.npcEntity = npcEntity;

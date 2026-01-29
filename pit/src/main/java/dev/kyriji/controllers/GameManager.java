@@ -71,8 +71,13 @@ public class GameManager {
 				npcsSpawned = true;
 				spawnNPCs();
 			}
-			preparePlayer(event.getPlayer());
-			teleportToSpawn(event.getPlayer(), false);
+			World world = event.getPlayer().getWorld();
+			if (world != null) {
+				world.execute(() -> {
+					preparePlayer(event.getPlayer());
+					teleportToSpawn(event.getPlayer(), false);
+				});
+			}
 		});
 	}
 
@@ -115,10 +120,17 @@ public class GameManager {
 
 	public static void preparePlayer(Player player) {
 		Store<EntityStore> store = Objects.requireNonNull(player.getReference()).getStore();
-		EntityStatMap stats = Objects.requireNonNull(store.getComponent(player.getReference(), EntityStatMap.getComponentType()));
+		EntityStatMap stats = store.getComponent(player.getReference(), EntityStatMap.getComponentType());
 
-		float maxHealth = Objects.requireNonNull(stats.get(DefaultEntityStatTypes.getHealth())).getMax();
-		float maxStamina = Objects.requireNonNull(stats.get(DefaultEntityStatTypes.getStamina())).getMax();
+		if (stats == null) return;
+
+		var healthStat = stats.get(DefaultEntityStatTypes.getHealth());
+		if (healthStat == null) return;
+		float maxHealth = healthStat.getMax();
+
+		var staminaStat = stats.get(DefaultEntityStatTypes.getStamina());
+		if (staminaStat == null) return;
+		float maxStamina = staminaStat.getMax();
 
 		stats.setStatValue(DefaultEntityStatTypes.getHealth(), maxHealth);
 		stats.setStatValue(DefaultEntityStatTypes.getStamina(), maxStamina);
@@ -182,6 +194,6 @@ public class GameManager {
 	}
 
 	public static void cleanup() {
-		spawnedNPCs.forEach(PitNPC::despawn);
+		if (spawnedNPCs != null) spawnedNPCs.forEach(PitNPC::despawn);
 	}
 }

@@ -11,6 +11,7 @@ import dev.kyriji.objects.PitPlayer;
 import dev.kyriji.utils.PlayerUtils;
 
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class PlayerDataManager {
@@ -38,12 +39,14 @@ public class PlayerDataManager {
 		});
 	}
 
-	public void loadPlayer(UUID uuid) {
-		HytaleCommon.getPlayerDataManager().loadPlayerData(uuid, PitPlayerData.class)
-				.thenAccept(data -> {
+	public CompletableFuture<PitPlayer> loadPlayer(UUID uuid) {
+		return HytaleCommon.getPlayerDataManager().loadPlayerData(uuid, PitPlayerData.class)
+				.thenApply(data -> {
 					PitPlayer pitPlayer = new PitPlayer(uuid, data);
 					pitPlayers.put(uuid, pitPlayer);
 					System.out.println("Loaded PitPlayer data for " + uuid);
+
+					return pitPlayer;
 				})
 				.exceptionally(ex -> {
 					ex.printStackTrace();

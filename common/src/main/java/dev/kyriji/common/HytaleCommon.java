@@ -20,17 +20,29 @@ public class HytaleCommon {
 	private final MessageManager messageManager;
 
 	public HytaleCommon(JsonObject localConfig, Deployment deployment) {
+		this(localConfig, deployment, true);
+	}
+
+	public HytaleCommon(JsonObject localConfig, Deployment deployment, boolean enableMessaging) {
 		INSTANCE = this;
 		this.deployment = deployment;
 
 		this.configManager = new ConfigManager(localConfig);
 		this.playerDataManager = new PlayerDataManager();
-		this.redisManager = new RedisManager();
-		this.messageManager = new MessageManager();
+
+		if (enableMessaging) {
+			this.redisManager = new RedisManager();
+			this.messageManager = new MessageManager();
+		} else {
+			this.redisManager = null;
+			this.messageManager = null;
+
+			System.out.println("[HytaleCommon] Messaging disabled.");
+		}
 	}
 
 	public void shutdown() {
-		this.redisManager.unregisterAllListeners();
+		if (redisManager != null) this.redisManager.unregisterAllListeners();
 	}
 
 	public static ConfigManager getConfigManager() {

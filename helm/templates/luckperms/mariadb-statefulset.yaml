@@ -20,7 +20,7 @@ spec:
             claimName: lp-mariadb-pvc
       containers:
         - name: lp-mariadb
-          image: mariadb:8.11
+          image: mariadb:11.8
           ports:
             - containerPort: 3306
               name: lp-mariadb

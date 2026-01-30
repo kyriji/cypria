@@ -3,8 +3,8 @@ package dev.kyriji;
 import com.hypixel.hytale.protocol.packets.interface_.NotificationStyle;
 import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.Message;
-import com.hypixel.hytale.server.core.asset.AssetModule;
 import com.hypixel.hytale.server.core.event.events.BootEvent;
+import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.universe.Universe;
@@ -17,8 +17,8 @@ import dev.kyriji.controllers.ChatManager;
 import dev.kyriji.controllers.GameManager;
 import dev.kyriji.controllers.PlayerDataManager;
 import dev.kyriji.controllers.ScoreboardManager;
+import dev.kyriji.items.test.TestItemInteraction;
 import dev.kyriji.objects.PitConfig;
-import dev.kyriji.objects.PitPlayer;
 import dev.kyriji.utils.ChatUtils;
 import dev.kyriji.utils.PlayerUtils;
 
@@ -50,6 +50,8 @@ public class Main extends JavaPlugin {
 	protected void setup() {
 		if (config != null) config.save();
 		hytaleCommon = new HytaleCommon(config.get().toJsonObject(), Deployment.PIT, false);
+
+		this.getCodecRegistry(Interaction.CODEC).register("test_interaction", TestItemInteraction.class, TestItemInteraction.CODEC);
 
 		getCommandRegistry().registerCommand(new TestCommand());
 //		getCommandRegistry().registerCommand(new BroadcastTestCommand());

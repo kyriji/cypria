@@ -1,0 +1,67 @@
+{
+  "TranslationProperties": {
+    "Name": "My New Item",
+    "Description": "My New Item Description"
+  },
+  "Id": "My_New_Item",
+  "Icon": "Icons/ItemsGenerated/test_item.png",
+  "Model": "Items/test_item/model.blockymodel",
+  "Texture": "Items/test_item/model_texture.png",
+  "Quality": "Common",
+  "MaxStack": 1,
+  "Categories": [
+    "Items.Example"
+  ],
+
+  "Recipe": {
+    "TimeSeconds": 3.5,
+    "Input": [
+      {
+        "ItemId": "Ingredient_1",
+        "Quantity": 15
+      },
+      {
+        "ItemId": "Ingredient_2",
+        "Quantity": 15
+      },
+      {
+        "ItemId": "Ingredient_3",
+        "Quantity": 15
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "Categories": [
+          "Workbench_Survival"
+        ]
+      }
+    ]
+  },
+
+  "Interactions": {
+    "Secondary": {
+      "Interactions": [
+        {
+          "Type": "Condition",
+          "Crouching": true,
+          "Failed": "Block_Secondary",
+          "Next": {
+            "Type": "Charging",
+            "FailsOnDamage": true,
+            "HorizontalSpeedMultiplier": 0.5,
+            "Next": {
+              "2.5": {
+                "Type": "test_interaction"
+              }
+            },
+            "Failed": {
+              "Type": "Simple"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

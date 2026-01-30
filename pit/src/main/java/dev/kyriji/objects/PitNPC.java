@@ -67,6 +67,13 @@ public class PitNPC {
 			GameManager.PIT.execute(() -> {
 				if (this.despawned || this.npcEntity == null) return;
 
+				try {
+					this.entityRef.validate();
+				} catch (IllegalStateException e) {
+					this.despawn();
+					return;
+				}
+
 				Role role = this.npcEntity.getRole();
 				if (role != null) {
 					role.getActiveMotionController().setKnockbackScale(0.0);

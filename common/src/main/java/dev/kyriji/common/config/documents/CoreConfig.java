@@ -6,8 +6,8 @@ import dev.kyriji.common.config.models.RedisConnection;
 
 public class CoreConfig extends ConfigDocument {
 
-	MongoConnection playerDataConnection = new MongoConnection();
-	RedisConnection redisConnection = new RedisConnection();
+	private MongoConnection playerDataConnection = new MongoConnection();
+	private RedisConnection redisConnection = new RedisConnection();
 
 	public MongoConnection getPlayerDataConnection() {
 		return playerDataConnection;

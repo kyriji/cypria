@@ -48,8 +48,14 @@ public class Main extends JavaPlugin {
 
 	@Override
 	protected void setup() {
-		if (config != null) config.save();
-		hytaleCommon = new HytaleCommon(config.get().toJsonObject(), Deployment.PIT, false);
+		PitConfig pitConfig = config.get();
+		if (pitConfig.mongoConfigURI == null || pitConfig.mongoConfigDatabase == null) {
+			throw new IllegalStateException("Config file is missing required fields.");
+		}
+
+		config.save();
+
+		hytaleCommon = new HytaleCommon(pitConfig.toJsonObject(), Deployment.PIT, false);
 
 		getCommandRegistry().registerCommand(new TestCommand());
 //		getCommandRegistry().registerCommand(new BroadcastTestCommand());

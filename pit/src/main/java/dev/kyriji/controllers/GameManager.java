@@ -71,9 +71,12 @@ public class GameManager {
 				npcsSpawned = true;
 				spawnNPCs();
 			}
+
 			World world = event.getPlayer().getWorld();
 			if (world != null) {
 				world.execute(() -> {
+					if (world != PIT) return;
+
 					preparePlayer(event.getPlayer());
 					teleportToSpawn(event.getPlayer(), false);
 				});

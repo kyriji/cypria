@@ -1,0 +1,94 @@
+{
+  "TranslationProperties": {
+    "Name": "Pit Bow 2"
+  },
+  "Parent": "Template_Weapon_Shortbow",
+  "Quality": "Epic",
+  "Model": "Items/Weapons/Bow/Crude.blockymodel",
+  "Texture": "Items/Weapons/Bow/Crude_Texture.png",
+  "Icon": "Icons/ItemsGenerated/Weapon_Bow_Crude.png",
+  "ItemLevel": 1,
+  "InteractionVars": {
+    "Primary_Shoot_Charge": {
+      "Interactions": [
+        {
+          "$Comment": "Instant shoot on click, no charging required",
+          "Type": "ModifyInventory",
+          "ItemToRemove": {
+            "Id": "Weapon_Arrow_Crude",
+            "Quantity": 1
+          },
+          "Next": {
+            "Type": "Replace",
+            "Var": "Primary_Shoot_Strength_4",
+            "DefaultValue": {
+              "Interactions": [
+                "Weapon_Shortbow_Primary_Shoot_Strength_4"
+              ]
+            }
+          },
+          "Failed": {
+            "Type": "Replace",
+            "Var": "No_Ammo_Effects",
+            "DefaultValue": {
+              "Interactions": [
+                "Common_Bow_No_Ammo"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "Primary_Shoot_Damage_Strength_4": {
+      "Interactions": [
+        {
+          "$Comment": "Always full charge damage",
+          "Parent": "Weapon_Shortbow_Primary_Shoot_Damage_Strength_4",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "Projectile": 12
+            }
+          }
+        }
+      ]
+    },
+    "Signature_Volley_Charge": {
+      "Interactions": [
+        {
+          "$Comment": "Charging the signature volley attack",
+          "Parent": "Weapon_Shortbow_Signature_Volley_Charge",
+          "Effects": {
+            "WorldSoundEventId": "SFX_Bow_T1_Draw",
+            "LocalSoundEventId": "SFX_Bow_T1_Draw_Local"
+          },
+          "HorizontalSpeedMultiplier": 0.667
+        }
+      ]
+    },
+    "Signature_Volley_Damage": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Shortbow_Signature_Volley_Damage",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "Projectile": 9
+            }
+          }
+        }
+      ]
+    },
+    "Guard_Wield": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Shortbow_Secondary_Guard_Wield",
+          "StaminaCost": {
+            "Value": 5.56,
+            "CostType": "Damage"
+          }
+        }
+      ]
+    }
+  },
+  "MaxDurability": 80,
+  "DurabilityLossOnHit": 0.58
+}

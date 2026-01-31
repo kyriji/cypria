@@ -1,0 +1,28 @@
+{
+  "$Comment": "Two-strike combo: left and right swings only, no down strike",
+  "Type": "Chaining",
+  "ChainingAllowance": 2,
+  "ChainId": "Sword_Swings",
+  "Next": [
+    {
+      "Type": "Replace",
+      "DefaultOk": true,
+      "Var": "Swing_Left",
+      "DefaultValue": {
+        "Interactions": [
+          "Weapon_Sword_Primary_Swing_Left"
+        ]
+      }
+    },
+    {
+      "Type": "Replace",
+      "DefaultOk": true,
+      "Var": "Swing_Right",
+      "DefaultValue": {
+        "Interactions": [
+          "Weapon_Sword_Primary_Swing_Right"
+        ]
+      }
+    }
+  ]
+}

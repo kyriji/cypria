@@ -1,0 +1,103 @@
+{
+  "TranslationProperties": {
+    "Name": "Pit Sword"
+  },
+  "Parent": "Weapon_Sword_Iron",
+  "Quality": "Rare",
+  "ItemLevel": 1,
+  "Interactions": {
+    "Primary": "Root_Weapon_Sword_Primary_PitSword"
+  },
+  "InteractionVars": {
+    "Swing_Left": {
+      "Interactions": [
+        {
+          "$Comment": "Fast left swing - reduced RunTime",
+          "Parent": "Weapon_Sword_Primary_Swing_Left",
+          "RunTime": 0.1
+        }
+      ]
+    },
+    "Swing_Right": {
+      "Interactions": [
+        {
+          "$Comment": "Fast right swing - reduced RunTime",
+          "Parent": "Weapon_Sword_Primary_Swing_Right",
+          "RunTime": 0.1
+        }
+      ]
+    },
+    "Swing_Left_Damage": {
+      "Interactions": [
+        {
+          "$Comment": "Left swing with strong knockback",
+          "Parent": "Weapon_Sword_Primary_Swing_Left_Damage",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "Physical": 9
+            }
+          },
+          "DamageEffects": {
+            "Knockback": {
+              "Type": "Force",
+              "VelocityConfig": {
+                "AirResistance": 0.99,
+                "AirResistanceMax": 0.98,
+                "GroundResistance": 0.8,
+                "GroundResistanceMax": 0.3,
+                "Threshold": 5.0,
+                "Style": "Linear"
+              },
+              "Direction": {
+                "X": 0,
+                "Y": 1,
+                "Z": -0.8
+              },
+              "Force": 10.0,
+              "VelocityType": "Add"
+            },
+            "WorldSoundEventId": "SFX_Sword_T2_Impact",
+            "LocalSoundEventId": "SFX_Sword_T2_Impact"
+          }
+        }
+      ]
+    },
+    "Swing_Right_Damage": {
+      "Interactions": [
+        {
+          "$Comment": "Right swing with strong knockback",
+          "Parent": "Weapon_Sword_Primary_Swing_Right_Damage",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "Physical": 10
+            }
+          },
+          "DamageEffects": {
+            "Knockback": {
+              "Type": "Force",
+              "VelocityConfig": {
+                "AirResistance": 0.99,
+                "AirResistanceMax": 0.98,
+                "GroundResistance": 0.8,
+                "GroundResistanceMax": 0.3,
+                "Threshold": 5.0,
+                "Style": "Linear"
+              },
+              "Direction": {
+                "X": 0,
+                "Y": 1,
+                "Z": -0.8
+              },
+              "Force": 10.0,
+              "VelocityType": "Add"
+            },
+            "WorldSoundEventId": "SFX_Sword_T2_Impact",
+            "LocalSoundEventId": "SFX_Sword_T2_Impact"
+          }
+        }
+      ]
+    }
+  },
+  "MaxDurability": 120,
+  "DurabilityLossOnHit": 0.21
+}

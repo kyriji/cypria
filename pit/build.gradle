@@ -4,6 +4,12 @@ plugins {
     id 'org.hidetake.ssh' version '2.12.0'
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(25))
+    }
+}
+
 repositories {
     mavenCentral()
     maven { url 'https://maven.hytale.com/release' }
@@ -22,8 +28,8 @@ shadowJar {
 
     configurations = [project.configurations.runtimeClasspath]
 
-    relocate 'com.mongodb', 'dev.kyriji.libs.mongodb'
-    relocate 'org.bson', 'dev.kyriji.libs.bson'
+    // Don't relocate BSON/MongoDB - using downgraded version (4.0.6) compatible with server's BSON
+    // Relocating would cause NoSuchMethodError when server APIs return BSON types
     relocate 'redis.clients', 'dev.kyriji.libs.jedis'
     relocate 'com.google.gson', 'dev.kyriji.libs.gson'
 }

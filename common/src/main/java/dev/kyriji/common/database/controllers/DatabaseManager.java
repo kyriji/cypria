@@ -7,7 +7,6 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 import dev.kyriji.common.database.enums.DatabaseType;
 import dev.kyriji.common.database.records.DatabaseConnection;
-import org.bson.UuidRepresentation;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
@@ -35,7 +34,6 @@ public class DatabaseManager {
 		MongoClientSettings settings = MongoClientSettings.builder()
 				.codecRegistry(pojoCodecRegistry)
 				.applyConnectionString(new ConnectionString(connectionString))
-				.uuidRepresentation(UuidRepresentation.JAVA_LEGACY)
 				.build();
 
 		MongoClient client = MongoClients.create(settings);

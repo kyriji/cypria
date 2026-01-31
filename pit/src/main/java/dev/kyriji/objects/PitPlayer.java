@@ -1,6 +1,10 @@
 package dev.kyriji.objects;
 
+import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.universe.PlayerRef;
+import dev.kyriji.controllers.EnderChestWindow;
 import dev.kyriji.data.PitPlayerData;
+import dev.kyriji.utils.PlayerUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,11 +17,19 @@ public class PitPlayer {
 	public Map<UUID, DamageEntry> damageMap;
 	public int currentStreak;
 
+	public EnderChestWindow enderChest;
+
 	public PitPlayer(UUID uuid, PitPlayerData data) {
 		this.uuid = uuid;
 		this.data = data;
 		this.damageMap = new HashMap<>();
 		this.currentStreak = 0;
+	}
+
+	public void onPlayerReady(Player player) {
+		if (player.getUuid() != this.uuid) return;
+
+		this.enderChest = new EnderChestWindow(player, data.getEnderChestData());
 	}
 
 	public void addKill() {
@@ -66,6 +78,7 @@ public class PitPlayer {
 	}
 
 	public void save() {
+		data.setEnderChestData(enderChest.getContentsAsBson());
 		data.save();
 	}
 }

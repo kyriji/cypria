@@ -5,12 +5,19 @@ import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.math.shape.Box2D;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.math.vector.Vector3f;
+import com.hypixel.hytale.math.vector.Vector3i;
+import com.hypixel.hytale.protocol.InteractionType;
+import com.hypixel.hytale.protocol.Packet;
+import com.hypixel.hytale.protocol.packets.interaction.SyncInteractionChain;
+import com.hypixel.hytale.protocol.packets.interaction.SyncInteractionChains;
 import com.hypixel.hytale.protocol.packets.player.JoinWorld;
 import com.hypixel.hytale.server.core.HytaleServer;
+import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.event.events.player.PlayerReadyEvent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.io.PacketHandler;
+import com.hypixel.hytale.server.core.io.adapter.PacketAdapters;
 import com.hypixel.hytale.server.core.modules.entity.teleport.Teleport;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
@@ -21,6 +28,7 @@ import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.universe.world.worldmap.WorldMapManager;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
+import dev.kyriji.objects.PitPlayer;
 import dev.kyriji.ui.ShopUI;
 import dev.kyriji.systems.BlockBreakSystem;
 import dev.kyriji.systems.BlockDamageSystem;
@@ -38,6 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class GameManager {
@@ -80,6 +89,38 @@ public class GameManager {
 					preparePlayer(event.getPlayer());
 					teleportToSpawn(event.getPlayer(), false);
 				});
+			}
+		});
+
+		PacketAdapters.registerInbound((PacketHandler handler, Packet packet) -> {
+			if(packet instanceof SyncInteractionChains interactionPacket) {
+				boolean open = false;
+
+				for(SyncInteractionChain update : interactionPacket.updates) {
+					if(update.interactionType != InteractionType.Use) return;
+
+					if(update.data == null || update.data.blockPosition == null) return;
+
+					Vector3i blockPos = new Vector3i(
+							update.data.blockPosition.x,
+							update.data.blockPosition.y,
+							update.data.blockPosition.z
+					);
+
+					BlockType block = GameManager.PIT.getBlockType(blockPos);
+
+					if (block == null) return;
+					String id = Objects.requireNonNull(block.getItem()).getBlockId();
+
+					if (id.equals("Furniture_Temple_Dark_Chest_Small")) open = true;
+				}
+
+				if(open) {
+					UUID uuid = Objects.requireNonNull(handler.getAuth()).getUuid();
+					PitPlayer targetPitPlayer = PlayerDataManager.getPitPlayer(uuid);
+
+					targetPitPlayer.enderChest.open();
+				}
 			}
 		});
 	}
@@ -148,7 +189,10 @@ public class GameManager {
 		providers.clear();
 
 		ItemStack sword = new ItemStack("Weapon_Sword_Iron");
-		ItemStack bow = new ItemStack("Weapon_Shortbow_Iron");
+		ItemStack bow = new ItemStack("Weapon_Shortbow_Ricochet");
+		ItemStack daggers = new ItemStack("Weapon_Daggers_Iron");
+		ItemStack scythe = new ItemStack("Weapon_Battleaxe_Scythe_Void");
+
 		ItemStack arrows = new ItemStack("Weapon_Arrow_Crude", 100);
 
 		ItemStack helmet = new ItemStack("Armor_Iron_Head");
@@ -158,6 +202,8 @@ public class GameManager {
 
 		player.getInventory().getHotbar().addItemStack(sword);
 		player.getInventory().getHotbar().addItemStack(bow);
+		player.getInventory().getHotbar().addItemStack(daggers);
+		player.getInventory().getHotbar().addItemStack(scythe);
 
 		player.getInventory().getStorage().addItemStack(arrows);
 

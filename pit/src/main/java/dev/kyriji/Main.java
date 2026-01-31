@@ -67,7 +67,9 @@ public class Main extends JavaPlugin {
 
 		Universe.get().getPlayers().forEach(playerRef -> {
 			PlayerUtils.getPlayerFromRef(playerRef).thenAccept(player -> {
-				playerDataManager.loadPlayer(playerRef.getUuid()).thenAccept(_pitPlayer -> {
+				playerDataManager.loadPlayer(playerRef.getUuid()).thenAccept(pitPlayer -> {
+					pitPlayer.onPlayerReady(player);
+
 					World world = player.getWorld();
 					if (world != null) {
 						world.execute(() -> {

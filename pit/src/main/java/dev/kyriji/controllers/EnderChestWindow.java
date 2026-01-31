@@ -1,5 +1,6 @@
 package dev.kyriji.controllers;
 
+import com.hypixel.hytale.codec.ExtraInfo;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.protocol.packets.interface_.Page;
 import com.hypixel.hytale.server.core.entity.entities.Player;
@@ -8,6 +9,8 @@ import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.inventory.container.SimpleItemContainer;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import org.bson.BsonDocument;
+import org.bson.BsonValue;
 
 public class EnderChestWindow {
 	public static int SIZE = 45;
@@ -16,10 +19,17 @@ public class EnderChestWindow {
 	private final ContainerWindow window;
 	private final ItemContainer container;
 
-	public EnderChestWindow(Player player) {
+	public EnderChestWindow(Player player, BsonValue contentsBson) {
 		this.player = player;
 
-		this.container = new SimpleItemContainer((short) SIZE);
+		if (contentsBson == null) {
+			this.container = new SimpleItemContainer((short) SIZE);
+		} else {
+			System.out.println("Loading ender chest contents from Bson: " + contentsBson);
+			this.container = ItemContainer.CODEC.decode(contentsBson, new ExtraInfo());
+		}
+
+		if (this.container == null) throw new IllegalStateException("Failed to decode ender chest contents.");
 		this.window = new ContainerWindow(this.container);
 	}
 
@@ -46,5 +56,9 @@ public class EnderChestWindow {
 		}
 
 		return contents;
+	}
+
+	public BsonValue getContentsAsBson() {
+		return ItemContainer.CODEC.encode(container, new ExtraInfo());
 	}
 }

@@ -3,7 +3,9 @@ package dev.kyriji.controllers;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.event.events.player.PlayerConnectEvent;
 import com.hypixel.hytale.server.core.event.events.player.PlayerDisconnectEvent;
+import com.hypixel.hytale.server.core.event.events.player.PlayerReadyEvent;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
+import com.hypixel.hytale.server.core.universe.PlayerRef;
 import dev.kyriji.common.HytaleCommon;
 import dev.kyriji.common.playerdata.enums.PlayerDataType;
 import dev.kyriji.data.PitPlayerData;
@@ -27,6 +29,12 @@ public class PlayerDataManager {
 			loadPlayer(uuid);
 		});
 
+		plugin.getEventRegistry().registerGlobal(PlayerReadyEvent.class, event -> {
+			PlayerRef playerRef = PlayerUtils.getPlayerRef(event.getPlayer());
+			PitPlayer pitPlayer = pitPlayers.get(playerRef.getUuid());
+			if (pitPlayer != null) pitPlayer.onPlayerReady(event.getPlayer());
+		});
+
 		plugin.getEventRegistry().registerGlobal(PlayerDisconnectEvent.class, event -> {
 			UUID uuid = event.getPlayerRef().getUuid();
 
@@ -36,6 +44,14 @@ public class PlayerDataManager {
 				pitPlayers.remove(uuid);
 				HytaleCommon.getPlayerDataManager().unloadPlayerData(uuid);
 			}
+		});
+	}
+
+	public CompletableFuture<PitPlayer> loadPlayer(Player player) {
+		return loadPlayer(PlayerUtils.getPlayerRef(player).getUuid()).thenApply(pitPlayer -> {
+			pitPlayer.onPlayerReady(player);
+
+			return pitPlayer;
 		});
 	}
 

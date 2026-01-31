@@ -36,7 +36,7 @@ public class ConfigManager {
 
 		MongoCollection<T> collection = connection.database().getCollection(CONFIG_COLLECTION, documentClass);
 
-		T foundDocument = collection.find(eq("type", type)).first();
+		T foundDocument = collection.find(eq("type", type.name())).first();
 
 		if(foundDocument != null) {
 			loadedConfigs.put(type, foundDocument);
@@ -62,6 +62,6 @@ public class ConfigManager {
 
 		MongoCollection<T> collection = connection.database().getCollection(CONFIG_COLLECTION, (Class<T>) type.getDocumentClass());
 
-		collection.replaceOne(eq("type", type), document, new ReplaceOptions().upsert(true));
+		collection.replaceOne(eq("type", type.name()), document, new ReplaceOptions().upsert(true));
 	}
 }

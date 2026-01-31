@@ -1,6 +1,7 @@
 package dev.kyriji.data;
 
 import dev.kyriji.common.playerdata.models.PlayerDataDocument;
+import org.bson.BsonValue;
 
 import java.util.UUID;
 
@@ -11,6 +12,8 @@ public class PitPlayerData extends PlayerDataDocument {
 	private int deaths;
 	private int highestStreak;
 	private double gold;
+
+	private BsonValue enderChestData;
 
 	public PitPlayerData() {
 		super();
@@ -23,6 +26,8 @@ public class PitPlayerData extends PlayerDataDocument {
 		this.deaths = 0;
 		this.highestStreak = 0;
 		this.gold = 0.0;
+
+		this.enderChestData = null;
 	}
 
 	public int getKills() {
@@ -79,5 +84,13 @@ public class PitPlayerData extends PlayerDataDocument {
 
 	public void addGold(double amount) {
 		this.gold += amount;
+	}
+
+	public BsonValue getEnderChestData() {
+		return enderChestData;
+	}
+
+	public void setEnderChestData(BsonValue enderChestData) {
+		this.enderChestData = enderChestData;
 	}
 }

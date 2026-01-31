@@ -188,11 +188,6 @@ public class GameManager {
 		Map<String, WorldMapManager.MarkerProvider> providers = wmm.getMarkerProviders();
 		providers.clear();
 
-		ItemStack sword = new ItemStack("Weapon_Sword_Iron");
-		ItemStack bow = new ItemStack("Weapon_Shortbow_Ricochet");
-		ItemStack daggers = new ItemStack("Weapon_Daggers_Iron");
-		ItemStack scythe = new ItemStack("Weapon_Battleaxe_Scythe_Void");
-
 		ItemStack arrows = new ItemStack("Weapon_Arrow_Crude", 100);
 
 		ItemStack helmet = new ItemStack("Armor_Iron_Head");
@@ -200,10 +195,16 @@ public class GameManager {
 		ItemStack gloves = new ItemStack("Armor_Iron_Hands");
 		ItemStack leggings = new ItemStack("Armor_Iron_Legs");
 
-		player.getInventory().getHotbar().addItemStack(sword);
-		player.getInventory().getHotbar().addItemStack(bow);
-		player.getInventory().getHotbar().addItemStack(daggers);
-		player.getInventory().getHotbar().addItemStack(scythe);
+		player.getInventory().getHotbar().setItemStackForSlot((short) 0, new ItemStack("Weapon_Sword_Iron"));
+		player.getInventory().getHotbar().setItemStackForSlot((short) 1, new ItemStack("Weapon_Daggers_Iron"));
+		player.getInventory().getHotbar().setItemStackForSlot((short) 2, new ItemStack("Weapon_Battleaxe_Iron"));
+		player.getInventory().getHotbar().setItemStackForSlot((short) 3, new ItemStack("Weapon_Longsword_Iron"));
+		player.getInventory().getHotbar().setItemStackForSlot((short) 8, new ItemStack("Weapon_Shortbow_Ricochet"));
+		// player.getInventory().getUtility().addItemStack(new ItemStack("Weapon_Shield_Copper"));
+		// player.getInventory().getArmor().addItemStack(new ItemStack("Weapon_Shield_Copper"));
+		// player.getInventory().getTools().addItemStack(new ItemStack("Weapon_Shield_Copper"));
+		player.getInventory().getUtility().setItemStackForSlot((short) 0, new ItemStack("Weapon_Shield_Iron"));
+		// player.getInventory().getTools().setItemStackForSlot((short) 0, new ItemStack("Weapon_Shield_Iron"));
 
 		player.getInventory().getStorage().addItemStack(arrows);
 

@@ -1,13 +1,13 @@
 {
   "TranslationProperties": {
-    "Name": "My New Item",
-    "Description": "My New Item Description"
+    "Name": "items.test_item.name",
+    "Description": "items.test_item.description"
   },
-  "Id": "My_New_Item",
+  "Id": "test_item",
   "Icon": "Icons/ItemsGenerated/test_item.png",
   "Model": "Items/test_item/model.blockymodel",
   "Texture": "Items/test_item/model_texture.png",
-  "Quality": "Common",
+  "Quality": "Rare",
   "MaxStack": 1,
   "Categories": [
     "Items.Example"

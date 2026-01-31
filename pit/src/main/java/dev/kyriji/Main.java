@@ -10,7 +10,9 @@ import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.util.Config;
+import dev.kyriji.commands.TestChargeCommand;
 import dev.kyriji.commands.TestCommand;
+import dev.kyriji.commands.TestPrimaryCommand;
 import dev.kyriji.common.HytaleCommon;
 import dev.kyriji.common.enums.Deployment;
 import dev.kyriji.controllers.ChatManager;
@@ -53,13 +55,15 @@ public class Main extends JavaPlugin {
 			throw new IllegalStateException("Config file is missing required fields.");
 		}
 
-		config.save();
+		// config.save();
 
 		hytaleCommon = new HytaleCommon(pitConfig.toJsonObject(), Deployment.PIT, false);
 
 		this.getCodecRegistry(Interaction.CODEC).register("test_interaction", TestItemInteraction.class, TestItemInteraction.CODEC);
 
 		getCommandRegistry().registerCommand(new TestCommand());
+		getCommandRegistry().registerCommand(new TestChargeCommand());
+		getCommandRegistry().registerCommand(new TestPrimaryCommand());
 //		getCommandRegistry().registerCommand(new BroadcastTestCommand());
 		getEventRegistry().register(BootEvent.class, _event -> initializeSystems());
 

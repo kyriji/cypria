@@ -1,6 +1,9 @@
 package dev.kyriji.objects;
 
+import com.hypixel.hytale.codec.ExtraInfo;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import dev.kyriji.controllers.EnderChestWindow;
 import dev.kyriji.data.PitPlayerData;
@@ -9,6 +12,7 @@ import dev.kyriji.utils.PlayerUtils;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class PitPlayer {
 	public final UUID uuid;
@@ -18,6 +22,9 @@ public class PitPlayer {
 	public int currentStreak;
 
 	public EnderChestWindow enderChest;
+	public ItemContainer inventoryStorage;
+	public ItemContainer hotbarStorage;
+	public ItemContainer armorStorage;
 
 	public PitPlayer(UUID uuid, PitPlayerData data) {
 		this.uuid = uuid;
@@ -30,6 +37,24 @@ public class PitPlayer {
 		if (player.getUuid() != this.uuid) return;
 
 		this.enderChest = new EnderChestWindow(player, data.getEnderChestData());
+		this.inventoryStorage = ItemContainer.CODEC.decode(data.getInventoryData(), new ExtraInfo());
+		this.hotbarStorage = ItemContainer.CODEC.decode(data.getHotbarData(), new ExtraInfo());
+		this.armorStorage = ItemContainer.CODEC.decode(data.getArmorData(), new ExtraInfo());
+
+		player.getInventory().getStorage().clear();
+		this.inventoryStorage.forEach((short slot, ItemStack itemStack) -> {
+			player.getInventory().getStorage().setItemStackForSlot(slot, itemStack);
+		});
+
+		player.getInventory().getHotbar().clear();
+		this.hotbarStorage.forEach((short slot, ItemStack itemStack) -> {
+			player.getInventory().getHotbar().setItemStackForSlot(slot, itemStack);
+		});
+
+		player.getInventory().getArmor().clear();
+		this.armorStorage.forEach((short slot, ItemStack itemStack) -> {
+			player.getInventory().getArmor().setItemStackForSlot(slot, itemStack);
+		});
 	}
 
 	public void addKill() {
@@ -79,6 +104,15 @@ public class PitPlayer {
 
 	public void save() {
 		data.setEnderChestData(enderChest.getContentsAsBson());
-		data.save();
+
+		PlayerUtils.getPlayerFromUUID(uuid).thenAccept(player -> {
+			data.setInventoryData(ItemContainer.CODEC.encode(player.getInventory().getStorage(), new ExtraInfo()));
+			data.setHotbarData(ItemContainer.CODEC.encode(player.getInventory().getHotbar(), new ExtraInfo()));
+			data.setArmorData(ItemContainer.CODEC.encode(player.getInventory().getArmor(), new ExtraInfo()));
+		}).thenAccept(_void -> {
+			data.save();
+		}).orTimeout(3, TimeUnit.SECONDS).exceptionally(ex -> {
+			throw new RuntimeException("Failed to save PitPlayer data for player " + uuid, ex);
+		});
 	}
 }

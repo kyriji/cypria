@@ -14,6 +14,9 @@ public class PitPlayerData extends PlayerDataDocument {
 	private double gold;
 
 	private BsonValue enderChestData;
+	private BsonValue inventoryData;
+	private BsonValue hotbarData;
+	private BsonValue armorData;
 
 	public PitPlayerData() {
 		super();
@@ -92,5 +95,29 @@ public class PitPlayerData extends PlayerDataDocument {
 
 	public void setEnderChestData(BsonValue enderChestData) {
 		this.enderChestData = enderChestData;
+	}
+
+	public BsonValue getInventoryData() {
+		return inventoryData;
+	}
+
+	public void setInventoryData(BsonValue inventoryData) {
+		this.inventoryData = inventoryData;
+	}
+
+	public BsonValue getHotbarData() {
+		return hotbarData;
+	}
+
+	public void setHotbarData(BsonValue hotbarData) {
+		this.hotbarData = hotbarData;
+	}
+
+	public BsonValue getArmorData() {
+		return armorData;
+	}
+
+	public void setArmorData(BsonValue armorData) {
+		this.armorData = armorData;
 	}
 }

@@ -168,7 +168,7 @@ public class GameManager {
 		stats.setStatValue(DefaultEntityStatTypes.getHealth(), maxHealth);
 		stats.setStatValue(DefaultEntityStatTypes.getStamina(), maxStamina);
 
-		player.getInventory().clear();
+//		player.getInventory().clear();
 
 		World world = player.getWorld();
 		if (world == null) return;
@@ -184,25 +184,25 @@ public class GameManager {
 		ItemStack gloves = new ItemStack("Armor_Iron_Hands");
 		ItemStack leggings = new ItemStack("Armor_Iron_Legs");
 
-		player.getInventory().getHotbar().setItemStackForSlot((short) 0, new ItemStack("Pit_Sword"));
-		// player.getInventory().getHotbar().setItemStackForSlot((short) 1, new ItemStack("Weapon_Daggers_Iron"));
-		player.getInventory().getHotbar().setItemStackForSlot((short) 1, new ItemStack("Pit_Bow"));
-		player.getInventory().getHotbar().setItemStackForSlot((short) 2, new ItemStack("Weapon_Battleaxe_Iron"));
-		player.getInventory().getHotbar().setItemStackForSlot((short) 3, new ItemStack("Weapon_Longsword_Iron"));
-		player.getInventory().getHotbar().setItemStackForSlot((short) 8, new ItemStack("Pit_Bow"));
-		// player.getInventory().getUtility().addItemStack(new ItemStack("Weapon_Shield_Copper"));
-		// player.getInventory().getArmor().addItemStack(new ItemStack("Weapon_Shield_Copper"));
-		// player.getInventory().getTools().addItemStack(new ItemStack("Weapon_Shield_Copper"));
-		player.getInventory().getUtility().setItemStackForSlot((short) 0, new ItemStack("Weapon_Shield_Iron"));
-		// player.getInventory().getTools().setItemStackForSlot((short) 0, new ItemStack("Weapon_Shield_Iron"));
-
-		player.getInventory().getStorage().addItemStack(arrows);
-		player.getInventory().getStorage().addItemStack(new ItemStack("Pit_Bow_2"));
-
-		player.getInventory().getArmor().setItemStackForSlot((short) 0, helmet);
-		player.getInventory().getArmor().setItemStackForSlot((short) 1, chestplate);
-		player.getInventory().getArmor().setItemStackForSlot((short) 2, gloves);
-		player.getInventory().getArmor().setItemStackForSlot((short) 3, leggings);
+//		player.getInventory().getHotbar().setItemStackForSlot((short) 0, new ItemStack("Pit_Sword"));
+//		// player.getInventory().getHotbar().setItemStackForSlot((short) 1, new ItemStack("Weapon_Daggers_Iron"));
+//		player.getInventory().getHotbar().setItemStackForSlot((short) 1, new ItemStack("Pit_Bow"));
+//		player.getInventory().getHotbar().setItemStackForSlot((short) 2, new ItemStack("Weapon_Battleaxe_Iron"));
+//		player.getInventory().getHotbar().setItemStackForSlot((short) 3, new ItemStack("Weapon_Longsword_Iron"));
+//		player.getInventory().getHotbar().setItemStackForSlot((short) 8, new ItemStack("Pit_Bow"));
+//		// player.getInventory().getUtility().addItemStack(new ItemStack("Weapon_Shield_Copper"));
+//		// player.getInventory().getArmor().addItemStack(new ItemStack("Weapon_Shield_Copper"));
+//		// player.getInventory().getTools().addItemStack(new ItemStack("Weapon_Shield_Copper"));
+//		player.getInventory().getUtility().setItemStackForSlot((short) 0, new ItemStack("Weapon_Shield_Iron"));
+//		// player.getInventory().getTools().setItemStackForSlot((short) 0, new ItemStack("Weapon_Shield_Iron"));
+//
+//		player.getInventory().getStorage().addItemStack(arrows);
+//		player.getInventory().getStorage().addItemStack(new ItemStack("Pit_Bow_2"));
+//
+//		player.getInventory().getArmor().setItemStackForSlot((short) 0, helmet);
+//		player.getInventory().getArmor().setItemStackForSlot((short) 1, chestplate);
+//		player.getInventory().getArmor().setItemStackForSlot((short) 2, gloves);
+//		player.getInventory().getArmor().setItemStackForSlot((short) 3, leggings);
 	}
 
 	public static void teleportToSpawn(Player player, boolean fade) {

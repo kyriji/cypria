@@ -5,6 +5,7 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.protocol.packets.interface_.Page;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.entities.player.windows.ContainerWindow;
+import com.hypixel.hytale.server.core.inventory.Inventory;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.inventory.container.SimpleItemContainer;
@@ -36,6 +37,10 @@ public class EnderChestWindow {
 	public void open() {
 		Ref<EntityStore> playerRef = player.getReference();
 		if (playerRef == null) return;
+
+		if (window.getId() > 0) {
+			try { window.close(playerRef, playerRef.getStore()); } catch (IllegalStateException e) {}
+		}
 
 		player.getPageManager().setPageWithWindows(playerRef, playerRef.getStore(), Page.Inventory, true, window);
 	}

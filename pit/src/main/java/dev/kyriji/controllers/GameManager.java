@@ -119,7 +119,7 @@ public class GameManager {
 					UUID uuid = Objects.requireNonNull(handler.getAuth()).getUuid();
 					PitPlayer targetPitPlayer = PlayerDataManager.getPitPlayer(uuid);
 
-					targetPitPlayer.enderChest.open();
+					PIT.execute(() -> targetPitPlayer.enderChest.open());
 				}
 			}
 		});

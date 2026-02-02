@@ -1,985 +1,265 @@
+$Common = "Common.ui";
+
 Group {
   LayoutMode: Center;
 
   Group {
     Anchor: (Width: 800, Height: 600);
-    Background: #333333;
-    LayoutMode: Top;
 
-    Group #TitleBar {
-      Anchor: (Height: 50);
-      Background: #222222;
-      LayoutMode: Left;
-      Padding: (Horizontal: 20, Vertical: 10);
+    Group #Title {
+      Anchor: (Height: $Common.@TitleHeight, Top: 0);
+      Padding: (Top: 7);
+      Background: (TexturePath: "Common/ContainerHeaderNoRunes.png", HorizontalBorder: 35, VerticalBorder: 0);
 
       Label {
         Style: (
-          FontSize: 24,
-          TextColor: #ffffff,
-          RenderBold: true,
-          VerticalAlignment: Center
+          ...$Common.@TitleStyle,
+          HorizontalAlignment: Start
         );
+        Padding: (Horizontal: 19);
         Text: "Shop";
-      }
-
-      Group {
-        FlexWeight: 1;
-      }
-
-      Group {
-        LayoutMode: Left;
-        Padding: (Right: 10);
-
-        ItemIcon #GoldIcon {
-          Anchor: (Width: 24, Height: 24);
-          Visible: true;
-        }
-
-        Label #GoldAmount {
-          Style: (
-            FontSize: 18,
-            TextColor: #ffd700,
-            RenderBold: true,
-            VerticalAlignment: Center
-          );
-          Text: "0g";
-          Padding: (Left: 5);
-        }
-      }
-
-      Button #CloseButton {
-        Anchor: (Width: 30, Height: 30);
-        LayoutMode: Center;
-        Style: (
-          Default: (Background: #aa2222),
-          Hovered: (Background: #cc3333),
-          Pressed: (Background: #dd4444)
-        );
-
-        Label {
-          Style: (
-            FontSize: 20,
-            TextColor: #ffffff,
-            RenderBold: true,
-            HorizontalAlignment: Center,
-            VerticalAlignment: Center
-          );
-          Text: "X";
-        }
       }
     }
 
     Group #Content {
-      FlexWeight: 1;
       LayoutMode: Top;
-      Padding: (Top: 20, Left: 20, Right: 20, Bottom: 20);
+      Anchor: (Top: $Common.@TitleHeight);
+      Padding: $Common.@ContentPadding;
+      Background: (TexturePath: "Common/ContainerPatch.png", Border: 23);
 
       Group #CategoryTabs {
         LayoutMode: Left;
-        Anchor: (Height: 50);
+        Anchor: (Height: $Common.@PrimaryButtonHeight);
         Padding: (Bottom: 10);
 
-        Button #CategoryWeapons {
-          Anchor: (Width: 120, Height: 40);
-          LayoutMode: Center;
-          Style: (
-            Default: (Background: #555555),
-            Hovered: (Background: #666666),
-            Pressed: (Background: #777777)
-          );
-
-          Label {
-            Style: (
-              FontSize: 14,
-              TextColor: #ffffff,
-              RenderBold: true,
-              HorizontalAlignment: Center,
-              VerticalAlignment: Center
-            );
-            Text: "Weapons";
-          }
+        $Common.@SecondaryTextButton #CategoryWeapons {
+          Text: "Weapons";
+          Anchor: (Width: 140);
         }
 
         Group {
           Anchor: (Width: 8);
         }
 
-        Button #CategoryArmor {
-          Anchor: (Width: 120, Height: 40);
-          LayoutMode: Center;
-          Style: (
-            Default: (Background: #555555),
-            Hovered: (Background: #666666),
-            Pressed: (Background: #777777)
-          );
-
-          Label {
-            Style: (
-              FontSize: 14,
-              TextColor: #ffffff,
-              RenderBold: true,
-              HorizontalAlignment: Center,
-              VerticalAlignment: Center
-            );
-            Text: "Armor";
-          }
+        $Common.@SecondaryTextButton #CategoryArmor {
+          Text: "Armor";
+          Anchor: (Width: 140);
         }
 
         Group {
           Anchor: (Width: 8);
         }
 
-        Button #CategoryItems {
-          Anchor: (Width: 120, Height: 40);
-          LayoutMode: Center;
-          Style: (
-            Default: (Background: #555555),
-            Hovered: (Background: #666666),
-            Pressed: (Background: #777777)
-          );
-
-          Label {
-            Style: (
-              FontSize: 14,
-              TextColor: #ffffff,
-              RenderBold: true,
-              HorizontalAlignment: Center,
-              VerticalAlignment: Center
-            );
-            Text: "Items";
-          }
+        $Common.@SecondaryTextButton #CategoryItems {
+          Text: "Items";
+          Anchor: (Width: 140);
         }
       }
 
       Group #ScrollWrapper {
         FlexWeight: 1;
         LayoutMode: TopScrolling;
-        Padding: (Left: 0, Right: 10, Top: 0, Bottom: 0);
+        ScrollbarStyle: $Common.@DefaultScrollbarStyle;
+        Padding: (Right: 10);
 
         Group #ItemsContainer {
           LayoutMode: Top;
 
-          // Item slot 0
-          Group #Item0 {
-            LayoutMode: Left;
-            Anchor: (Height: 100);
-            Padding: (Bottom: 10, Full: 10);
-            Background: #444444;
-            Visible: false;
-
-            Group #ItemIconContainer {
-              LayoutMode: Center;
-              Anchor: (Width: 80);
-              Background: #333333;
-
-              ItemIcon #ItemIcon {
-                Anchor: (Width: 64, Height: 64);
-                Visible: true;
-              }
-            }
-
-            Group #ItemInfo {
-              LayoutMode: Top;
-              FlexWeight: 1;
-              Padding: (Full: 10);
-
-              Label #ItemName {
-                Style: (
-                  FontSize: 18,
-                  TextColor: #ffffff,
-                  RenderBold: true
-                );
-                Text: "";
-                Padding: (Bottom: 5);
-              }
-
-              Label #ItemDescription {
-                Style: (
-                  FontSize: 14,
-                  TextColor: #aaaaaa
-                );
-                Text: "";
-              }
-            }
-
-            Group #PurchaseSection {
-              LayoutMode: Top;
-              Anchor: (Width: 150);
-              Padding: (Full: 15);
-
-              Label #ItemPrice {
-                Style: (
-                  FontSize: 16,
-                  TextColor: #ffd700,
-                  RenderBold: true,
-                  HorizontalAlignment: Center
-                );
-                Text: "";
-                Padding: (Bottom: 10);
-              }
-
-                Button #BuyButton0 {
-                Anchor: (Height: 35);
-                LayoutMode: Center;
-                Style: (
-                  Default: (Background: #228822),
-                  Hovered: (Background: #33aa33),
-                  Pressed: (Background: #44cc44)
-                );
-
-                Label {
-                  Style: (
-                    FontSize: 16,
-                    TextColor: #ffffff,
-                    RenderBold: true,
-                    HorizontalAlignment: Center,
-                    VerticalAlignment: Center
-                  );
-                  Text: "BUY";
-                }
-              }
-            }
-          }
-
-          // Item slot 1
-          Group #Item1 {
-          LayoutMode: Left;
-          Anchor: (Height: 100);
-          Padding: (Bottom: 10, Full: 10);
-          Background: #444444;
-          Visible: false;
-
-          Group #ItemIconContainer {
-            LayoutMode: Center;
-            Anchor: (Width: 80);
-            Background: #333333;
-
-            ItemIcon #ItemIcon {
-              Anchor: (Width: 64, Height: 64);
-              Visible: true;
-            }
-          }
-
-          Group #ItemInfo {
-            LayoutMode: Top;
-            FlexWeight: 1;
-            Padding: (Full: 10);
-
-            Label #ItemName {
-              Style: (
-                FontSize: 18,
-                TextColor: #ffffff,
-                RenderBold: true
-              );
-              Text: "";
-              Padding: (Bottom: 5);
-            }
-
-            Label #ItemDescription {
-              Style: (
-                FontSize: 14,
-                TextColor: #aaaaaa
-              );
-              Text: "";
-            }
-          }
-
-          Group #PurchaseSection {
-            LayoutMode: Top;
-            Anchor: (Width: 150);
-            Padding: (Full: 15);
-
-            Label #ItemPrice {
-              Style: (
-                FontSize: 16,
-                TextColor: #ffd700,
-                RenderBold: true,
-                HorizontalAlignment: Center
-              );
-              Text: "";
-              Padding: (Bottom: 10);
-            }
-
-              Button #BuyButton1 {
-                Anchor: (Height: 35);
-                LayoutMode: Center;
-                Style: (
-                  Default: (Background: #228822),
-                  Hovered: (Background: #33aa33),
-                  Pressed: (Background: #44cc44)
-                );
-
-                Label {
-                  Style: (
-                    FontSize: 16,
-                    TextColor: #ffffff,
-                    RenderBold: true,
-                    HorizontalAlignment: Center,
-                    VerticalAlignment: Center
-                  );
-                  Text: "BUY";
-                }
-              }
-            }
-          }
-
-        // Item slot 2
-          Group #Item2 {
-          LayoutMode: Left;
-          Anchor: (Height: 100);
-          Padding: (Bottom: 10, Full: 10);
-          Background: #444444;
-          Visible: false;
-
-          Group #ItemIconContainer {
-            LayoutMode: Center;
-            Anchor: (Width: 80);
-            Background: #333333;
-
-            ItemIcon #ItemIcon {
-              Anchor: (Width: 64, Height: 64);
-              Visible: true;
-            }
-          }
-
-          Group #ItemInfo {
-            LayoutMode: Top;
-            FlexWeight: 1;
-            Padding: (Full: 10);
-
-            Label #ItemName {
-              Style: (
-                FontSize: 18,
-                TextColor: #ffffff,
-                RenderBold: true
-              );
-              Text: "";
-              Padding: (Bottom: 5);
-            }
-
-            Label #ItemDescription {
-              Style: (
-                FontSize: 14,
-                TextColor: #aaaaaa
-              );
-              Text: "";
-            }
-          }
-
-          Group #PurchaseSection {
-            LayoutMode: Top;
-            Anchor: (Width: 150);
-            Padding: (Full: 15);
-
-            Label #ItemPrice {
-              Style: (
-                FontSize: 16,
-                TextColor: #ffd700,
-                RenderBold: true,
-                HorizontalAlignment: Center
-              );
-              Text: "";
-              Padding: (Bottom: 10);
-            }
-
-            Button #BuyButton2 {
+          @ShopItem #Item0 {
+            TextButton #BuyButton0 {
+              Text: "BUY";
+              Style: $Common.@DefaultTextButtonStyle;
               Anchor: (Height: 35);
-              LayoutMode: Center;
-              Style: (
-                Default: (Background: #228822),
-                Hovered: (Background: #33aa33),
-                Pressed: (Background: #44cc44)
-              );
-
-              Label {
-                Style: (
-                  FontSize: 16,
-                  TextColor: #ffffff,
-                  RenderBold: true,
-                  HorizontalAlignment: Center,
-                  VerticalAlignment: Center
-                );
-                Text: "BUY";
-              }
-            }
-          }
-        }
-
-        // Item slot 3
-          Group #Item3 {
-          LayoutMode: Left;
-          Anchor: (Height: 100);
-          Padding: (Bottom: 10, Full: 10);
-          Background: #444444;
-          Visible: false;
-
-          Group #ItemIconContainer {
-            LayoutMode: Center;
-            Anchor: (Width: 80);
-            Background: #333333;
-
-            ItemIcon #ItemIcon {
-              Anchor: (Width: 64, Height: 64);
-              Visible: true;
+              Padding: (Horizontal: 24);
             }
           }
 
-          Group #ItemInfo {
-            LayoutMode: Top;
-            FlexWeight: 1;
-            Padding: (Full: 10);
-
-            Label #ItemName {
-              Style: (
-                FontSize: 18,
-                TextColor: #ffffff,
-                RenderBold: true
-              );
-              Text: "";
-              Padding: (Bottom: 5);
-            }
-
-            Label #ItemDescription {
-              Style: (
-                FontSize: 14,
-                TextColor: #aaaaaa
-              );
-              Text: "";
-            }
-          }
-
-          Group #PurchaseSection {
-            LayoutMode: Top;
-            Anchor: (Width: 150);
-            Padding: (Full: 15);
-
-            Label #ItemPrice {
-              Style: (
-                FontSize: 16,
-                TextColor: #ffd700,
-                RenderBold: true,
-                HorizontalAlignment: Center
-              );
-              Text: "";
-              Padding: (Bottom: 10);
-            }
-
-            Button #BuyButton3 {
+          @ShopItem #Item1 {
+            TextButton #BuyButton1 {
+              Text: "BUY";
+              Style: $Common.@DefaultTextButtonStyle;
               Anchor: (Height: 35);
-              LayoutMode: Center;
-              Style: (
-                Default: (Background: #228822),
-                Hovered: (Background: #33aa33),
-                Pressed: (Background: #44cc44)
-              );
-
-              Label {
-                Style: (
-                  FontSize: 16,
-                  TextColor: #ffffff,
-                  RenderBold: true,
-                  HorizontalAlignment: Center,
-                  VerticalAlignment: Center
-                );
-                Text: "BUY";
-              }
-            }
-          }
-        }
-
-        // Item slot 4
-          Group #Item4 {
-          LayoutMode: Left;
-          Anchor: (Height: 100);
-          Padding: (Bottom: 10, Full: 10);
-          Background: #444444;
-          Visible: false;
-
-          Group #ItemIconContainer {
-            LayoutMode: Center;
-            Anchor: (Width: 80);
-            Background: #333333;
-
-            ItemIcon #ItemIcon {
-              Anchor: (Width: 64, Height: 64);
-              Visible: true;
+              Padding: (Horizontal: 24);
             }
           }
 
-          Group #ItemInfo {
-            LayoutMode: Top;
-            FlexWeight: 1;
-            Padding: (Full: 10);
-
-            Label #ItemName {
-              Style: (
-                FontSize: 18,
-                TextColor: #ffffff,
-                RenderBold: true
-              );
-              Text: "";
-              Padding: (Bottom: 5);
-            }
-
-            Label #ItemDescription {
-              Style: (
-                FontSize: 14,
-                TextColor: #aaaaaa
-              );
-              Text: "";
-            }
-          }
-
-          Group #PurchaseSection {
-            LayoutMode: Top;
-            Anchor: (Width: 150);
-            Padding: (Full: 15);
-
-            Label #ItemPrice {
-              Style: (
-                FontSize: 16,
-                TextColor: #ffd700,
-                RenderBold: true,
-                HorizontalAlignment: Center
-              );
-              Text: "";
-              Padding: (Bottom: 10);
-            }
-
-            Button #BuyButton4 {
+          @ShopItem #Item2 {
+            TextButton #BuyButton2 {
+              Text: "BUY";
+              Style: $Common.@DefaultTextButtonStyle;
               Anchor: (Height: 35);
-              LayoutMode: Center;
-              Style: (
-                Default: (Background: #228822),
-                Hovered: (Background: #33aa33),
-                Pressed: (Background: #44cc44)
-              );
-
-              Label {
-                Style: (
-                  FontSize: 16,
-                  TextColor: #ffffff,
-                  RenderBold: true,
-                  HorizontalAlignment: Center,
-                  VerticalAlignment: Center
-                );
-                Text: "BUY";
-              }
-            }
-          }
-        }
-
-        // Item slot 5
-          Group #Item5 {
-          LayoutMode: Left;
-          Anchor: (Height: 100);
-          Padding: (Bottom: 10, Full: 10);
-          Background: #444444;
-          Visible: false;
-
-          Group #ItemIconContainer {
-            LayoutMode: Center;
-            Anchor: (Width: 80);
-            Background: #333333;
-
-            ItemIcon #ItemIcon {
-              Anchor: (Width: 64, Height: 64);
-              Visible: true;
+              Padding: (Horizontal: 24);
             }
           }
 
-          Group #ItemInfo {
-            LayoutMode: Top;
-            FlexWeight: 1;
-            Padding: (Full: 10);
-
-            Label #ItemName {
-              Style: (
-                FontSize: 18,
-                TextColor: #ffffff,
-                RenderBold: true
-              );
-              Text: "";
-              Padding: (Bottom: 5);
-            }
-
-            Label #ItemDescription {
-              Style: (
-                FontSize: 14,
-                TextColor: #aaaaaa
-              );
-              Text: "";
-            }
-          }
-
-          Group #PurchaseSection {
-            LayoutMode: Top;
-            Anchor: (Width: 150);
-            Padding: (Full: 15);
-
-            Label #ItemPrice {
-              Style: (
-                FontSize: 16,
-                TextColor: #ffd700,
-                RenderBold: true,
-                HorizontalAlignment: Center
-              );
-              Text: "";
-              Padding: (Bottom: 10);
-            }
-
-            Button #BuyButton5 {
+          @ShopItem #Item3 {
+            TextButton #BuyButton3 {
+              Text: "BUY";
+              Style: $Common.@DefaultTextButtonStyle;
               Anchor: (Height: 35);
-              LayoutMode: Center;
-              Style: (
-                Default: (Background: #228822),
-                Hovered: (Background: #33aa33),
-                Pressed: (Background: #44cc44)
-              );
-
-              Label {
-                Style: (
-                  FontSize: 16,
-                  TextColor: #ffffff,
-                  RenderBold: true,
-                  HorizontalAlignment: Center,
-                  VerticalAlignment: Center
-                );
-                Text: "BUY";
-              }
-            }
-          }
-        }
-
-        // Item slot 6
-          Group #Item6 {
-          LayoutMode: Left;
-          Anchor: (Height: 100);
-          Padding: (Bottom: 10, Full: 10);
-          Background: #444444;
-          Visible: false;
-
-          Group #ItemIconContainer {
-            LayoutMode: Center;
-            Anchor: (Width: 80);
-            Background: #333333;
-
-            ItemIcon #ItemIcon {
-              Anchor: (Width: 64, Height: 64);
-              Visible: true;
+              Padding: (Horizontal: 24);
             }
           }
 
-          Group #ItemInfo {
-            LayoutMode: Top;
-            FlexWeight: 1;
-            Padding: (Full: 10);
-
-            Label #ItemName {
-              Style: (
-                FontSize: 18,
-                TextColor: #ffffff,
-                RenderBold: true
-              );
-              Text: "";
-              Padding: (Bottom: 5);
-            }
-
-            Label #ItemDescription {
-              Style: (
-                FontSize: 14,
-                TextColor: #aaaaaa
-              );
-              Text: "";
-            }
-          }
-
-          Group #PurchaseSection {
-            LayoutMode: Top;
-            Anchor: (Width: 150);
-            Padding: (Full: 15);
-
-            Label #ItemPrice {
-              Style: (
-                FontSize: 16,
-                TextColor: #ffd700,
-                RenderBold: true,
-                HorizontalAlignment: Center
-              );
-              Text: "";
-              Padding: (Bottom: 10);
-            }
-
-            Button #BuyButton6 {
+          @ShopItem #Item4 {
+            TextButton #BuyButton4 {
+              Text: "BUY";
+              Style: $Common.@DefaultTextButtonStyle;
               Anchor: (Height: 35);
-              LayoutMode: Center;
-              Style: (
-                Default: (Background: #228822),
-                Hovered: (Background: #33aa33),
-                Pressed: (Background: #44cc44)
-              );
-
-              Label {
-                Style: (
-                  FontSize: 16,
-                  TextColor: #ffffff,
-                  RenderBold: true,
-                  HorizontalAlignment: Center,
-                  VerticalAlignment: Center
-                );
-                Text: "BUY";
-              }
-            }
-          }
-        }
-
-        // Item slot 7
-          Group #Item7 {
-          LayoutMode: Left;
-          Anchor: (Height: 100);
-          Padding: (Bottom: 10, Full: 10);
-          Background: #444444;
-          Visible: false;
-
-          Group #ItemIconContainer {
-            LayoutMode: Center;
-            Anchor: (Width: 80);
-            Background: #333333;
-
-            ItemIcon #ItemIcon {
-              Anchor: (Width: 64, Height: 64);
-              Visible: true;
+              Padding: (Horizontal: 24);
             }
           }
 
-          Group #ItemInfo {
-            LayoutMode: Top;
-            FlexWeight: 1;
-            Padding: (Full: 10);
-
-            Label #ItemName {
-              Style: (
-                FontSize: 18,
-                TextColor: #ffffff,
-                RenderBold: true
-              );
-              Text: "";
-              Padding: (Bottom: 5);
-            }
-
-            Label #ItemDescription {
-              Style: (
-                FontSize: 14,
-                TextColor: #aaaaaa
-              );
-              Text: "";
-            }
-          }
-
-          Group #PurchaseSection {
-            LayoutMode: Top;
-            Anchor: (Width: 150);
-            Padding: (Full: 15);
-
-            Label #ItemPrice {
-              Style: (
-                FontSize: 16,
-                TextColor: #ffd700,
-                RenderBold: true,
-                HorizontalAlignment: Center
-              );
-              Text: "";
-              Padding: (Bottom: 10);
-            }
-
-            Button #BuyButton7 {
+          @ShopItem #Item5 {
+            TextButton #BuyButton5 {
+              Text: "BUY";
+              Style: $Common.@DefaultTextButtonStyle;
               Anchor: (Height: 35);
-              LayoutMode: Center;
-              Style: (
-                Default: (Background: #228822),
-                Hovered: (Background: #33aa33),
-                Pressed: (Background: #44cc44)
-              );
-
-              Label {
-                Style: (
-                  FontSize: 16,
-                  TextColor: #ffffff,
-                  RenderBold: true,
-                  HorizontalAlignment: Center,
-                  VerticalAlignment: Center
-                );
-                Text: "BUY";
-              }
-            }
-          }
-        }
-
-        // Item slot 8
-          Group #Item8 {
-          LayoutMode: Left;
-          Anchor: (Height: 100);
-          Padding: (Bottom: 10, Full: 10);
-          Background: #444444;
-          Visible: false;
-
-          Group #ItemIconContainer {
-            LayoutMode: Center;
-            Anchor: (Width: 80);
-            Background: #333333;
-
-            ItemIcon #ItemIcon {
-              Anchor: (Width: 64, Height: 64);
-              Visible: true;
+              Padding: (Horizontal: 24);
             }
           }
 
-          Group #ItemInfo {
-            LayoutMode: Top;
-            FlexWeight: 1;
-            Padding: (Full: 10);
-
-            Label #ItemName {
-              Style: (
-                FontSize: 18,
-                TextColor: #ffffff,
-                RenderBold: true
-              );
-              Text: "";
-              Padding: (Bottom: 5);
-            }
-
-            Label #ItemDescription {
-              Style: (
-                FontSize: 14,
-                TextColor: #aaaaaa
-              );
-              Text: "";
-            }
-          }
-
-          Group #PurchaseSection {
-            LayoutMode: Top;
-            Anchor: (Width: 150);
-            Padding: (Full: 15);
-
-            Label #ItemPrice {
-              Style: (
-                FontSize: 16,
-                TextColor: #ffd700,
-                RenderBold: true,
-                HorizontalAlignment: Center
-              );
-              Text: "";
-              Padding: (Bottom: 10);
-            }
-
-            Button #BuyButton8 {
+          @ShopItem #Item6 {
+            TextButton #BuyButton6 {
+              Text: "BUY";
+              Style: $Common.@DefaultTextButtonStyle;
               Anchor: (Height: 35);
-              LayoutMode: Center;
-              Style: (
-                Default: (Background: #228822),
-                Hovered: (Background: #33aa33),
-                Pressed: (Background: #44cc44)
-              );
-
-              Label {
-                Style: (
-                  FontSize: 16,
-                  TextColor: #ffffff,
-                  RenderBold: true,
-                  HorizontalAlignment: Center,
-                  VerticalAlignment: Center
-                );
-                Text: "BUY";
-              }
-            }
-          }
-        }
-
-        // Item slot 9
-        Group #Item9 {
-          LayoutMode: Left;
-          Anchor: (Height: 100);
-          Padding: (Bottom: 10, Full: 10);
-          Background: #444444;
-          Visible: false;
-
-          Group #ItemIconContainer {
-            LayoutMode: Center;
-            Anchor: (Width: 80);
-            Background: #333333;
-
-            ItemIcon #ItemIcon {
-              Anchor: (Width: 64, Height: 64);
-              Visible: true;
+              Padding: (Horizontal: 24);
             }
           }
 
-          Group #ItemInfo {
-            LayoutMode: Top;
-            FlexWeight: 1;
-            Padding: (Full: 10);
-
-            Label #ItemName {
-              Style: (
-                FontSize: 18,
-                TextColor: #ffffff,
-                RenderBold: true
-              );
-              Text: "";
-              Padding: (Bottom: 5);
-            }
-
-            Label #ItemDescription {
-              Style: (
-                FontSize: 14,
-                TextColor: #aaaaaa
-              );
-              Text: "";
+          @ShopItem #Item7 {
+            TextButton #BuyButton7 {
+              Text: "BUY";
+              Style: $Common.@DefaultTextButtonStyle;
+              Anchor: (Height: 35);
+              Padding: (Horizontal: 24);
             }
           }
 
-          Group #PurchaseSection {
-            LayoutMode: Top;
-            Anchor: (Width: 150);
-            Padding: (Full: 15);
-
-            Label #ItemPrice {
-              Style: (
-                FontSize: 16,
-                TextColor: #ffd700,
-                RenderBold: true,
-                HorizontalAlignment: Center
-              );
-              Text: "";
-              Padding: (Bottom: 10);
+          @ShopItem #Item8 {
+            TextButton #BuyButton8 {
+              Text: "BUY";
+              Style: $Common.@DefaultTextButtonStyle;
+              Anchor: (Height: 35);
+              Padding: (Horizontal: 24);
             }
+          }
 
-              Button #BuyButton9 {
-                Anchor: (Height: 35);
-                LayoutMode: Center;
-                Style: (
-                  Default: (Background: #228822),
-                  Hovered: (Background: #33aa33),
-                  Pressed: (Background: #44cc44)
-                );
-
-                Label {
-                  Style: (
-                    FontSize: 16,
-                    TextColor: #ffffff,
-                    RenderBold: true,
-                    HorizontalAlignment: Center,
-                    VerticalAlignment: Center
-                  );
-                  Text: "BUY";
-                }
-              }
+          @ShopItem #Item9 {
+            TextButton #BuyButton9 {
+              Text: "BUY";
+              Style: $Common.@DefaultTextButtonStyle;
+              Anchor: (Height: 35);
+              Padding: (Horizontal: 24);
             }
           }
         }
       }
     }
+
+    $Common.@CloseButton #CloseButton {}
+
+    Group {
+      LayoutMode: Left;
+      Anchor: (Right: 20, Top: 50, Height: 32, Width: 110);
+      Padding: (Horizontal: 10, Vertical: 4);
+      Background: $Common.@InputBoxBackground;
+
+      ItemIcon #GoldIcon {
+        Anchor: (Width: 20, Height: 20);
+        Visible: true;
+      }
+
+      Label #GoldAmount {
+        Style: (
+          FontSize: 16,
+          TextColor: #ffd700,
+          RenderBold: true,
+          VerticalAlignment: Center
+        );
+        Text: "0g";
+        Padding: (Left: 5);
+      }
+    }
   }
 }
+
+// Reusable shop item component
+@ShopItem = Group {
+  LayoutMode: Left;
+  Anchor: (Height: 100);
+  Padding: (Bottom: 10, Full: 10);
+  Background: $Common.@InputBoxBackground;
+  Visible: false;
+
+  Group #ItemIconContainer {
+    LayoutMode: Center;
+    Anchor: (Width: 80);
+    Background: (Color: #1a1a1a);
+
+    ItemIcon #ItemIcon {
+      Anchor: (Width: 64, Height: 64);
+      Visible: true;
+    }
+  }
+
+  Group #ItemInfo {
+    LayoutMode: Top;
+    FlexWeight: 1;
+    Padding: (Full: 10);
+
+    Label #ItemName {
+      Style: (
+        FontSize: 18,
+        TextColor: #ffffff,
+        RenderBold: true
+      );
+      Text: "";
+      Padding: (Bottom: 5);
+    }
+
+    Label #ItemDescription {
+      Style: (
+        ...$Common.@DefaultLabelStyle,
+        FontSize: 14
+      );
+      Text: "";
+    }
+  }
+
+  Group #PurchaseSection {
+    LayoutMode: Top;
+    Anchor: (Width: 115);
+    Padding: (Horizontal: 15, Top: 25, Bottom: 5);
+
+    Group #PriceContainer {
+      LayoutMode: Center;
+      Anchor: (Height: 32);
+      Padding: (Horizontal: 10, Vertical: 4, Bottom: 8);
+      Background: $Common.@InputBoxBackground;
+
+      Group {
+        LayoutMode: Left;
+
+        ItemIcon #ItemPriceIcon {
+          Anchor: (Width: 18, Height: 18);
+          Visible: true;
+        }
+
+        Label #ItemPrice {
+          Style: (
+            FontSize: 14,
+            TextColor: #ffd700,
+            RenderBold: true,
+            VerticalAlignment: Center
+          );
+          Text: "";
+          Padding: (Left: 5);
+        }
+      }
+    }
+
+    // Buy button slot - child elements can override this
+  }
+};

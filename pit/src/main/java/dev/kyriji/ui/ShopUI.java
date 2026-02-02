@@ -142,6 +142,10 @@ public class ShopUI extends InteractiveCustomUIPage<ShopUI.ShopUIData> {
 			uiCommandBuilder.set(itemPrefix + " #ItemIcon.ItemId", item.iconItemId);
 			uiCommandBuilder.set(itemPrefix + " #ItemIcon.Visible", true);
 
+			// Set price icon for each item (scoped to this item)
+			uiCommandBuilder.set(itemPrefix + " #ItemPriceIcon.ItemId", "Ingredient_Bar_Gold");
+			uiCommandBuilder.set(itemPrefix + " #ItemPriceIcon.Visible", true);
+
 			// Set button enabled state based on affordability
 //			uiCommandBuilder.set(itemPrefix + " #BuyButton" + i + ".Enabled", canAfford);
 		}

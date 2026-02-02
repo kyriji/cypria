@@ -28,25 +28,14 @@ import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.universe.world.worldmap.WorldMapManager;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
-import dev.kyriji.objects.PitPlayer;
-import dev.kyriji.ui.ShopUI;
-import dev.kyriji.systems.BlockBreakSystem;
-import dev.kyriji.systems.BlockDamageSystem;
-import dev.kyriji.systems.BlockPlaceSystem;
-import dev.kyriji.systems.BlockUseSystem;
-import dev.kyriji.systems.DamageSystem;
-import dev.kyriji.systems.ItemDropSystem;
-import dev.kyriji.systems.ItemPickupSystem;
-import dev.kyriji.systems.PlayerSpawnedSystem;
 import dev.kyriji.objects.PitNPC;
+import dev.kyriji.objects.PitPlayer;
+import dev.kyriji.systems.*;
+import dev.kyriji.ui.ShopUI;
 import dev.kyriji.utils.PlayerUtils;
 import dev.kyriji.utils.Region;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class GameManager {
@@ -188,11 +177,6 @@ public class GameManager {
 		Map<String, WorldMapManager.MarkerProvider> providers = wmm.getMarkerProviders();
 		providers.clear();
 
-		ItemStack sword = new ItemStack("Weapon_Sword_Iron");
-		ItemStack bow = new ItemStack("Weapon_Shortbow_Ricochet");
-		ItemStack daggers = new ItemStack("Weapon_Daggers_Iron");
-		ItemStack scythe = new ItemStack("Weapon_Battleaxe_Scythe_Void");
-
 		ItemStack arrows = new ItemStack("Weapon_Arrow_Crude", 100);
 
 		ItemStack helmet = new ItemStack("Armor_Iron_Head");
@@ -200,12 +184,20 @@ public class GameManager {
 		ItemStack gloves = new ItemStack("Armor_Iron_Hands");
 		ItemStack leggings = new ItemStack("Armor_Iron_Legs");
 
-		player.getInventory().getHotbar().addItemStack(sword);
-		player.getInventory().getHotbar().addItemStack(bow);
-		player.getInventory().getHotbar().addItemStack(daggers);
-		player.getInventory().getHotbar().addItemStack(scythe);
+		player.getInventory().getHotbar().setItemStackForSlot((short) 0, new ItemStack("Pit_Sword"));
+		// player.getInventory().getHotbar().setItemStackForSlot((short) 1, new ItemStack("Weapon_Daggers_Iron"));
+		player.getInventory().getHotbar().setItemStackForSlot((short) 1, new ItemStack("Pit_Bow"));
+		player.getInventory().getHotbar().setItemStackForSlot((short) 2, new ItemStack("Weapon_Battleaxe_Iron"));
+		player.getInventory().getHotbar().setItemStackForSlot((short) 3, new ItemStack("Weapon_Longsword_Iron"));
+		player.getInventory().getHotbar().setItemStackForSlot((short) 8, new ItemStack("Pit_Bow"));
+		// player.getInventory().getUtility().addItemStack(new ItemStack("Weapon_Shield_Copper"));
+		// player.getInventory().getArmor().addItemStack(new ItemStack("Weapon_Shield_Copper"));
+		// player.getInventory().getTools().addItemStack(new ItemStack("Weapon_Shield_Copper"));
+		player.getInventory().getUtility().setItemStackForSlot((short) 0, new ItemStack("Weapon_Shield_Iron"));
+		// player.getInventory().getTools().setItemStackForSlot((short) 0, new ItemStack("Weapon_Shield_Iron"));
 
 		player.getInventory().getStorage().addItemStack(arrows);
+		player.getInventory().getStorage().addItemStack(new ItemStack("Pit_Bow_2"));
 
 		player.getInventory().getArmor().setItemStackForSlot((short) 0, helmet);
 		player.getInventory().getArmor().setItemStackForSlot((short) 1, chestplate);

@@ -1,0 +1,10 @@
+{
+  "RequireNewClick": true,
+  "ClickQueuingTimeout": 0,
+  "Cooldown": {
+    "Cooldown": 0
+  },
+  "Interactions": [
+    "Weapon_Sword_Primary_PitSword"
+  ]
+}

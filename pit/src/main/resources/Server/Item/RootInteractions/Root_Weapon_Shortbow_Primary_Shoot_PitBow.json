@@ -1,0 +1,14 @@
+{
+  "RequireNewClick": true,
+  "Cooldown": {
+    "Cooldown": 1.0
+  },
+  "Interactions": [
+    "Weapon_Shortbow_Primary_Shoot"
+  ],
+  "Tags": {
+    "Attack": [
+      "Ranged"
+    ]
+  }
+}

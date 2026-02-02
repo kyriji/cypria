@@ -34,15 +34,11 @@ public class PlayerHud extends CustomUIHud {
 
 		UICommandBuilder builder = new UICommandBuilder();
 		builder.append("Hud/InfoCard.ui");
-		Color randomColor = new Color((int)(Math.random() * 0x1000000));
-		builder.set("#Title.TextSpans", Message.raw("The Pit").color(randomColor));
 
-		builder.set("#Row1.TextSpans", Message.raw("Kills: ").color(Color.WHITE).insert(Message.raw(String.valueOf(pitPlayer.getKills())).color(Color.GREEN)));
-		builder.set("#Row2.TextSpans", Message.raw("Deaths: ").color(Color.WHITE).insert(Message.raw(String.valueOf(pitPlayer.getDeaths())).color(Color.RED)));
-		builder.set("#Row3.TextSpans", Message.raw("Streak: ").color(Color.WHITE).insert(Message.raw(String.valueOf(pitPlayer.getCurrentStreak())).color(Color.YELLOW)));
-		builder.set("#Row4.TextSpans", Message.raw("Gold: ").color(Color.WHITE).insert(Message.raw(String.valueOf(pitPlayer.getGold())).color(ColorUtils.GOLD)));
-		builder.set("#Row5.TextSpans", Message.raw(""));
-		builder.set("#Row6.TextSpans", Message.raw("Thanks for playing!").color(Color.GRAY));
+		builder.set("#Row1.TextSpans", Message.raw(String.valueOf(pitPlayer.getKills())));
+		builder.set("#Row2.TextSpans", Message.raw(String.valueOf(pitPlayer.getDeaths())));
+		builder.set("#Row3.TextSpans", Message.raw(String.valueOf(pitPlayer.getCurrentStreak())));
+		builder.set("#Row4.TextSpans", Message.raw(String.format("%.0fg", pitPlayer.getGold())));
 
 		update(true, builder);
 	}

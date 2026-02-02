@@ -1,53 +1,152 @@
+$Common = "../Common.ui";
+
 Group {
   LayoutMode: Right;
-  Anchor: (Top: 20, Height: 60);
+  Anchor: (Width: 50, Top: 20, Right: 20);
 
   Group #MyPanel {
-    Background: #33333380;
-    Anchor: (Right: 0, Top: 200, Width: 250, Height: 400);
-    Padding: (Horizontal: 0, Vertical: 0);
+    Background: $Common.@InputBoxBackground;
+    Anchor: (Height: 250, Right: 10, Top: 10, Width: 175);
+    Padding: (Full: 15);
     LayoutMode: Top;
 
     Label #Title {
-      Style: (FontSize: 48, Alignment: Center);
-      Anchor: (Height: 70);
-      Text: "MyText";
+      Style: (
+        ...$Common.@TitleStyle,
+        FontSize: 24,
+        HorizontalAlignment: Center
+      );
+      Anchor: (Height: 40);
+      Padding: (Bottom: 10);
+      Text: "THE PIT";
     }
 
-    Label #Row1 {
-      Style: (FontSize: 24, Alignment: Center);
-      Anchor: (Height: 55);
-      Text: "MyText";
+    $Common.@ContentSeparator {
+      Padding: (Bottom: 10);
     }
 
-    Label #Row2 {
-      Style: (FontSize: 24, Alignment: Center);
-      Anchor: (Height: 55);
-      Text: "MyText";
+    Group #StatsContainer {
+      LayoutMode: Top;
+      Padding: (Vertical: 5);
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 32);
+        Padding: (Bottom: 8);
+
+        Label {
+          Style: (
+            ...$Common.@DefaultLabelStyle,
+            FontSize: 16
+          );
+          Text: "Kills:";
+          Anchor: (Width: 100);
+        }
+
+        Label #Row1 {
+          Style: (
+            FontSize: 16,
+            TextColor: #4ade80,
+            RenderBold: true,
+            VerticalAlignment: Center
+          );
+          FlexWeight: 1;
+          Text: "0";
+        }
+      }
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 32);
+        Padding: (Bottom: 8);
+
+        Label {
+          Style: (
+            ...$Common.@DefaultLabelStyle,
+            FontSize: 16
+          );
+          Text: "Deaths:";
+          Anchor: (Width: 100);
+        }
+
+        Label #Row2 {
+          Style: (
+            FontSize: 16,
+            TextColor: #f87171,
+            RenderBold: true,
+            VerticalAlignment: Center
+          );
+          FlexWeight: 1;
+          Text: "0";
+        }
+      }
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 32);
+        Padding: (Bottom: 8);
+
+        Label {
+          Style: (
+            ...$Common.@DefaultLabelStyle,
+            FontSize: 16
+          );
+          Text: "Streak:";
+          Anchor: (Width: 100);
+        }
+
+        Label #Row3 {
+          Style: (
+            FontSize: 16,
+            TextColor: #fbbf24,
+            RenderBold: true,
+            VerticalAlignment: Center
+          );
+          FlexWeight: 1;
+          Text: "0";
+        }
+      }
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 32);
+        Padding: (Bottom: 8);
+
+        Label {
+          Style: (
+            ...$Common.@DefaultLabelStyle,
+            FontSize: 16
+          );
+          Text: "Gold:";
+          Anchor: (Width: 100);
+        }
+
+        Label #Row4 {
+          Style: (
+            FontSize: 16,
+            TextColor: #ffd700,
+            RenderBold: true,
+            VerticalAlignment: Center
+          );
+          FlexWeight: 1;
+          Text: "0g";
+        }
+      }
     }
 
-    Label #Row3 {
-      Style: (FontSize: 24, Alignment: Center);
-      Anchor: (Height: 55);
-      Text: "MyText";
-    }
-
-    Label #Row4 {
-      Style: (FontSize: 24, Alignment: Center);
-      Anchor: (Height: 55);
-      Text: "MyText";
-    }
-
-    Label #Row5 {
-      Style: (FontSize: 24, Alignment: Center);
-      Anchor: (Height: 55);
-      Text: "MyText";
+    $Common.@ContentSeparator {
+      Padding: (Top: 5, Bottom: 10);
     }
 
     Label #Row6 {
-      Style: (FontSize: 24, Alignment: Center);
-      Anchor: (Height: 55);
-      Text: "MyText";
+      Style: (
+        FontSize: 13,
+        TextColor: #64748b,
+        HorizontalAlignment: Center,
+        VerticalAlignment: Center
+      );
+      Anchor: (Height: 25);
+      Text: "Thanks for playing!";
     }
   }
 }

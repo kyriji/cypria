@@ -1,5 +1,5 @@
 {
-  "$Comment": "Two-strike combo: left and right swings only, no down strike",
+  "$Comment": "AI SLOP",
   "Type": "Chaining",
   "ChainingAllowance": 2,
   "ChainId": "Sword_Swings",

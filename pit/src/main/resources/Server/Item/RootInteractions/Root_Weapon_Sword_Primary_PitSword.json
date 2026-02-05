@@ -1,4 +1,5 @@
 {
+  "$Comment": "AI SLOP",
   "RequireNewClick": true,
   "ClickQueuingTimeout": 0,
   "Cooldown": {

@@ -1,8 +1,0 @@
-{
-  "$Comment": "AI SLOP",
-  "Type": "Charging",
-  "DisplayProgress": false,
-  "Next": {
-    "0": "Weapon_Sword_Primary_Chain_PitSword"
-  }
-}

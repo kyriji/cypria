@@ -1,11 +1,8 @@
 {
   "$Comment": "AI SLOP",
-  "RequireNewClick": true,
-  "ClickQueuingTimeout": 0,
-  "Cooldown": {
-    "Cooldown": 0
-  },
+  "RequireNewClick": false,
+  "ClickQueuingTimeout": 0.5,
   "Interactions": [
-    "Weapon_Sword_Primary_PitSword"
+    "Weapon_Sword_Primary_Chain_PitSword"
   ]
 }

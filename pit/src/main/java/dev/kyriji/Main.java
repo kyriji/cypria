@@ -1,17 +1,19 @@
 package dev.kyriji;
 
+import com.hypixel.hytale.assetstore.event.LoadedAssetsEvent;
 import com.hypixel.hytale.protocol.packets.interface_.NotificationStyle;
 import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.AssetModule;
 import com.hypixel.hytale.server.core.event.events.BootEvent;
-import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
+import com.hypixel.hytale.server.core.modules.entitystats.asset.EntityStatType;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.util.Config;
+import dev.kyriji.asset.AssetManager;
 import dev.kyriji.commands.TestChargeCommand;
 import dev.kyriji.commands.TestCommand;
 import dev.kyriji.commands.TestPrimaryCommand;
@@ -69,7 +71,9 @@ public class Main extends JavaPlugin {
 		getCommandRegistry().registerCommand(new TestChargeCommand());
 		getCommandRegistry().registerCommand(new TestPrimaryCommand());
 //		getCommandRegistry().registerCommand(new BroadcastTestCommand());
+
 		getEventRegistry().register(BootEvent.class, _event -> initializeSystems());
+		getEventRegistry().register(LoadedAssetsEvent.class, EntityStatType.class, AssetManager::onEntityStatsLoaded);
 
 		if (HytaleServer.get().isBooted()) initializeSystems();
 

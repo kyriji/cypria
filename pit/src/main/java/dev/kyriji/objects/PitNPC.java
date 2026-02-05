@@ -33,6 +33,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
+//AI SLOP
 public class PitNPC {
 
 	private static final List<PitNPC> ACTIVE_NPCS = new ArrayList<>();

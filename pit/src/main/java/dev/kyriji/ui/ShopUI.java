@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+//AI SLOP
 public class ShopUI extends InteractiveCustomUIPage<ShopUI.ShopUIData> {
 
 	private static class ShopItem {

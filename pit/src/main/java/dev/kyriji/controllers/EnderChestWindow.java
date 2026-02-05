@@ -5,12 +5,10 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.protocol.packets.interface_.Page;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.entities.player.windows.ContainerWindow;
-import com.hypixel.hytale.server.core.inventory.Inventory;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.inventory.container.SimpleItemContainer;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import org.bson.BsonDocument;
 import org.bson.BsonValue;
 
 public class EnderChestWindow {

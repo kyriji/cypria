@@ -2,7 +2,6 @@ package dev.kyriji.controllers;
 
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
-import com.hypixel.hytale.function.consumer.ShortObjectConsumer;
 import com.hypixel.hytale.math.shape.Box2D;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.math.vector.Vector3f;

@@ -68,7 +68,7 @@ Group {
           @ShopItem #Item0 {
             TextButton #BuyButton0 {
               Text: "BUY";
-              Style: $Common.@DefaultTextButtonStyle;
+              Style: $Common.@SecondaryTextButtonStyle;
               Anchor: (Height: 35);
               Padding: (Horizontal: 24);
             }
@@ -77,7 +77,7 @@ Group {
           @ShopItem #Item1 {
             TextButton #BuyButton1 {
               Text: "BUY";
-              Style: $Common.@DefaultTextButtonStyle;
+              Style: $Common.@SecondaryTextButtonStyle;
               Anchor: (Height: 35);
               Padding: (Horizontal: 24);
             }
@@ -86,7 +86,7 @@ Group {
           @ShopItem #Item2 {
             TextButton #BuyButton2 {
               Text: "BUY";
-              Style: $Common.@DefaultTextButtonStyle;
+              Style: $Common.@SecondaryTextButtonStyle;
               Anchor: (Height: 35);
               Padding: (Horizontal: 24);
             }
@@ -95,7 +95,7 @@ Group {
           @ShopItem #Item3 {
             TextButton #BuyButton3 {
               Text: "BUY";
-              Style: $Common.@DefaultTextButtonStyle;
+              Style: $Common.@SecondaryTextButtonStyle;
               Anchor: (Height: 35);
               Padding: (Horizontal: 24);
             }
@@ -104,7 +104,7 @@ Group {
           @ShopItem #Item4 {
             TextButton #BuyButton4 {
               Text: "BUY";
-              Style: $Common.@DefaultTextButtonStyle;
+              Style: $Common.@SecondaryTextButtonStyle;
               Anchor: (Height: 35);
               Padding: (Horizontal: 24);
             }
@@ -113,7 +113,7 @@ Group {
           @ShopItem #Item5 {
             TextButton #BuyButton5 {
               Text: "BUY";
-              Style: $Common.@DefaultTextButtonStyle;
+              Style: $Common.@SecondaryTextButtonStyle;
               Anchor: (Height: 35);
               Padding: (Horizontal: 24);
             }
@@ -122,7 +122,7 @@ Group {
           @ShopItem #Item6 {
             TextButton #BuyButton6 {
               Text: "BUY";
-              Style: $Common.@DefaultTextButtonStyle;
+              Style: $Common.@SecondaryTextButtonStyle;
               Anchor: (Height: 35);
               Padding: (Horizontal: 24);
             }
@@ -131,7 +131,7 @@ Group {
           @ShopItem #Item7 {
             TextButton #BuyButton7 {
               Text: "BUY";
-              Style: $Common.@DefaultTextButtonStyle;
+              Style: $Common.@SecondaryTextButtonStyle;
               Anchor: (Height: 35);
               Padding: (Horizontal: 24);
             }
@@ -140,7 +140,7 @@ Group {
           @ShopItem #Item8 {
             TextButton #BuyButton8 {
               Text: "BUY";
-              Style: $Common.@DefaultTextButtonStyle;
+              Style: $Common.@SecondaryTextButtonStyle;
               Anchor: (Height: 35);
               Padding: (Horizontal: 24);
             }
@@ -149,7 +149,7 @@ Group {
           @ShopItem #Item9 {
             TextButton #BuyButton9 {
               Text: "BUY";
-              Style: $Common.@DefaultTextButtonStyle;
+              Style: $Common.@SecondaryTextButtonStyle;
               Anchor: (Height: 35);
               Padding: (Horizontal: 24);
             }

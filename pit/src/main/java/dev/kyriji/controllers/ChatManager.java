@@ -7,7 +7,7 @@ import dev.kyriji.enums.PlayerRank;
 import dev.kyriji.utils.PlayerUtils;
 import fi.sulku.hytale.TinyMsg;
 
-public class ChatManager {
+public class 	ChatManager {
 
 	public ChatManager(JavaPlugin plugin) {
 		plugin.getEventRegistry().registerGlobal(PlayerChatEvent.class, event -> {

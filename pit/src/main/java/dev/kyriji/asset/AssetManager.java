@@ -17,7 +17,7 @@ public class AssetManager {
 
     private static final String STAMINA_STAT_ID = "Stamina";
 
-    public static void onEntityStatsLoaded(@Nonnull LoadedAssetsEvent<?,?,?> event) {
+    public static void onEntityStatsLoaded(@Nonnull LoadedAssetsEvent event) {
         try {
             LOGGER.atInfo().log("Beginning entity stats asset modifications");
             removeSprintStaminaCost();

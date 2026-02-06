@@ -223,7 +223,7 @@ public class GameManager {
 
 		if(fade) {
 			JoinWorld packet = new JoinWorld(false, true, Objects.requireNonNull(PIT).getWorldConfig().getUuid());
-			PlayerRef playerRef = Objects.requireNonNull(store.getComponent(player.getReference(), PlayerRef.getComponentType()));
+			PlayerRef playerRef = PlayerUtils.getPlayerRef(player);
 
 			PacketHandler packetHandler = playerRef.getPacketHandler();
 

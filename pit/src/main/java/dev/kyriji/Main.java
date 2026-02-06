@@ -1,6 +1,7 @@
 package dev.kyriji;
 
 import com.hypixel.hytale.assetstore.event.LoadedAssetsEvent;
+import com.hypixel.hytale.common.plugin.PluginIdentifier;
 import com.hypixel.hytale.protocol.packets.interface_.NotificationStyle;
 import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.Message;
@@ -28,9 +29,7 @@ import dev.kyriji.objects.PitConfig;
 import dev.kyriji.utils.ChatUtils;
 import dev.kyriji.utils.PlayerUtils;
 
-import com.hypixel.hytale.logger.HytaleLogger;
 import javax.annotation.Nonnull;
-import java.util.logging.Level;
 
 public class Main extends JavaPlugin {
 	private static Main instance;
@@ -111,15 +110,6 @@ public class Main extends JavaPlugin {
 
 		 GameManager.cleanup();
 		 hytaleCommon.shutdown();
-
-		 HytaleLogger eventBusLogger = HytaleLogger.get("EventBus");
-		 Level originalLevel = eventBusLogger.getLevel();
-		 eventBusLogger.setLevel(Level.OFF);
-		 try {
-			 AssetModule.get().unregisterPack(getIdentifier().toString());
-		 } finally {
-			 eventBusLogger.setLevel(originalLevel);
-		 }
 	}
 
 	private void initializeSystems() {
@@ -128,6 +118,9 @@ public class Main extends JavaPlugin {
 		this.playerDataManager = new PlayerDataManager(this);
 		this.scoreboardManager = new ScoreboardManager(this);
 		this.chatManager = new ChatManager(this);
+
+		String id = (new PluginIdentifier(this.getManifest())).toString();
+		AssetModule.get().registerPack(id, this.getFile(), this.getManifest());
 
 		this.hasInitialized = true;
 	}

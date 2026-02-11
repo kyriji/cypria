@@ -1,0 +1,11 @@
+{
+	"$Comment": "AI SLOP",
+	"Duration": 7,
+	"OverlapBehavior": "Overwrite",
+	"StatusEffectIcon": "UI/StatusEffects/Stamina.png",
+	"ApplicationEffects": {
+		"EntityBottomTint": "#ffff00",
+		"EntityTopTint": "#00ff00",
+		"HorizontalSpeedMultiplier": 1.4
+	}
+}

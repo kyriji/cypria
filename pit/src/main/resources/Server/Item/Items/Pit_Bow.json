@@ -10,7 +10,8 @@
   "Icon": "Icons/ItemsGenerated/Weapon_Bow_Crude.png",
   "ItemLevel": 1,
   "Interactions": {
-    "Primary": "Root_Weapon_Shortbow_Primary_Shoot_PitBow"
+    "Primary": "Root_Weapon_Shortbow_Primary_Shoot",
+    "Secondary": "Daggers_Bash"
   },
   "InteractionVars": {
     "Primary_Shoot_Charge": {
@@ -83,6 +84,17 @@
               "Force": 10,
               "VelocityType": "Add"
             }
+          }
+        }
+      ]
+    },
+    "Primary_Shoot_Strength_4": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Shortbow_Primary_Shoot_Projectile",
+          "Config": "Projectile_Config_Pit_Arrow",
+          "Effects": {
+            "ItemAnimationId": "ShootCharged"
           }
         }
       ]

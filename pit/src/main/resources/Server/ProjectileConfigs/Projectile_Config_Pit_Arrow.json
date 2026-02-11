@@ -1,0 +1,41 @@
+{
+  "$Comment": "AI SLOP",
+  "Parent": "Projectile_Config_Arrow_Shortbow_Strength_4",
+  "LaunchLocalSoundEventId": "SFX_Sword_T2_Impact",
+  "LaunchWorldSoundEventId": "SFX_Sword_T2_Impact",
+  "Interactions": {
+    "ProjectileHit": {
+      "Interactions": [
+        {
+          "Type": "ApplyEffect",
+          "EffectId": "Pit_Slow",
+          "Entity": "Target",
+          "Next": {
+            "Type": "ApplyEffect",
+            "EffectId": "Pit_Speed",
+            "Entity": "Owner",
+            "Next": {
+              "Type": "Replace",
+              "Var": "Primary_Shoot_Damage_Strength_4",
+              "DefaultValue": {
+                "Interactions": [
+                  "Weapon_Shortbow_Primary_Shoot_Damage_Strength_4"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "Type": "Replace",
+          "Var": "Primary_Shoot_Impact_Strength_4",
+          "DefaultValue": {
+            "Interactions": [
+              "Common_Projectile_Impact_Effects"
+            ]
+          }
+        },
+        "Common_Projectile_Despawn"
+      ]
+    }
+  }
+}

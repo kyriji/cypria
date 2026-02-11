@@ -1,0 +1,126 @@
+{
+  "$Comment": "AI SLOP",
+  "Parent": "Template_Weapon_Sword",
+  "TranslationProperties": {
+    "Name": "Vortex Blade"
+  },
+  "Model": "Items/Weapons/Sword/Iron.blockymodel",
+  "Texture": "Items/Weapons/Sword/Iron_Texture.png",
+  "Quality": "Rare",
+  "Icon": "Icons/ItemsGenerated/Weapon_Sword_Iron.png",
+  "ItemLevel": 20,
+  "Interactions": {
+    "Primary": "Root_Weapon_Sword_Primary_PitSword"
+  },
+  "InteractionVars": {
+    "Swing_Left_Damage": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Sword_Primary_Swing_Left_Damage",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "Physical": 1
+            }
+          },
+          "EntityStatsOnHit": [
+            {
+              "EntityStatId": "SignatureEnergy",
+              "Amount": 10
+            }
+          ],
+          "DamageEffects": {
+            "WorldSoundEventId": "SFX_Sword_T2_Impact",
+            "LocalSoundEventId": "SFX_Sword_T2_Impact"
+          }
+        }
+      ]
+    },
+    "Swing_Right_Damage": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Sword_Primary_Swing_Right_Damage",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "Physical": 1
+            }
+          },
+          "EntityStatsOnHit": [
+            {
+              "EntityStatId": "SignatureEnergy",
+              "Amount": 10
+            }
+          ],
+          "DamageEffects": {
+            "WorldSoundEventId": "SFX_Sword_T2_Impact",
+            "LocalSoundEventId": "SFX_Sword_T2_Impact"
+          }
+        }
+      ]
+    },
+    "Vortexstrike_Spin": {
+      "Interactions": [
+        {
+          "$Comment": "Ultra fast spin - reduced from 0.5s to 0.05s",
+          "Parent": "Weapon_Sword_Signature_Vortexstrike_Spin",
+          "RunTime": 0.05
+        }
+      ]
+    },
+    "Vortexstrike_Stab": {
+      "Interactions": [
+        {
+          "$Comment": "Ultra fast stab - reduced from 0.5s to 0.05s",
+          "Parent": "Weapon_Sword_Signature_Vortexstrike_Stab",
+          "RunTime": 0.05
+        }
+      ]
+    },
+    "Vortexstrike_Spin_Damage": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Sword_Signature_Vortexstrike_Spin_Damage",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "Physical": 1
+            }
+          },
+          "EntityStatsOnHit": [],
+          "DamageEffects": {
+            "WorldSoundEventId": "SFX_Sword_T2_Impact",
+            "LocalSoundEventId": "SFX_Sword_T2_Impact"
+          }
+        }
+      ]
+    },
+    "Vortexstrike_Stab_Damage": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Sword_Signature_Vortexstrike_Stab_Damage",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "Physical": 1
+            }
+          },
+          "EntityStatsOnHit": [],
+          "DamageEffects": {
+            "WorldSoundEventId": "SFX_Sword_T2_Impact",
+            "LocalSoundEventId": "SFX_Sword_T2_Impact"
+          }
+        }
+      ]
+    },
+    "Guard_Wield": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Sword_Secondary_Guard_Wield",
+          "StaminaCost": {
+            "Value": 10,
+            "CostType": "Damage"
+          }
+        }
+      ]
+    }
+  },
+  "MaxDurability": 120,
+  "DurabilityLossOnHit": 0.21
+}

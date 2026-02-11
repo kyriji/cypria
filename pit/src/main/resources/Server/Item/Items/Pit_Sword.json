@@ -15,7 +15,7 @@
         {
           "$Comment": "Fast left swing - reduced RunTime",
           "Parent": "Weapon_Sword_Primary_Swing_Left",
-          "RunTime": 0.1
+          "RunTime": 0.5
         }
       ]
     },
@@ -24,7 +24,7 @@
         {
           "$Comment": "Fast right swing - reduced RunTime",
           "Parent": "Weapon_Sword_Primary_Swing_Right",
-          "RunTime": 0.1
+          "RunTime": 0.5
         }
       ]
     },
@@ -35,7 +35,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 9
+              "Physical": 1
             }
           },
           "DamageEffects": {
@@ -70,7 +70,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 10
+              "Physical": 1
             }
           },
           "DamageEffects": {

@@ -53,6 +53,7 @@ public class GameManager {
 
 	public GameManager(JavaPlugin plugin) {
 		assert PIT != null;
+		PIT.getWorldConfig().getChunkConfig().setPregenerateRegion(new Box2D(250, 150, 500, 400));
 		PIT.getWorldConfig().getChunkConfig().setKeepLoadedRegion(new Box2D(250, 150, 500, 400));
 
 		plugin.getEntityStoreRegistry().registerSystem(new BlockBreakSystem());
@@ -64,7 +65,6 @@ public class GameManager {
 
 		plugin.getEntityStoreRegistry().registerSystem(new DamageSystem());
 		plugin.getEntityStoreRegistry().registerSystem(new PlayerSpawnedSystem());
-
 		plugin.getEventRegistry().registerGlobal(PlayerReadyEvent.class, event -> {
 			if (!npcsSpawned) {
 				npcsSpawned = true;

@@ -20,7 +20,7 @@ Group {
       );
       Anchor: (Height: 40);
       Padding: (Bottom: 10);
-      Text: "THE PIT";
+      Text: "CYPRIA";
     }
 
     $Common.@ContentSeparator {

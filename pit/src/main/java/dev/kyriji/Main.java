@@ -24,6 +24,7 @@ import dev.kyriji.controllers.ChatManager;
 import dev.kyriji.controllers.GameManager;
 import dev.kyriji.controllers.PlayerDataManager;
 import dev.kyriji.controllers.ScoreboardManager;
+import dev.kyriji.items.interactions.TeleportToHitLocationInteraction;
 import dev.kyriji.items.test.TestItemInteraction;
 import dev.kyriji.objects.PitConfig;
 import dev.kyriji.utils.ChatUtils;
@@ -65,6 +66,7 @@ public class Main extends JavaPlugin {
 		hytaleCommon = new HytaleCommon(pitConfig.toJsonObject(), Deployment.PIT, false);
 
 		this.getCodecRegistry(Interaction.CODEC).register("test_interaction", TestItemInteraction.class, TestItemInteraction.CODEC);
+		this.getCodecRegistry(Interaction.CODEC).register("TeleportToHitLocation", TeleportToHitLocationInteraction.class, TeleportToHitLocationInteraction.CODEC);
 
 		getCommandRegistry().registerCommand(new TestCommand());
 		getCommandRegistry().registerCommand(new TestChargeCommand());

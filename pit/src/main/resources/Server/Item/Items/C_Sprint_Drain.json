@@ -1,13 +1,12 @@
 {
-  "$Comment": "AI SLOP",
   "TranslationProperties": {
-    "Name": "Pit Bow"
+    "Name": "Sprint Drain"
   },
   "Parent": "Template_Weapon_Shortbow",
-  "Quality": "Rare",
-  "Model": "Items/Weapons/Bow/Crude.blockymodel",
-  "Texture": "Items/Weapons/Bow/Crude_Texture.png",
-  "Icon": "Icons/ItemsGenerated/Weapon_Bow_Crude.png",
+  "Quality": "Epic",
+  "Icon": "Icons/ItemsGenerated/Weapon_Bow_Onyxium.png",
+  "Model": "Items/Weapons/Bow/Onyxium.blockymodel",
+  "Texture": "Items/Weapons/Bow/Onyxium_Texture.png",
   "ItemLevel": 1,
   "Interactions": {
     "Primary": "Root_Weapon_Shortbow_Primary_Shoot",

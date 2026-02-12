@@ -1,7 +1,7 @@
 .gradle/
 .idea/
 build/
+devtools-server/
 .DS_Store
 .env
 hytale-*
-devserver/

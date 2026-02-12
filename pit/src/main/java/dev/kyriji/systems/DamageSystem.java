@@ -13,6 +13,7 @@ import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
+import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageEventSystem;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
@@ -40,6 +41,10 @@ public class DamageSystem extends DamageEventSystem {
 	@Override
 	public void handle(int i, @Nonnull ArchetypeChunk<EntityStore> archetypeChunk, @Nonnull Store<EntityStore> store, @Nonnull CommandBuffer<EntityStore> commandBuffer, @Nonnull Damage damage) {
 		if (damage.isCancelled()) return;
+		if (damage.getCause() == DamageCause.FALL) {
+			damage.setCancelled(true);
+			return;
+		}
 
 		Ref<EntityStore> playerRef = archetypeChunk.getReferenceTo(i);
 		Player player = store.getComponent(playerRef, Player.getComponentType());

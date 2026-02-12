@@ -193,7 +193,7 @@ public class GameManager {
 
 		List<Map.Entry<ItemStack, Boolean>> ensureList = new ArrayList<>();
 		ensureList.add(new AbstractMap.SimpleEntry<>(new ItemStack("Pit_Sword"), false));
-		ensureList.add(new AbstractMap.SimpleEntry<>(new ItemStack("Pit_Bow"), false));
+		ensureList.add(new AbstractMap.SimpleEntry<>(new ItemStack("C_Sprint_Drain"), false));
 		ensureList.add(new AbstractMap.SimpleEntry<>(new ItemStack("Weapon_Arrow_Crude", 100), false));
 
 		Stream.of(player.getInventory().getHotbar(), player.getInventory().getStorage()).forEach(inv ->

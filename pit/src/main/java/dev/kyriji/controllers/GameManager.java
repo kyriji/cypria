@@ -28,9 +28,12 @@ import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.universe.world.worldmap.WorldMapManager;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
+import dev.kyriji.Main;
+import dev.kyriji.objects.Kit;
 import dev.kyriji.objects.PitNPC;
 import dev.kyriji.objects.PitPlayer;
 import dev.kyriji.systems.*;
+import dev.kyriji.ui.KitUI;
 import dev.kyriji.ui.ShopUI;
 import dev.kyriji.utils.PlayerUtils;
 import dev.kyriji.utils.Region;
@@ -144,11 +147,30 @@ public class GameManager {
 
 					player.getPageManager().openCustomPage(playerRef, playerRef.getStore(),
 						new ShopUI(PlayerUtils.getPlayerRef(player), itemStack -> {
-							// Give the purchased item to the player
 							player.getInventory().getHotbar().addItemStack(itemStack);
 						}));
 				});
 			}));
+
+			spawnedNPCs.add(PitNPC.spawn(store, "Feran_Civilian", new Vector3d(387.5, 139, 291.5), rotation, PIT, playerUuid -> {
+				PlayerUtils.getPlayerFromUUID(playerUuid).thenAccept(player -> {
+					if(player == null) return;
+
+					Ref<EntityStore> playerRef = player.getReference();
+					if(playerRef == null) return;
+
+					player.getPageManager().openCustomPage(playerRef, player.getReference().getStore(),
+							new KitUI(PlayerUtils.getPlayerRef(player), Main.getInstance().getKitManager().getKits(), kit -> {
+								World playerWorld = player.getWorld();
+								if (playerWorld == null) return;
+								playerWorld.execute(() -> kit.equip(player));
+
+								PitPlayer pitPlayer = PlayerDataManager.getPitPlayer(player);
+								pitPlayer.setSelectedKit(kit.getName());
+							}));
+				});
+			}));
+
 		});
 	}
 
@@ -176,45 +198,9 @@ public class GameManager {
 		Map<String, WorldMapManager.MarkerProvider> providers = wmm.getMarkerProviders();
 		providers.clear();
 
-		ItemStack helmet = new ItemStack("Armor_Iron_Head");
-		ItemStack chestplate = new ItemStack("Armor_Iron_Chest");
-		ItemStack gloves = new ItemStack("Armor_Iron_Hands");
-		ItemStack leggings = new ItemStack("Armor_Iron_Legs");
-
-		String[] armorNames = {"head", "chest", "hands", "legs"};
-		ItemStack[] armorItems = {helmet, chestplate, gloves, leggings};
-
-		for(short i = 0; i < 4; i++) {
-			ItemStack armorItem = player.getInventory().getArmor().getItemStack(i);
-
-			if (armorItem != null && armorItem.getItem().getId().toLowerCase().contains(armorNames[i])) continue;
-			player.getInventory().getArmor().setItemStackForSlot(i, armorItems[i]);
-		}
-
-		List<Map.Entry<ItemStack, Boolean>> ensureList = new ArrayList<>();
-		ensureList.add(new AbstractMap.SimpleEntry<>(new ItemStack("Pit_Sword"), false));
-		ensureList.add(new AbstractMap.SimpleEntry<>(new ItemStack("C_Sprint_Drain"), false));
-		ensureList.add(new AbstractMap.SimpleEntry<>(new ItemStack("Weapon_Arrow_Crude", 100), false));
-
-		Stream.of(player.getInventory().getHotbar(), player.getInventory().getStorage()).forEach(inv ->
-				inv.forEach((slot, itemStack) -> {
-					for (Map.Entry<ItemStack, Boolean> entry : ensureList) {
-
-						if (!itemStack.getItem().getId().equals(entry.getKey().getItem().getId())) continue;
-
-						if (itemStack.getQuantity() < entry.getKey().getQuantity()) {
-							inv.setItemStackForSlot(slot, itemStack.withQuantity(entry.getKey().getQuantity()));
-						}
-
-						entry.setValue(true);
-						return;
-					}
-				})
-		);
-
-		ensureList.forEach(entry -> {
-			if (!entry.getValue()) player.getInventory().getHotbar().addItemStack(entry.getKey());
-		});
+		PitPlayer pitPlayer = PlayerDataManager.getPitPlayer(player);
+		Kit kit = Main.getInstance().getKitManager().getKitByName(pitPlayer.getSelectedKit());
+		if (kit != null) kit.equip(player);
 	}
 
 	public static void teleportToSpawn(Player player, boolean fade) {

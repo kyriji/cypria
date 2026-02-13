@@ -22,6 +22,7 @@ import dev.kyriji.common.HytaleCommon;
 import dev.kyriji.common.enums.Deployment;
 import dev.kyriji.controllers.ChatManager;
 import dev.kyriji.controllers.GameManager;
+import dev.kyriji.controllers.KitManager;
 import dev.kyriji.controllers.PlayerDataManager;
 import dev.kyriji.controllers.ScoreboardManager;
 import dev.kyriji.items.interactions.TeleportToHitLocationInteraction;
@@ -42,6 +43,7 @@ public class Main extends JavaPlugin {
 	private PlayerDataManager playerDataManager;
 	private ScoreboardManager scoreboardManager;
 	private ChatManager chatManager;
+	private KitManager kitManager;
 
 	public Config<PitConfig> config;
 
@@ -120,6 +122,7 @@ public class Main extends JavaPlugin {
 		this.playerDataManager = new PlayerDataManager(this);
 		this.scoreboardManager = new ScoreboardManager(this);
 		this.chatManager = new ChatManager(this);
+		this.kitManager = new KitManager();
 
 		String id = (new PluginIdentifier(this.getManifest())).toString();
 		AssetModule.get().registerPack(id, this.getFile(), this.getManifest());
@@ -141,6 +144,10 @@ public class Main extends JavaPlugin {
 
 	public ChatManager getChatManager() {
 		return chatManager;
+	}
+
+	public KitManager getKitManager() {
+		return kitManager;
 	}
 
 	public static Main getInstance() {

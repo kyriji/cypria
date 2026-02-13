@@ -5,3 +5,4 @@ devtools-server/
 .DS_Store
 .env
 hytale-*
+libs/

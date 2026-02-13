@@ -9,6 +9,7 @@ import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.inventory.container.SimpleItemContainer;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import dev.kyriji.objects.Kit;
 import org.bson.BsonValue;
 
 public class EnderChestWindow {
@@ -37,7 +38,7 @@ public class EnderChestWindow {
 		if (playerRef == null) return;
 
 		if (window.getId() > 0) {
-			try { window.close(playerRef, playerRef.getStore()); } catch (IllegalStateException e) {}
+			try { window.close(playerRef, playerRef.getStore()); } catch (IllegalStateException ignored) {}
 		}
 
 		player.getPageManager().setPageWithWindows(playerRef, playerRef.getStore(), Page.Inventory, true, window);
@@ -62,6 +63,6 @@ public class EnderChestWindow {
 	}
 
 	public BsonValue getContentsAsBson() {
-		return ItemContainer.CODEC.encode(container, new ExtraInfo());
+		return ItemContainer.CODEC.encode(Kit.clearContainerClone(container), new ExtraInfo());
 	}
 }

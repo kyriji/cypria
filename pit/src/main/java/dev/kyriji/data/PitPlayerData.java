@@ -12,6 +12,7 @@ public class PitPlayerData extends PlayerDataDocument {
 	private int deaths;
 	private int highestStreak;
 	private double gold;
+	private String selectedKit = "Basic";
 
 	private BsonValue enderChestData;
 	private BsonValue inventoryData;
@@ -31,6 +32,7 @@ public class PitPlayerData extends PlayerDataDocument {
 		this.gold = 0.0;
 
 		this.enderChestData = null;
+		this.selectedKit = "Basic";
 	}
 
 	public int getKills() {
@@ -71,6 +73,14 @@ public class PitPlayerData extends PlayerDataDocument {
 
 	public void setGold(double gold) {
 		this.gold = gold;
+	}
+
+	public String getSelectedKit() {
+		return selectedKit;
+	}
+
+	public void setSelectedKit(String selectedKit) {
+		this.selectedKit = selectedKit;
 	}
 
 	public void addKill() {

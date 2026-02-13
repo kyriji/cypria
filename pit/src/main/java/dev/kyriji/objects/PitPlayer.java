@@ -2,9 +2,9 @@ package dev.kyriji.objects;
 
 import com.hypixel.hytale.codec.ExtraInfo;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.inventory.Inventory;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
-import com.hypixel.hytale.server.core.universe.PlayerRef;
 import dev.kyriji.controllers.EnderChestWindow;
 import dev.kyriji.data.PitPlayerData;
 import dev.kyriji.utils.PlayerUtils;
@@ -94,6 +94,14 @@ public class PitPlayer {
 		return data.getGold();
 	}
 
+	public String getSelectedKit() {
+		return data.getSelectedKit();
+	}
+
+	public void setSelectedKit(String selectedKit) {
+		data.setSelectedKit(selectedKit);
+	}
+
 	public int getCurrentStreak() {
 		return currentStreak;
 	}
@@ -103,15 +111,16 @@ public class PitPlayer {
 	}
 
 	public void save() {
+		var codec = ItemContainer.CODEC;
 		data.setEnderChestData(enderChest.getContentsAsBson());
 
 		PlayerUtils.getPlayerFromUUID(uuid).thenAccept(player -> {
-			data.setInventoryData(ItemContainer.CODEC.encode(player.getInventory().getStorage(), new ExtraInfo()));
-			data.setHotbarData(ItemContainer.CODEC.encode(player.getInventory().getHotbar(), new ExtraInfo()));
-			data.setArmorData(ItemContainer.CODEC.encode(player.getInventory().getArmor(), new ExtraInfo()));
-		}).thenAccept(_void -> {
-			data.save();
-		}).orTimeout(3, TimeUnit.SECONDS).exceptionally(ex -> {
+			Inventory inventory = player.getInventory();
+
+			data.setInventoryData(codec.encode(Kit.clearContainerClone(inventory.getStorage()), new ExtraInfo()));
+			data.setHotbarData(codec.encode(Kit.clearContainerClone(inventory.getHotbar()), new ExtraInfo()));
+			data.setArmorData(codec.encode(Kit.clearContainerClone(inventory.getArmor()), new ExtraInfo()));
+		}).thenAccept(_void -> data.save()).orTimeout(3, TimeUnit.SECONDS).exceptionally(ex -> {
 			throw new RuntimeException("Failed to save PitPlayer data for player " + uuid, ex);
 		});
 	}

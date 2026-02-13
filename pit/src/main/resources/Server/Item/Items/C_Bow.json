@@ -1,94 +1,64 @@
 {
   "TranslationProperties": {
-    "Name": "testasdf"
+    "Name": "Cypria Bow"
   },
-  "Model": "Items/Weapons/Bow/Iron.blockymodel",
-  "Texture": "Items/Weapons/Bow/Iron_Texture.png",
-  "Icon": "Icons/ItemsGenerated/Weapon_Bow_Crude.png",
+  "Quality": "Template",
+  "Icon": "Icons/ItemsGenerated/Weapon_Bow_Onyxium.png",
+  "Model": "Items/Weapons/Bow/Onyxium.blockymodel",
+  "Texture": "Items/Weapons/Bow/Onyxium_Texture.png",
   "DroppedItemAnimation": "Items/Animations/Dropped/Dropped_Diagonal_Left.blockyanim",
   "PlayerAnimationsId": "Bow",
-  "Reticle": "DefaultMelee",
-  "Quality": "Rare",
-  "ItemLevel": 5,
+  "Reticle": "Default",
+  "ItemLevel": 0,
   "Categories": [
+    "C_Category.Items",
     "Items.Weapons"
   ],
   "IconProperties": {
-    "Scale": 0.4,
-    "Translation": [
-      -25,
-      -39
-    ],
+    "Scale": 0.3,
     "Rotation": [
       45,
       90,
       0
+    ],
+    "Translation": [
+      -29,
+      -39
     ]
   },
   "Interactions": {
-    "Primary": "Root_Weapon_Shortbow_Primary_Shoot",
-    "Secondary": "Root_Weapon_Shortbow_Secondary_Guard",
-    "Ability1": "Root_Weapon_Shortbow_Signature_Volley"
+    "Primary": "C_Root_Bow_Shoot",
+    "Secondary": "C_Root_Bow_Guard"
   },
   "InteractionVars": {
-    "Primary_Shoot_Charge": {
+    "C_Arrow_Damage_Strength_0": {
       "Interactions": [
         {
-          "$Comment": "Charging up a standard primary shot",
-          "Parent": "Weapon_Shortbow_Primary_Shoot_Charge",
-          "Effects": {
-            "ClearSoundEventOnFinish": true,
-            "WorldSoundEventId": "SFX_Bow_T2_Draw",
-            "LocalSoundEventId": "SFX_Bow_T2_Draw_Local"
-          },
-          "HorizontalSpeedMultiplier": 0.667
+          "Parent": "C_Bow_Damage",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "Projectile": 1
+            }
+          }
         }
       ]
     },
-    "Primary_Shoot_Strength_0": {
+    "C_Arrow_Damage_Strength_1": {
       "Interactions": [
         {
-          "$Comment": "Launching a shot with 0.0s charge",
-          "Parent": "Weapon_Shortbow_Primary_Shoot_Strength_0"
+          "Parent": "C_Bow_Damage",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "Projectile": 3
+            }
+          }
         }
       ]
     },
-    "Primary_Shoot_Strength_1": {
+    "C_Arrow_Damage_Strength_2": {
       "Interactions": [
         {
-          "$Comment": "Launching a shot with 0.3s charge",
-          "Parent": "Weapon_Shortbow_Primary_Shoot_Strength_1"
-        }
-      ]
-    },
-    "Primary_Shoot_Strength_2": {
-      "Interactions": [
-        {
-          "$Comment": "Launching a shot with 0.6s charge",
-          "Parent": "Weapon_Shortbow_Primary_Shoot_Strength_2"
-        }
-      ]
-    },
-    "Primary_Shoot_Strength_3": {
-      "Interactions": [
-        {
-          "$Comment": "Launching a shot with 0.9s charge",
-          "Parent": "Weapon_Shortbow_Primary_Shoot_Strength_3"
-        }
-      ]
-    },
-    "Primary_Shoot_Strength_4": {
-      "Interactions": [
-        {
-          "$Comment": "Launching a shot with full charge (1.2s+)",
-          "Parent": "Weapon_Shortbow_Primary_Shoot_Strength_4"
-        }
-      ]
-    },
-    "Primary_Shoot_Damage_Strength_0": {
-      "Interactions": [
-        {
-          "Parent": "Weapon_Shortbow_Primary_Shoot_Damage_Strength_0",
+          "Parent": "C_Bow_Damage",
           "DamageCalculator": {
             "BaseDamage": {
               "Projectile": 6
@@ -97,10 +67,10 @@
         }
       ]
     },
-    "Primary_Shoot_Damage_Strength_1": {
+    "C_Arrow_Damage_Strength_3": {
       "Interactions": [
         {
-          "Parent": "Weapon_Shortbow_Primary_Shoot_Damage_Strength_1",
+          "Parent": "C_Bow_Damage",
           "DamageCalculator": {
             "BaseDamage": {
               "Projectile": 10
@@ -109,153 +79,14 @@
         }
       ]
     },
-    "Primary_Shoot_Damage_Strength_2": {
+    "C_Arrow_Damage_Strength_4": {
       "Interactions": [
         {
-          "Parent": "Weapon_Shortbow_Primary_Shoot_Damage_Strength_2",
-          "DamageCalculator": {
-            "BaseDamage": {
-              "Projectile": 12
-            }
-          }
-        }
-      ]
-    },
-    "Primary_Shoot_Damage_Strength_3": {
-      "Interactions": [
-        {
-          "Parent": "Weapon_Shortbow_Primary_Shoot_Damage_Strength_3",
-          "DamageCalculator": {
-            "BaseDamage": {
-              "Projectile": 14
-            }
-          }
-        }
-      ]
-    },
-    "Primary_Shoot_Damage_Strength_4": {
-      "Interactions": [
-        {
-          "Parent": "Weapon_Shortbow_Primary_Shoot_Damage_Strength_4",
+          "Parent": "C_Bow_Damage",
           "DamageCalculator": {
             "BaseDamage": {
               "Projectile": 15
             }
-          }
-        }
-      ]
-    },
-    "Primary_Shoot_Impact_Strength_0": {
-      "Interactions": [
-        {
-          "$Comment": "Effects played when basic primary arrow impacts an entity",
-          "Parent": "Common_Projectile_Impact_Effects",
-          "Effects": {
-            "LocalSoundEventId": "SFX_Arrow_NoCharge_Hit",
-            "WorldSoundEventId": "SFX_Arrow_NoCharge_Hit"
-          }
-        }
-      ]
-    },
-    "Primary_Shoot_Impact_Strength_1": {
-      "Interactions": [
-        {
-          "$Comment": "Effects played when basic primary arrow impacts an entity",
-          "Parent": "Common_Projectile_Impact_Effects",
-          "Effects": {
-            "LocalSoundEventId": "SFX_Arrow_HalfCharge_Hit",
-            "WorldSoundEventId": "SFX_Arrow_HalfCharge_Hit"
-          }
-        }
-      ]
-    },
-    "Primary_Shoot_Impact_Strength_2": {
-      "Interactions": [
-        {
-          "$Comment": "Effects played when 0.4s charge arrow impacts an entity",
-          "Parent": "Common_Projectile_Impact_Effects",
-          "Effects": {
-            "LocalSoundEventId": "SFX_Arrow_HalfCharge_Hit",
-            "WorldSoundEventId": "SFX_Arrow_HalfCharge_Hit"
-          }
-        }
-      ]
-    },
-    "Primary_Shoot_Impact_Strength_3": {
-      "Interactions": [
-        {
-          "$Comment": "Effects played when 0.6s charge arrow impacts an entity",
-          "Parent": "Common_Projectile_Impact_Effects",
-          "Effects": {
-            "LocalSoundEventId": "SFX_Arrow_FullCharge_Hit",
-            "WorldSoundEventId": "SFX_Arrow_FullCharge_Hit"
-          }
-        }
-      ]
-    },
-    "Primary_Shoot_Impact_Strength_4": {
-      "Interactions": [
-        {
-          "$Comment": "Effects played when full charge arrow impacts an entity",
-          "Parent": "Common_Projectile_Impact_Effects",
-          "Effects": {
-            "LocalSoundEventId": "SFX_Arrow_FullCharge_Hit",
-            "WorldSoundEventId": "SFX_Arrow_FullCharge_Hit"
-          }
-        }
-      ]
-    },
-    "Primary_Shoot_Miss_Strength_0": {
-      "Interactions": [
-        {
-          "Parent": "Common_Projectile_Miss",
-          "Effects": {
-            "LocalSoundEventId": "SFX_Arrow_NoCharge_Miss",
-            "WorldSoundEventId": "SFX_Arrow_NoCharge_Miss"
-          }
-        }
-      ]
-    },
-    "Primary_Shoot_Miss_Strength_1": {
-      "Interactions": [
-        {
-          "Parent": "Common_Projectile_Miss",
-          "Effects": {
-            "LocalSoundEventId": "SFX_Arrow_HalfCharge_Miss",
-            "WorldSoundEventId": "SFX_Arrow_HalfCharge_Miss"
-          }
-        }
-      ]
-    },
-    "Primary_Shoot_Miss_Strength_2": {
-      "Interactions": [
-        {
-          "Parent": "Common_Projectile_Miss",
-          "Effects": {
-            "LocalSoundEventId": "SFX_Arrow_HalfCharge_Miss",
-            "WorldSoundEventId": "SFX_Arrow_HalfCharge_Miss"
-          }
-        }
-      ]
-    },
-    "Primary_Shoot_Miss_Strength_3": {
-      "Interactions": [
-        {
-          "Parent": "Common_Projectile_Miss",
-          "Effects": {
-            "LocalSoundEventId": "SFX_Arrow_FullCharge_Miss",
-            "WorldSoundEventId": "SFX_Arrow_FullCharge_Miss"
-          }
-        }
-      ]
-    },
-    "Primary_Shoot_Miss_Strength_4": {
-      "Interactions": [
-        {
-          "Parent": "Common_Projectile_Miss",
-          "Effects": {
-            "LocalSoundEventId": "SFX_Arrow_FullCharge_Miss",
-            "WorldSoundEventId": "SFX_Arrow_FullCharge_Miss"
           }
         }
       ]
@@ -267,67 +98,6 @@
           "Effects": {
             "WorldSoundEventId": "SFX_Bow_T2_Signature_Nock",
             "LocalSoundEventId": "SFX_Bow_T2_Signature_Nock_Local"
-          }
-        }
-      ]
-    },
-    "Signature_Volley_Charge": {
-      "Interactions": [
-        {
-          "$Comment": "Charging the signature volley attack",
-          "Parent": "Weapon_Shortbow_Signature_Volley_Charge",
-          "Effects": {
-            "WorldSoundEventId": "SFX_Bow_T2_Draw",
-            "LocalSoundEventId": "SFX_Bow_T2_Draw_Local"
-          },
-          "HorizontalSpeedMultiplier": 0.667
-        }
-      ]
-    },
-    "Signature_Volley_Effects": {
-      "Interactions": [
-        {
-          "$Comment": "Effects upon launching a signature volley.",
-          "Parent": "Weapon_Shortbow_Signature_Volley_Effects",
-          "Effects": {
-            "LocalSoundEventId": "SFX_Bow_T2_Signature_Shoot_Local",
-            "WorldSoundEventId": "SFX_Bow_T2_Signature_Shoot"
-          }
-        }
-      ]
-    },
-    "Signature_Volley_Impact": {
-      "Interactions": [
-        {
-          "$Comment": "Effects played when signature volley arrow impacts an entity",
-          "Parent": "Signature_Projectile_Impact_Effects",
-          "Effects": {
-            "LocalSoundEventId": "SFX_Arrow_FullCharge_Hit",
-            "WorldSoundEventId": "SFX_Arrow_FullCharge_Hit"
-          }
-        }
-      ]
-    },
-    "Signature_Volley_Miss": {
-      "Interactions": [
-        {
-          "$Comment": "Effects played when signature volley hits the ground",
-          "Parent": "Signature_Projectile_Miss",
-          "Effects": {
-            "LocalSoundEventId": "SFX_Arrow_FullCharge_Miss",
-            "WorldSoundEventId": "SFX_Arrow_FullCharge_Miss"
-          }
-        }
-      ]
-    },
-    "Signature_Volley_Damage": {
-      "Interactions": [
-        {
-          "Parent": "Weapon_Shortbow_Signature_Volley_Damage",
-          "DamageCalculator": {
-            "BaseDamage": {
-              "Projectile": 25
-            }
           }
         }
       ]
@@ -398,14 +168,6 @@
       ]
     }
   },
-  "Tags": {
-    "Type": [
-      "Weapon"
-    ],
-    "Family": [
-      "Bow"
-    ]
-  },
   "Weapon": {
     "EntityStatsToClear": [
       "SignatureEnergy",
@@ -414,13 +176,13 @@
     "StatModifiers": {
       "SignatureEnergy": [
         {
-          "Amount": 6,
+          "Amount": 1,
           "CalculationType": "Additive"
         }
       ],
       "SignatureCharges": [
         {
-          "Amount": 1,
+          "Amount": 0,
           "CalculationType": "Additive"
         }
       ]
@@ -434,7 +196,7 @@
           100
         ],
         "ConditionValueType": "Percent",
-        "Model": "Items/Weapons/Bow/Iron_Triple.blockymodel",
+        "Model": "Items/Weapons/Bow/Iron.blockymodel",
         "Texture": "Items/Weapons/Bow/Iron_Texture.png",
         "LocalSoundEventId": "SFX_Bow_T2_Signature_Loop_Local",
         "WorldSoundEventId": "SFX_Bow_T2_Signature_Loop",
@@ -444,29 +206,7 @@
             "TargetNodeName": "ARROW-PLACEHOLDER",
             "PositionOffset": {
               "X": 0.5,
-              "Y": 0.25,
-              "Z": 0
-            },
-            "Scale": 0.5,
-            "TargetEntityPart": "PrimaryItem"
-          },
-          {
-            "SystemId": "Bow_Signature_Charge",
-            "TargetNodeName": "ARROW-PLACEHOLDER",
-            "PositionOffset": {
-              "X": 0.5,
               "Y": 0,
-              "Z": 0
-            },
-            "Scale": 0.5,
-            "TargetEntityPart": "PrimaryItem"
-          },
-          {
-            "SystemId": "Bow_Signature_Charge",
-            "TargetNodeName": "ARROW-PLACEHOLDER",
-            "PositionOffset": {
-              "X": 0.5,
-              "Y": -0.25,
               "Z": 0
             },
             "Scale": 0.5,
@@ -541,7 +281,8 @@
       }
     ]
   },
+  "$Comment": "Not sure what this does still",
   "ItemSoundSetId": "ISS_Weapons_Wood",
-  "MaxDurability": 80,
-  "DurabilityLossOnHit": 0.58
+  "MaxDurability": 100,
+  "DurabilityLossOnHit": 0
 }

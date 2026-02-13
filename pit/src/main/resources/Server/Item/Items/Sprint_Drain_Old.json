@@ -1,0 +1,141 @@
+{
+  "$Comment": "Keeping this around for I think only the knockback values",
+  "TranslationProperties": {
+    "Name": "Sprint Drain (OLD)"
+  },
+  "Parent": "Template_Weapon_Shortbow",
+  "Quality": "Common",
+  "Model": "Items/Weapons/Bow/Iron.blockymodel",
+  "Texture": "Items/Weapons/Bow/Iron_Texture.png",
+  "Icon": "Icons/ItemsGenerated/Weapon_Bow_Iron.png",
+  "ItemLevel": 1,
+  "Interactions": {
+    "Primary": "Root_Weapon_Shortbow_Primary_Shoot",
+    "Secondary": "Daggers_Bash"
+  },
+  "InteractionVars": {
+    "Primary_Shoot_Charge": {
+      "Interactions": [
+        {
+          "$Comment": "Instant full charge bow",
+          "Parent": "Weapon_Shortbow_Primary_Shoot_Charge",
+          "Effects": {
+            "ClearSoundEventOnFinish": true,
+            "WorldSoundEventId": "SFX_Bow_T1_Draw",
+            "LocalSoundEventId": "SFX_Bow_T1_Draw_Local"
+          },
+          "HorizontalSpeedMultiplier": 0.667,
+          "Next": {
+            "0.0": {
+              "Type": "ModifyInventory",
+              "ItemToRemove": {
+                "Id": "Weapon_Arrow_Crude",
+                "Quantity": 1
+              },
+              "Next": {
+                "Type": "Replace",
+                "Var": "Primary_Shoot_Strength_4",
+                "DefaultValue": {
+                  "Interactions": [
+                    "Weapon_Shortbow_Primary_Shoot_Strength_4"
+                  ]
+                }
+              },
+              "Failed": {
+                "Type": "Replace",
+                "Var": "No_Ammo_Effects",
+                "DefaultValue": {
+                  "Interactions": [
+                    "Common_Bow_No_Ammo"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Primary_Shoot_Damage_Strength_4": {
+      "Interactions": [
+        {
+          "$Comment": "Always full charge damage with custom knockback",
+          "Parent": "Weapon_Shortbow_Primary_Shoot_Damage_Strength_4",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "Projectile": 12
+            }
+          },
+          "DamageEffects": {
+            "Knockback": {
+              "Type": "Force",
+              "VelocityConfig": {
+                "AirResistance": 0.99,
+                "AirResistanceMax": 0.98,
+                "GroundResistance": 0.8,
+                "GroundResistanceMax": 0.3,
+                "Threshold": 5.0,
+                "Style": "Linear"
+              },
+              "Direction": {
+                "X": 0,
+                "Y": 1,
+                "Z": -0.8
+              },
+              "Force": 10,
+              "VelocityType": "Add"
+            }
+          }
+        }
+      ]
+    },
+    "Primary_Shoot_Strength_4": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Shortbow_Primary_Shoot_Projectile",
+          "Config": "Projectile_Config_Pit_Arrow",
+          "Effects": {
+            "ItemAnimationId": "ShootCharged"
+          }
+        }
+      ]
+    },
+    "Signature_Volley_Charge": {
+      "Interactions": [
+        {
+          "$Comment": "Charging the signature volley attack",
+          "Parent": "Weapon_Shortbow_Signature_Volley_Charge",
+          "Effects": {
+            "WorldSoundEventId": "SFX_Bow_T1_Draw",
+            "LocalSoundEventId": "SFX_Bow_T1_Draw_Local"
+          },
+          "HorizontalSpeedMultiplier": 0.667
+        }
+      ]
+    },
+    "Signature_Volley_Damage": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Shortbow_Signature_Volley_Damage",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "Projectile": 9
+            }
+          }
+        }
+      ]
+    },
+    "Guard_Wield": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Shortbow_Secondary_Guard_Wield",
+          "StaminaCost": {
+            "Value": 5.56,
+            "CostType": "Damage"
+          }
+        }
+      ]
+    }
+  },
+  "MaxDurability": 80,
+  "DurabilityLossOnHit": 0.58
+}

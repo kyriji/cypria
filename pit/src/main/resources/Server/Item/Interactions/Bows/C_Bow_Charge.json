@@ -1,0 +1,48 @@
+{
+  "Type": "Charging",
+  "AllowIndefiniteHold": true,
+  "DisplayProgress": false,
+  "Effects": {
+    "ItemAnimationId": "ShootCharging",
+    "ClearAnimationOnFinish": true,
+    "ClearSoundEventOnFinish": true,
+    "WorldSoundEventId": "SFX_Bow_T2_Draw",
+    "LocalSoundEventId": "SFX_Bow_T2_Draw_Local",
+    "Particles": [
+      {
+        "$Comment": "These values have been modified to work specifically with the Onyxium bow model",
+        "PositionOffset": {
+          "X": 0.025,
+          "Y": -0.4,
+          "Z": 0.075
+        },
+        "RotationOffset": {
+          "Pitch": 0,
+          "Roll": 0,
+          "Yaw": 90
+        },
+        "Scale": 0.5,
+        "TargetNodeName": "Handle",
+        "SystemId": "Bow_Charging"
+      }
+    ]
+  },
+  "HorizontalSpeedMultiplier": 0.67,
+  "Next": {
+    "0": {
+      "Parent": "C_Bow_Shoot_Projectile_Strength_0"
+    },
+    "0.3": {
+      "Parent": "C_Bow_Shoot_Projectile_Strength_1"
+    },
+    "0.6": {
+      "Parent": "C_Bow_Shoot_Projectile_Strength_2"
+    },
+    "0.9": {
+      "Parent": "C_Bow_Shoot_Projectile_Strength_3"
+    },
+    "1.2": {
+      "Parent": "C_Bow_Shoot_Projectile_Strength_4"
+    }
+  }
+}

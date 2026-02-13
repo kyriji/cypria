@@ -1,0 +1,17 @@
+{
+  "Icon": "Icons/ItemCategories/Items.png",
+  "Order": -1,
+  "Children": [
+    {
+      "Id": "Items",
+      "Name": "ui.cypriacategory.items",
+      "Icon": "Icons/ItemCategories/Items-Weapons.png"
+    },
+    {
+      "Id": "DevTools",
+      "Name": "ui.cypriacategory.devtools",
+      "Icon": "Icons/ItemCategories/Items-Tools.png",
+      "Order": 100
+    }
+  ]
+}

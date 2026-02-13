@@ -1,0 +1,44 @@
+{
+  "Parent": "C_Projectile_Config_Arrow_Parent",
+  "Interactions": {
+    "ProjectileHit": {
+      "Interactions": [
+        {
+          "Type": "Replace",
+          "Var": "C_Arrow_Damage_Strength_1"
+        },
+        {
+          "Type": "Replace",
+          "Var": "C_Arrow_Impact",
+          "DefaultOk": true
+        },
+        {
+          "$Comment": "Effects played when full charge arrow impacts an entity",
+          "Parent": "Common_Projectile_Impact_Effects",
+          "Effects": {
+            "LocalSoundEventId": "SFX_Arrow_FullCharge_Hit",
+            "WorldSoundEventId": "SFX_Arrow_FullCharge_Hit"
+          }
+        },
+        "Common_Projectile_Despawn"
+      ]
+    },
+    "ProjectileMiss": {
+      "Interactions": [
+        {
+          "Type": "Replace",
+          "Var": "Primary_Shoot_Miss",
+          "DefaultOk": true
+        },
+        {
+          "Parent": "Common_Projectile_Miss",
+          "Effects": {
+            "LocalSoundEventId": "SFX_Arrow_FullCharge_Miss",
+            "WorldSoundEventId": "SFX_Arrow_FullCharge_Miss"
+          }
+        },
+        "Common_Projectile_Despawn"
+      ]
+    }
+  }
+}

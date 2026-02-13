@@ -6,6 +6,6 @@
 	"ApplicationEffects": {
 		"EntityBottomTint": "#ffff00",
 		"EntityTopTint": "#00ff00",
-		"HorizontalSpeedMultiplier": 1.4
+		"HorizontalSpeedMultiplier": 1.2
 	}
 }

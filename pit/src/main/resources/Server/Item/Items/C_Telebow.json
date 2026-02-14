@@ -1,0 +1,39 @@
+{
+  "Parent": "C_Bow",
+  "TranslationProperties": {
+    "Name": "Telebow"
+  },
+  "Quality": "Epic",
+  "InteractionVars": {
+    "C_Arrow_Impact": {
+      "$Comment": "On entity hit: teleport shooter to hit position",
+      "Interactions": [
+        {
+          "Type": "TeleportToHitLocation",
+          "StaminaCost": 5,
+          "Effects": {
+            "LocalSoundEventId": "SFX_Portal_Neutral_Open",
+            "WorldSoundEventId": "SFX_Portal_Neutral_Open"
+          }
+        }
+      ]
+    },
+    "Primary_Shoot_Miss": {
+      "$Comment": "On terrain hit: play miss sound (RunTime 0 so teleport fires immediately) then teleport shooter to hit position",
+      "Interactions": [
+        {
+          "Type": "Simple",
+          "RunTime": 0,
+          "Effects": {
+            "LocalSoundEventId": "SFX_Portal_Neutral_Open",
+            "WorldSoundEventId": "SFX_Portal_Neutral_Open"
+          }
+        },
+        {
+          "Type": "TeleportToHitLocation",
+          "StaminaCost": 5
+        }
+      ]
+    }
+  }
+}

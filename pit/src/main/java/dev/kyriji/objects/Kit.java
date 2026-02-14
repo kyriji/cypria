@@ -82,11 +82,7 @@ public abstract class Kit {
 	}
 
 	private ItemStack processItem(ItemStack itemStack) {
-		return shouldTag(itemStack) ? itemStack.withMetadata(KIT_TAG, name) : itemStack;
-	}
-
-	protected boolean shouldTag(ItemStack itemStack) {
-		return !itemStack.getItemId().contains("Arrow");
+		return itemStack.withMetadata(KIT_TAG, name);
 	}
 
 	public String getName() {

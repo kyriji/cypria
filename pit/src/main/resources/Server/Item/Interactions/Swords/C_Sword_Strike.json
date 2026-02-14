@@ -1,0 +1,43 @@
+{
+  "Type": "Chaining",
+  "ChainingAllowance": 0.5,
+  "ChainId": "Sword_Swings",
+  "Next": [
+    {
+      "Parent": "C_Sword_Strike_Left"
+    },
+    {
+      "Parent": "C_Sword_Strike_Right"
+    },
+    {
+      "Parent": "C_Sword_Strike_Left"
+    },
+    {
+      "Parent": "C_Sword_Strike_Right"
+    },
+    {
+      "Type": "Simple",
+      "RunTime": 0.05
+    },
+    {
+      "Type": "Simple",
+      "RunTime": 0.05
+    },
+    {
+      "Type": "Simple",
+      "RunTime": 0.05
+    },
+    {
+      "Type": "Simple",
+      "RunTime": 0.05
+    },
+    {
+      "Type": "Simple",
+      "RunTime": 0.05
+    },
+    {
+      "Type": "Simple",
+      "RunTime": 0.05
+    }
+  ]
+}

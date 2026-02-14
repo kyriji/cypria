@@ -1,0 +1,33 @@
+{
+  "Type": "Simple",
+  "Effects": {
+    "ItemAnimationId": "SpinRightCharging"
+  },
+  "RunTime": 0.05,
+  "Next": {
+    "Type": "Parallel",
+    "$Comment": "Make sure this parallel interaction is needed and can\u0027t be optimized away",
+    "Interactions": [
+      {
+        "Interactions": [
+          "Weapon_Sword_Signature_Vortexstrike_Spin_Force"
+        ]
+      },
+      {
+        "Interactions": [
+          {
+            "$Comment": "Status effect on the player on cast before the animation",
+            "Type": "ApplyEffect",
+            "EffectId": "Mace_Signature"
+          },
+          "Weapon_Sword_Signature_Vortexstrike_Spin_Selector"
+        ]
+      },
+      {
+        "Interactions": [
+          "Weapon_Sword_Signature_Vortexstrike_Spin_Effect"
+        ]
+      }
+    ]
+  }
+}

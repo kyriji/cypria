@@ -1,0 +1,10 @@
+{
+  "RequireNewClick": false,
+  "ClickQueuingTimeout": 0,
+  "Cooldown": {
+    "Cooldown": 0
+  },
+  "Interactions": [
+    "C_Sword_Strike"
+  ]
+}

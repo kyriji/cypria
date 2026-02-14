@@ -1,0 +1,11 @@
+{
+	"Duration": 7,
+	"OverlapBehavior": "Overwrite",
+	"StatusEffectIcon": "UI/StatusEffects/Poison.png",
+	"ApplicationEffects": {
+		"EntityBottomTint": "#80ecff",
+		"ModelVFXId": "Intangible_Dark",
+		"EntityTopTint": "#da72ff",
+		"HorizontalSpeedMultiplier": 0.80
+	}
+}

@@ -1,0 +1,25 @@
+{
+  "Type": "StatsCondition",
+  "Costs": {
+    "SignatureEnergy": 100
+  },
+  "ValueType": "Percent",
+  "Next": {
+    "Type": "Serial",
+    "Interactions": [
+      "C_Sword_Vortexstrike_Spin",
+      {
+        "Type": "Simple",
+        "RunTime": 0
+      },
+      "C_Sword_Vortexstrike_Stab",
+      {
+        "Type": "ChangeStat",
+        "StatModifiers": {
+          "SignatureEnergy": -100
+        },
+        "ValueType": "Percent"
+      }
+    ]
+  }
+}

@@ -1,0 +1,187 @@
+{
+  "Parent": "Template_Weapon_Sword",
+  "TranslationProperties": {
+    "Name": "Cypria Sword"
+  },
+  "Quality": "Epic",
+  "Icon": "Icons/ItemsGenerated/Weapon_Sword_Iron.png",
+  "Model": "Items/Weapons/Sword/Iron.blockymodel",
+  "Texture": "Items/Weapons/Sword/Iron_Texture.png",
+  "DroppedItemAnimation": "Items/Animations/Dropped/Dropped_Diagonal_Left.blockyanim",
+  "PlayerAnimationsId": "Sword",
+  "ItemSoundSetId": "ISS_Weapons_Blade_Large",
+  "Reticle": "DefaultMelee",
+  "MaxDurability": 100,
+  "DurabilityLossOnHit": 0,
+  "ItemLevel": 0,
+  "Categories": [
+    "C_Category.Items",
+    "Items.Weapons"
+  ],
+  "$Comment": "Not sure what this does",
+  "Utility": {
+    "Compatible": true
+  },
+  "IconProperties": {
+    "Scale": 0.35,
+    "Translation": [
+      -22,
+      -22
+    ],
+    "Rotation": [
+      45,
+      90,
+      0
+    ]
+  },
+  "Interactions": {
+    "Primary": "C_Root_Sword_Strike",
+    "Secondary": "C_Root_Sword_Guard",
+    "Ability1": "C_Root_Sword_Vortexstrike"
+  },
+  "InteractionVars": {
+    "Swing_Left_Damage": {
+      "Interactions": [
+        {
+          "Parent": "C_Sword_Strike_Damage"
+        }
+      ]
+    },
+    "Swing_Right_Damage": {
+      "Interactions": [
+        {
+          "Parent": "C_Sword_Strike_Damage"
+        }
+      ]
+    },
+    "Vortexstrike_Spin_Damage": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Sword_Signature_Vortexstrike_Spin_Damage",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "Physical": 5
+            }
+          },
+          "EntityStatsOnHit": [],
+          "DamageEffects": {
+            "WorldSoundEventId": "SFX_Sword_T2_Impact",
+            "LocalSoundEventId": "SFX_Sword_T2_Impact"
+          }
+        }
+      ]
+    },
+    "Vortexstrike_Stab_Damage": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Sword_Signature_Vortexstrike_Stab_Damage",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "Physical": 15
+            }
+          },
+          "EntityStatsOnHit": [],
+          "DamageEffects": {
+            "WorldSoundEventId": "SFX_Sword_T2_Impact",
+            "LocalSoundEventId": "SFX_Sword_T2_Impact"
+          }
+        },
+        {
+          "Type": "ApplyEffect",
+          "EffectId": "C_Stun_Sword",
+          "Entity": "Target"
+        }
+      ]
+    },
+    "Guard_Wield": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Sword_Secondary_Guard_Wield",
+          "StaminaCost": {
+            "Value": 10,
+            "CostType": "Damage"
+          }
+        }
+      ]
+    }
+  },
+  "Weapon": {
+    "$Comment": "Not sure what this does",
+    "EntityStatsToClear": [
+      "SignatureEnergy"
+    ],
+    "StatModifiers": {
+      "SignatureEnergy": [
+        {
+          "Amount": 1,
+          "CalculationType": "Additive"
+        }
+      ]
+    }
+  },
+  "ItemAppearanceConditions": {
+    "SignatureEnergy": [
+      {
+        "Condition": [
+          100,
+          100
+        ],
+        "ConditionValueType": "Percent",
+        "Particles": [
+          {
+            "SystemId": "Sword_Signature_Ready",
+            "TargetNodeName": "Handle",
+            "PositionOffset": {
+              "X": 0.8
+            },
+            "TargetEntityPart": "PrimaryItem"
+          },
+          {
+            "SystemId": "Sword_Signature_Status_Spawn",
+            "TargetNodeName": "Handle",
+            "PositionOffset": {
+              "X": 0.5
+            },
+            "TargetEntityPart": "PrimaryItem"
+          },
+          {
+            "SystemId": "Sword_Signature_Status",
+            "TargetNodeName": "Handle",
+            "PositionOffset": {
+              "X": 0.55
+            },
+            "TargetEntityPart": "PrimaryItem",
+            "Scale": 1.3
+          }
+        ],
+        "FirstPersonParticles": [
+          {
+            "SystemId": "Sword_Signature_Ready",
+            "TargetNodeName": "Handle",
+            "PositionOffset": {
+              "X": 0.8
+            },
+            "TargetEntityPart": "PrimaryItem"
+          },
+          {
+            "SystemId": "Sword_Signature_Status_Spawn",
+            "TargetNodeName": "Handle",
+            "TargetEntityPart": "PrimaryItem",
+            "PositionOffset": {
+              "Y": -100
+            }
+          },
+          {
+            "SystemId": "Sword_Signature_Status",
+            "TargetNodeName": "Handle",
+            "PositionOffset": {
+              "X": 0.5
+            },
+            "TargetEntityPart": "PrimaryItem"
+          }
+        ],
+        "ModelVFXId": "Sword_Signature_Status"
+      }
+    ]
+  }
+}

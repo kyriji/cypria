@@ -9,12 +9,7 @@
       "Interactions": [
         {
           "Type": "ApplyEffect",
-          "EffectId": "Pit_Slow",
-          "Entity": "Target"
-        },
-        {
-          "Type": "ApplyEffect",
-          "EffectId": "Pit_Speed",
+          "EffectId": "C_Slow_Drain",
           "Entity": "Owner"
         }
       ]

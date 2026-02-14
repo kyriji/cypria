@@ -8,7 +8,10 @@
   "Texture": "Items/Weapons/Bow/Onyxium_Texture.png",
   "DroppedItemAnimation": "Items/Animations/Dropped/Dropped_Diagonal_Left.blockyanim",
   "PlayerAnimationsId": "Bow",
+  "ItemSoundSetId": "ISS_Weapons_Wood",
   "Reticle": "Default",
+  "MaxDurability": 100,
+  "DurabilityLossOnHit": 0,
   "ItemLevel": 0,
   "Categories": [
     "C_Category.Items",
@@ -169,6 +172,7 @@
     }
   },
   "Weapon": {
+    "$Comment": "Not sure what this does",
     "EntityStatsToClear": [
       "SignatureEnergy",
       "SignatureCharges"
@@ -177,12 +181,6 @@
       "SignatureEnergy": [
         {
           "Amount": 1,
-          "CalculationType": "Additive"
-        }
-      ],
-      "SignatureCharges": [
-        {
-          "Amount": 0,
           "CalculationType": "Additive"
         }
       ]
@@ -280,9 +278,5 @@
         ]
       }
     ]
-  },
-  "$Comment": "Not sure what this does still",
-  "ItemSoundSetId": "ISS_Weapons_Wood",
-  "MaxDurability": 100,
-  "DurabilityLossOnHit": 0
+  }
 }

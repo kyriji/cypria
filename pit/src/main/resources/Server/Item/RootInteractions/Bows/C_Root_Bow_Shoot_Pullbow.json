@@ -1,0 +1,10 @@
+{
+  "$Comment": "AI SLOP",
+  "RequireNewClick": true,
+  "Cooldown": {
+    "Cooldown": 1.0
+  },
+  "Interactions": [
+    "C_Pullbow_Charge"
+  ]
+}

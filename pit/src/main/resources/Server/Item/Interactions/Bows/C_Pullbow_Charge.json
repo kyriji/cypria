@@ -1,0 +1,51 @@
+{
+  "$Comment": "AI SLOP",
+  "Parent": "C_Bow_Charge",
+  "Next": {
+    "0": {
+      "Type": "StatsCondition",
+      "Costs": { "Stamina": 5 },
+      "Next": {
+        "Type": "ChangeStat",
+        "StatModifiers": { "Stamina": -5 },
+        "Next": "C_Bow_Shoot_Projectile_Strength_0"
+      }
+    },
+    "0.3": {
+      "Type": "StatsCondition",
+      "Costs": { "Stamina": 5 },
+      "Next": {
+        "Type": "ChangeStat",
+        "StatModifiers": { "Stamina": -5 },
+        "Next": "C_Bow_Shoot_Projectile_Strength_1"
+      }
+    },
+    "0.6": {
+      "Type": "StatsCondition",
+      "Costs": { "Stamina": 5 },
+      "Next": {
+        "Type": "ChangeStat",
+        "StatModifiers": { "Stamina": -5 },
+        "Next": "C_Bow_Shoot_Projectile_Strength_2"
+      }
+    },
+    "0.9": {
+      "Type": "StatsCondition",
+      "Costs": { "Stamina": 5 },
+      "Next": {
+        "Type": "ChangeStat",
+        "StatModifiers": { "Stamina": -5 },
+        "Next": "C_Bow_Shoot_Projectile_Strength_3"
+      }
+    },
+    "1.2": {
+      "Type": "StatsCondition",
+      "Costs": { "Stamina": 5 },
+      "Next": {
+        "Type": "ChangeStat",
+        "StatModifiers": { "Stamina": -5 },
+        "Next": "C_Bow_Shoot_Projectile_Strength_4"
+      }
+    }
+  }
+}

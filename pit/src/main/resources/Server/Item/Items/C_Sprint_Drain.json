@@ -10,7 +10,7 @@
         {
           "Type": "ApplyEffect",
           "EffectId": "C_Slow_Drain",
-          "Entity": "Owner"
+          "Entity": "Target"
         }
       ]
     }

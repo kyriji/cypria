@@ -28,7 +28,9 @@ public class BasicKit extends Kit {
 	@Override
 	public List<ItemStack> getHotbar() {
 		return List.of(
-				new ItemStack("Pit_Sword"),
+				new ItemStack("C_Sword"),
+				new ItemStack("C_Pullbow"),
+				new ItemStack("C_Telebow"),
 				new ItemStack("C_Sprint_Drain")
 		);
 	}

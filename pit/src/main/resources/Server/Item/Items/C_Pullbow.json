@@ -4,12 +4,15 @@
     "Name": "Pullbow"
   },
   "Quality": "Epic",
+  "Interactions": {
+    "Primary": "C_Root_Bow_Shoot_Pullbow",
+    "Secondary": "C_Root_Bow_Guard"
+  },
   "InteractionVars": {
     "C_Arrow_Impact": {
       "Interactions": [
         {
           "Type": "PullTowardShooter",
-          "StaminaCost": 5,
           "Force": 20,
           "VelocityY": 10
         }

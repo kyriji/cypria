@@ -125,7 +125,7 @@ public class Main extends JavaPlugin {
 		this.kitManager = new KitManager();
 
 		String id = (new PluginIdentifier(this.getManifest())).toString();
-		AssetModule.get().registerPack(id, this.getFile(), this.getManifest());
+		AssetModule.get().registerPack(id, this.getFile(), this.getManifest(), true);
 
 		this.hasInitialized = true;
 	}

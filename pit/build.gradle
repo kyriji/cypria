@@ -11,7 +11,7 @@ java {
 }
 
 hytale {
-    serverVersion = "2026.01.28-87d03be09"
+    serverVersion = "2026.02.19-1a311a592"
     upload {
         host = env.SFTP_HOST.orNull()
         user = env.SFTP_USER.orNull()

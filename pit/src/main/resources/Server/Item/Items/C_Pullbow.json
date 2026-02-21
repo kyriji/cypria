@@ -1,0 +1,19 @@
+{
+  "Parent": "C_Bow",
+  "TranslationProperties": {
+    "Name": "Pullbow"
+  },
+  "Quality": "Epic",
+  "InteractionVars": {
+    "C_Arrow_Impact": {
+      "Interactions": [
+        {
+          "Type": "PullTowardShooter",
+          "StaminaCost": 5,
+          "Force": 20,
+          "VelocityY": 10
+        }
+      ]
+    }
+  }
+}

@@ -5,7 +5,7 @@
   },
   "Quality": "Legendary",
   "Interactions": {
-    "Primary": "C_Root_Bow_Shoot_SprintDrain",
+    "Primary": "C_Root_Bow_Shoot_Sprint_Drain",
     "Secondary": "C_Root_Bow_Guard"
   },
   "InteractionVars": {

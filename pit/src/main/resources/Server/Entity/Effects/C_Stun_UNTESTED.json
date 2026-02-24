@@ -1,5 +1,5 @@
 {
-  "Duration": 2,
+  "Duration": 1,
   "OverlapBehavior": "Overwrite",
   "StatusEffectIcon": "UI/StatusEffects/Poison.png",
   "ApplicationEffects": {
@@ -15,6 +15,15 @@
     "EntityTopTint": "#da72ff",
     "MovementEffects": {
       "DisableAll": true
+    },
+    "AbilityEffects": {
+      "Disabled": [
+        "Primary",
+        "Secondary",
+        "Ability1",
+        "Ability2",
+        "Ability3"
+      ]
     }
   }
 }

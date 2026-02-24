@@ -29,6 +29,7 @@ public class BasicKit extends Kit {
 	public List<ItemStack> getHotbar() {
 		return List.of(
 				new ItemStack("C_Sword"),
+				new ItemStack("C_Lifesteal"),
 				new ItemStack("C_Pullbow"),
 				new ItemStack("C_Telebow"),
 				new ItemStack("C_Sprint_Drain")

@@ -3,7 +3,7 @@
   "TranslationProperties": {
     "Name": "Pullbow"
   },
-  "Quality": "Epic",
+  "Quality": "Rare",
   "Interactions": {
     "Primary": "C_Root_Bow_Shoot_Pullbow",
     "Secondary": "C_Root_Bow_Guard"
@@ -12,9 +12,7 @@
     "C_Arrow_Impact": {
       "Interactions": [
         {
-          "Type": "PullTowardShooter",
-          "Force": 20,
-          "VelocityY": 10
+          "Type": "PullTowardShooter"
         }
       ]
     }

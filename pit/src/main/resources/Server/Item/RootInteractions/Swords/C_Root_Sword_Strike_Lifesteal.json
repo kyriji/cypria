@@ -1,0 +1,11 @@
+{
+  "$Comment": "AI SLOP",
+  "RequireNewClick": false,
+  "ClickQueuingTimeout": 0,
+  "Cooldown": {
+    "Cooldown": 0
+  },
+  "Interactions": [
+    "C_Lifesteal_Strike"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "$Comment": "AI SLOP",
+  "Parent": "C_Sword",
+  "TranslationProperties": {
+    "Name": "Lifesteal"
+  },
+  "Quality": "Epic",
+  "Interactions": {
+    "Primary": "C_Root_Sword_Strike_Lifesteal"
+  },
+  "InteractionVars": {
+    "Swing_Left_Damage": {
+      "Interactions": [
+        {
+          "Parent": "C_Sword_Strike_Damage",
+          "DamageCalculator": {
+            "Class": "Light",
+            "BaseDamage": { "Physical": 3 }
+          },
+          "EntityStatsOnHit": [
+            { "EntityStatId": "Health", "Amount": 15 }
+          ]
+        }
+      ]
+    },
+    "Swing_Right_Damage": {
+      "Interactions": [
+        {
+          "Parent": "C_Sword_Strike_Damage",
+          "DamageCalculator": {
+            "Class": "Light",
+            "BaseDamage": { "Physical": 3 }
+          },
+          "EntityStatsOnHit": [
+            { "EntityStatId": "Health", "Amount": 15 }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "Type": "Chaining",
+  "ChainingAllowance": 0.5,
+  "ChainId": "Sword_Swings",
+  "Next": [
+    {
+      "Type": "StatsCondition",
+      "Costs": { "Stamina": 5 },
+      "Next": {
+        "Type": "ChangeStat",
+        "StatModifiers": { "Stamina": -5 },
+        "Next": { "Parent": "C_Sword_Strike_Left" }
+      }
+    },
+    {
+      "Type": "StatsCondition",
+      "Costs": { "Stamina": 5 },
+      "Next": {
+        "Type": "ChangeStat",
+        "StatModifiers": { "Stamina": -5 },
+        "Next": { "Parent": "C_Sword_Strike_Right" }
+      }
+    }
+  ]
+}

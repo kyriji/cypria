@@ -3,7 +3,11 @@
   "TranslationProperties": {
     "Name": "Sprint Drain"
   },
-  "Quality": "Epic",
+  "Quality": "Legendary",
+  "Interactions": {
+    "Primary": "C_Root_Bow_Shoot_SprintDrain",
+    "Secondary": "C_Root_Bow_Guard"
+  },
   "InteractionVars": {
     "C_Arrow_Impact": {
       "Interactions": [

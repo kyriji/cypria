@@ -28,8 +28,8 @@ import javax.annotation.Nonnull;
 public class PullTowardShooterInteraction extends SimpleInstantInteraction {
 
     public float staminaCost = 0.0f;
-    public float force = 20.0f;
-    public float velocityY = 10.0f;
+    public float force = 0.8f;
+    public float velocityY = 10f;
 
     @Nonnull
     public static final BuilderCodec<PullTowardShooterInteraction> CODEC = BuilderCodec.builder(

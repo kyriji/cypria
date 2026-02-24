@@ -40,7 +40,7 @@
           "Parent": "C_Bow_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Projectile": 1
+              "Projectile": 5
             }
           }
         }
@@ -52,7 +52,7 @@
           "Parent": "C_Bow_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Projectile": 3
+              "Projectile": 6
             }
           }
         }
@@ -64,7 +64,7 @@
           "Parent": "C_Bow_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Projectile": 6
+              "Projectile": 8
             }
           }
         }
@@ -88,7 +88,7 @@
           "Parent": "C_Bow_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Projectile": 15
+              "Projectile": 12
             }
           }
         }

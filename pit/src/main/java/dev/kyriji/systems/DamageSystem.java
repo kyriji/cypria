@@ -36,7 +36,7 @@ import java.util.UUID;
 
 public class DamageSystem extends DamageEventSystem {
 	public static final int ASSIST_TIMEFRAME_SECONDS = 30;
-	public static final int BASE_GOLD_REWARD = 10;
+	public static final int BASE_GOLD_REWARD = 100;
 
 	@Override
 	public void handle(int i, @Nonnull ArchetypeChunk<EntityStore> archetypeChunk, @Nonnull Store<EntityStore> store, @Nonnull CommandBuffer<EntityStore> commandBuffer, @Nonnull Damage damage) {

@@ -44,35 +44,35 @@ public class ShopUI extends InteractiveCustomUIPage<ShopUI.ShopUIData> {
 	}
 
 	private final List<ShopItem> allItems = new ArrayList<>();
-	private String currentCategory = "Weapons";
+	private String currentCategory = "Items";
 	private final Consumer<ItemStack> onPurchase;
 
 	private void initializeShopItems() {
 		allItems.clear();
 		// Weapons
-		allItems.add(new ShopItem("Adamantite Sword", "A reliable sword", "Weapon_Sword_Adamantite", 100, "Weapons",
-			new ItemStack("Weapon_Sword_Adamantite")));
-		allItems.add(new ShopItem("Mithril Sword", "A powerful weapon", "Weapon_Sword_Mithril", 500, "Weapons",
-			new ItemStack("Weapon_Sword_Mithril")));
+		// allItems.add(new ShopItem("Adamantite Sword", "A reliable sword", "Weapon_Sword_Adamantite", 100, "Weapons",
+		// 	new ItemStack("Weapon_Sword_Adamantite")));
+		// allItems.add(new ShopItem("Mithril Sword", "A powerful weapon", "Weapon_Sword_Mithril", 500, "Weapons",
+		// 	new ItemStack("Weapon_Sword_Mithril")));
 		// Armor
-		allItems.add(new ShopItem("Adamantite Helmet", "Basic head protection", "Armor_Adamantite_Head", 75, "Armor",
-			new ItemStack("Armor_Adamantite_Head")));
-		allItems.add(new ShopItem("Adamantite Chestplate", "Basic chest protection", "Armor_Adamantite_Chest", 100, "Armor",
-			new ItemStack("Armor_Adamantite_Chest")));
-		allItems.add(new ShopItem("Adamantite Gloves", "Basic glove protection", "Armor_Adamantite_Hands", 90, "Armor",
-			new ItemStack("Armor_Adamantite_Hands")));
-		allItems.add(new ShopItem("Adamantite Leggings", "Basic leg protection", "Armor_Adamantite_Legs", 90, "Armor",
-			new ItemStack("Armor_Adamantite_Legs")));
+		// allItems.add(new ShopItem("Adamantite Helmet", "Basic head protection", "Armor_Adamantite_Head", 75, "Armor",
+		// 	new ItemStack("Armor_Adamantite_Head")));
+		// allItems.add(new ShopItem("Adamantite Chestplate", "Basic chest protection", "Armor_Adamantite_Chest", 100, "Armor",
+		// 	new ItemStack("Armor_Adamantite_Chest")));
+		// allItems.add(new ShopItem("Adamantite Gloves", "Basic glove protection", "Armor_Adamantite_Hands", 90, "Armor",
+		// 	new ItemStack("Armor_Adamantite_Hands")));
+		// allItems.add(new ShopItem("Adamantite Leggings", "Basic leg protection", "Armor_Adamantite_Legs", 90, "Armor",
+		// 	new ItemStack("Armor_Adamantite_Legs")));
 
 		// Items
-		allItems.add(new ShopItem("Healing Potion", "Restores health", "Potion_Health_Greater", 50, "Items",
-			new ItemStack("Potion_Health_Greater")));
-		allItems.add(new ShopItem("Lesser Healing Potion", "Restores health", "Potion_Health_Lesser", 25, "Items",
-			new ItemStack("Potion_Health_Lesser")));
-		allItems.add(new ShopItem("Greater Stamina Potion", "Restores stamina", "Potion_Stamina_Greater", 50, "Items",
-			new ItemStack("Potion_Stamina_Greater")));
-		allItems.add(new ShopItem("Lesser Stamina Potion", "Restores stamina", "Potion_Stamina_Lesser", 25, "Items",
-			new ItemStack("Potion_Stamina_Lesser")));
+		allItems.add(new ShopItem("Small Health Potion", "Restores health", "C_Potion_Health_Small", 61, "Items",
+				new ItemStack("C_Potion_Health_Small")));
+		allItems.add(new ShopItem("Large Health Potion", "Restores health", "C_Potion_Health_Large", 147, "Items",
+			new ItemStack("C_Potion_Health_Large")));
+		allItems.add(new ShopItem("Small Stamina Potion", "Restores stamina", "C_Potion_Stamina_Regen_Small", 77, "Items",
+				new ItemStack("C_Potion_Stamina_Regen_Small")));
+		allItems.add(new ShopItem("Large Stamina Potion", "Restores stamina", "C_Potion_Stamina_Regen_Large", 222, "Items",
+			new ItemStack("C_Potion_Stamina_Regen_Large")));
 	}
 
 	private List<ShopItem> getFilteredItems() {
@@ -160,10 +160,10 @@ public class ShopUI extends InteractiveCustomUIPage<ShopUI.ShopUIData> {
 		uiEventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CloseButton",
 			EventData.of("Action", "Close"));
 
-		uiEventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CategoryWeapons",
-			EventData.of("Action", "CategoryWeapons"));
-		uiEventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CategoryArmor",
-			EventData.of("Action", "CategoryArmor"));
+		// uiEventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CategoryWeapons",
+		// 	EventData.of("Action", "CategoryWeapons"));
+		// uiEventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CategoryArmor",
+		// 	EventData.of("Action", "CategoryArmor"));
 		uiEventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CategoryItems",
 			EventData.of("Action", "CategoryItems"));
 
@@ -184,16 +184,16 @@ public class ShopUI extends InteractiveCustomUIPage<ShopUI.ShopUIData> {
 			return;
 		}
 
-		if (data.action.equals("CategoryWeapons")) {
-			currentCategory = "Weapons";
-			rebuild();
-			return;
-		}
-		if (data.action.equals("CategoryArmor")) {
-			currentCategory = "Armor";
-			rebuild();
-			return;
-		}
+		// if (data.action.equals("CategoryWeapons")) {
+		// 	currentCategory = "Weapons";
+		// 	rebuild();
+		// 	return;
+		// }
+		// if (data.action.equals("CategoryArmor")) {
+		// 	currentCategory = "Armor";
+		// 	rebuild();
+		// 	return;
+		// }
 		if (data.action.equals("CategoryItems")) {
 			currentCategory = "Items";
 			rebuild();

@@ -1,0 +1,36 @@
+{
+  "$Comment": "AI SLOP",
+  "Parent": "Potion_Health_Large",
+  "Categories": [
+    "C_Category.Items",
+    "Items.Potions"
+  ],
+  "InteractionVars": {
+    "Effect": {
+      "Interactions": [
+        {
+          "Type": "ApplyEffect",
+          "EffectId": {
+            "StatModifiers": {
+              "Health": 60
+            },
+            "ValueType": "Percent",
+            "StatusEffectIcon": "UI/StatusEffects/Health_Potion.png",
+            "OverlapBehavior": "Extend"
+          }
+        }
+      ]
+    },
+    "Stat_Check": {
+      "Interactions": [
+        {
+          "Parent": "Stat_Check",
+          "Costs": { "Health": 100 },
+          "ValueType": "Percent",
+          "LessThan": true,
+          "Next": "C_Consume_Charge_2s"
+        }
+      ]
+    }
+  }
+}

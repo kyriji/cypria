@@ -1,0 +1,56 @@
+{
+  "$Comment": "AI SLOP",
+  "Parent": "Potion_Regen_Stamina_Small",
+  "Categories": [
+    "C_Category.Items",
+    "Items.Potions"
+  ],
+  "Icon": "Icons/ItemsGenerated/Potion_Stamina_Small.png",
+  "IconProperties": {
+    "Rotation": [ 22.5, 45, 22.5 ],
+    "Scale": 0.8,
+    "Translation": [ 0, -10 ]
+  },
+  "BlockType": {
+    "CustomModel": "Items/Consumables/Potions/Potion_Small.blockymodel",
+    "CustomModelTexture": [
+      {
+        "Texture": "Items/Consumables/Potions/Potion_Textures/Yellow.png",
+        "Weight": 1
+      }
+    ],
+    "ParticleColor": "#fdd540",
+    "Light": {
+      "Color": "#431"
+    }
+  },
+  "InteractionVars": {
+    "Effect": {
+      "Interactions": [
+        {
+          "Type": "ApplyEffect",
+          "EffectId": {
+            "StatModifiers": {
+              "Stamina": 0.2
+            },
+            "Duration": 3,
+            "DamageCalculatorCooldown": 0.1,
+            "StatusEffectIcon": "UI/StatusEffects/Health_Potion.png",
+            "OverlapBehavior": "Extend"
+          }
+        }
+      ]
+    },
+    "Stat_Check": {
+      "Interactions": [
+        {
+          "Parent": "Stat_Check",
+          "Costs": { "Stamina": 100 },
+          "ValueType": "Percent",
+          "LessThan": true,
+          "Next": "C_Consume_Charge_1s"
+        }
+      ]
+    }
+  }
+}

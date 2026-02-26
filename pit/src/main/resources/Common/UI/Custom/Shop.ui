@@ -34,24 +34,6 @@ Group {
         Anchor: (Height: $Common.@PrimaryButtonHeight);
         Padding: (Bottom: 10);
 
-        $Common.@SecondaryTextButton #CategoryWeapons {
-          Text: "Weapons";
-          Anchor: (Width: 140);
-        }
-
-        Group {
-          Anchor: (Width: 8);
-        }
-
-        $Common.@SecondaryTextButton #CategoryArmor {
-          Text: "Armor";
-          Anchor: (Width: 140);
-        }
-
-        Group {
-          Anchor: (Width: 8);
-        }
-
         $Common.@SecondaryTextButton #CategoryItems {
           Text: "Items";
           Anchor: (Width: 140);

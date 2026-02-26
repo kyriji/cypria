@@ -15,7 +15,7 @@
           "Parent": "C_Sword_Strike_Damage",
           "DamageCalculator": {
             "Class": "Light",
-            "BaseDamage": { "Physical": 3 }
+            "BaseDamage": { "Physical": 5 }
           },
           "EntityStatsOnHit": [
             { "EntityStatId": "Health", "Amount": 15 }
@@ -29,7 +29,7 @@
           "Parent": "C_Sword_Strike_Damage",
           "DamageCalculator": {
             "Class": "Light",
-            "BaseDamage": { "Physical": 3 }
+            "BaseDamage": { "Physical": 5 }
           },
           "EntityStatsOnHit": [
             { "EntityStatId": "Health", "Amount": 15 }

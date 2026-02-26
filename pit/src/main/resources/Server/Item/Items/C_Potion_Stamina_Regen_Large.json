@@ -31,9 +31,9 @@
           "Type": "ApplyEffect",
           "EffectId": {
             "StatModifiers": {
-              "Stamina": 0.15
+              "Stamina": 0.3
             },
-            "Duration": 8,
+            "Duration": 30,
             "DamageCalculatorCooldown": 0.1,
             "StatusEffectIcon": "UI/StatusEffects/Health_Potion.png",
             "OverlapBehavior": "Extend"
@@ -45,7 +45,7 @@
       "Interactions": [
         {
           "Parent": "Stat_Check",
-          "Costs": { "Stamina": 100 },
+          "Costs": { "Stamina": 101 },
           "ValueType": "Percent",
           "LessThan": true,
           "Next": "C_Consume_Charge_2s"

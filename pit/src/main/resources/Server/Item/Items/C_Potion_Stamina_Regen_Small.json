@@ -31,7 +31,7 @@
           "Type": "ApplyEffect",
           "EffectId": {
             "StatModifiers": {
-              "Stamina": 0.2
+              "Stamina": 0.3
             },
             "Duration": 3,
             "DamageCalculatorCooldown": 0.1,
@@ -45,7 +45,7 @@
       "Interactions": [
         {
           "Parent": "Stat_Check",
-          "Costs": { "Stamina": 100 },
+          "Costs": { "Stamina": 101 },
           "ValueType": "Percent",
           "LessThan": true,
           "Next": "C_Consume_Charge_1s"

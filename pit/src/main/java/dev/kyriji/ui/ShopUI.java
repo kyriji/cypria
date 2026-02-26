@@ -71,7 +71,7 @@ public class ShopUI extends InteractiveCustomUIPage<ShopUI.ShopUIData> {
 			new ItemStack("C_Potion_Health_Large")));
 		allItems.add(new ShopItem("Small Stamina Potion", "Restores stamina", "C_Potion_Stamina_Regen_Small", 77, "Items",
 				new ItemStack("C_Potion_Stamina_Regen_Small")));
-		allItems.add(new ShopItem("Large Stamina Potion", "Restores stamina", "C_Potion_Stamina_Regen_Large", 222, "Items",
+		allItems.add(new ShopItem("Large Stamina Potion", "Restores stamina", "C_Potion_Stamina_Regen_Large", 444, "Items",
 			new ItemStack("C_Potion_Stamina_Regen_Large")));
 	}
 

@@ -12,7 +12,7 @@
           "Type": "ApplyEffect",
           "EffectId": {
             "StatModifiers": {
-              "Health": 15
+              "Health": 30
             },
             "ValueType": "Percent",
             "StatusEffectIcon": "UI/StatusEffects/Health_Potion.png",

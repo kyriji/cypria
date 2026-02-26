@@ -5,19 +5,19 @@
   "Next": [
     {
       "Type": "StatsCondition",
-      "Costs": { "Stamina": 5 },
+      "Costs": { "Stamina": 4.5 },
       "Next": {
         "Type": "ChangeStat",
-        "StatModifiers": { "Stamina": -5 },
+        "StatModifiers": { "Stamina": -4.5 },
         "Next": { "Parent": "C_Sword_Strike_Left" }
       }
     },
     {
       "Type": "StatsCondition",
-      "Costs": { "Stamina": 5 },
+      "Costs": { "Stamina": 4.5 },
       "Next": {
         "Type": "ChangeStat",
-        "StatModifiers": { "Stamina": -5 },
+        "StatModifiers": { "Stamina": -4.5 },
         "Next": { "Parent": "C_Sword_Strike_Right" }
       }
     }
